@@ -4,6 +4,8 @@ import Home from './Pages/Home/Home';
 import GuestRoute from './Components/Guards/GuestRoute';
 import Header from './Components/Layout/Header';
 import Footer from './Components/Layout/Footer';
+import AllCourses from './Pages/AllCourses/AllCourses';
+import AppBreadcrumbs from './Components/Common/AppBreadcrumbs';
 import { Box } from '@mui/material';
 
 function App() {
@@ -12,11 +14,13 @@ function App() {
       {/* Wrapper to ensure Footer stays at bottom if content is short */}
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Header />
+        <AppBreadcrumbs />
 
         <Box component="main" sx={{ flexGrow: 1 }}>
           <Routes>
             {/* Routes that don't need authentication (Public) */}
             <Route path="/" element={<Home />} />
+            <Route path="/all-courses" element={<AllCourses />} />
 
 
             {/* Catch all */}

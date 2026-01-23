@@ -15,8 +15,8 @@ const Footer = () => {
 
     const titleStyle = {
         color: '#fff',
-        fontWeight: 600,
-        mb: 2.5
+        fontWeight: 500,
+        mb: 2
     };
 
     return (
@@ -30,14 +30,15 @@ const Footer = () => {
                         <Button
                             variant="outlined"
                             sx={{
-                                color: '#fff',
-                                borderColor: '#fff',
+                                color: '#B0B8C4',
+                                borderColor: '#B0B8C4',
                                 textTransform: 'none',
-                                borderRadius: 1.5,
+                                borderRadius: 2,
+                                fontWeight: 500,
                                 px: 3,
                                 py: 1,
                                 mb: 3,
-                                '&:hover': { borderColor: '#fff', bgcolor: 'rgba(255,255,255,0.1)' }
+                                '&:hover': { borderColor: '#fff' }
                             }}
                         >
                             Refer & Earn
@@ -90,8 +91,8 @@ const Footer = () => {
                                 variant="outlined"
                                 startIcon={<Android />}
                                 sx={{
-                                    color: '#fff',
-                                    borderColor: '#5A6B7C',
+                                    color: '#B0B8C4',
+                                    borderColor: '#B0B8C4',
                                     textTransform: 'none',
                                     justifyContent: 'flex-start',
                                     borderRadius: 2,
@@ -105,8 +106,8 @@ const Footer = () => {
                                 variant="outlined"
                                 startIcon={<Apple />}
                                 sx={{
-                                    color: '#fff',
-                                    borderColor: '#5A6B7C',
+                                    color: '#B0B8C4',
+                                    borderColor: '#B0B8C4',
                                     textTransform: 'none',
                                     justifyContent: 'flex-start',
                                     borderRadius: 2,

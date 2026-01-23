@@ -52,6 +52,8 @@ const Header = () => {
                         {/* All Courses Button */}
                         <Button
                             variant="contained"
+                            component={Link}
+                            to="/all-courses"
                             startIcon={<AppsOutlined />}
                             sx={{
                                 mr: 3,
