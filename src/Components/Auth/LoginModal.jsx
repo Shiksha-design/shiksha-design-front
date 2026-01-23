@@ -17,7 +17,7 @@ import { Visibility, VisibilityOff, EmailOutlined, LockOutlined, Close, Google, 
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { MockAuthService } from '../../Services/MockAuthService';
-import actions from '../../Redux/Reducer/Auth/action';
+import actions from '../../Redux/Reducer/auth/action';
 import leftLogin from '../../assets/leftLogin.svg';
 import { colors } from '../../Config/theme';
 import mainLogo from '../../assets/mainLogo.svg';

@@ -12,7 +12,7 @@ import { Search, KeyboardArrowDown, AppsOutlined } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
-import actions from '../../Redux/Reducer/Auth/action';
+import actions from '../../Redux/Reducer/auth/action';
 import LoginModal from '../Auth/LoginModal';
 import mainLogo from '../../assets/mainLogo.svg';
 import { colors } from '../../Config/theme';

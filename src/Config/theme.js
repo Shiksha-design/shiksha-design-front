@@ -18,7 +18,11 @@ export const colors = {
   chipShadow: "0px 0px 5px 0px rgba(199,199,199,0.79)",
   shadow: "0px 4px 6px 2px rgba(0, 0, 0, 0.1)",
   headerText: "#005653",
-  
+  highlight: "#FD661F",
+  programsBg: "#F0F8FF", // Light blue background for the section
+  sidebarBg: "#FFFFFF",
+  borderColor: "#E0E0E0",
+  gray: "#A0aec0",
 };
 export const darkColors = {
   primary: "#2A363B",
@@ -75,6 +79,79 @@ const theme = (themeData) =>
     },
     components: {
       MuiTypography: {
+        defaultProps: {
+          variantMapping: {
+            sectionHeader: "h2",
+            cardTitle: "h3",
+            cardSubtitle: "p",
+            sidebarItem: "span",
+            infoText: "span",
+          },
+        },
+        variants: [
+          {
+            props: { variant: "sectionHeader" },
+            style: {
+              fontWeight: 700,
+              fontSize: "40px",
+              color: "#2A394E",
+              textAlign: "center",
+              fontFamily: "Minion !important",
+              marginBottom: "48px",
+              "@media (max-width: 768px)": {
+                fontSize: "32px",
+                marginBottom: "32px",
+              },
+            },
+          },
+          {
+            props: { variant: "cardTitle" },
+            style: {
+                fontWeight: 700,
+                fontSize: "20px",
+                color: "#2A394E",
+                marginBottom: "8px",
+                fontFamily: "Minion !important",
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                lineHeight: 1.3,
+            },
+          },
+          {
+            props: { variant: "cardSubtitle" },
+            style: {
+                fontWeight: 400,
+                fontSize: "16px",
+                color: "#555",
+                marginBottom: "16px",
+                fontFamily: "Minion !important",
+                lineHeight: 1.5,
+                display: "-webkit-box",
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+            },
+          },
+          {
+            props: { variant: "sidebarItem" },
+            style: {
+                fontSize: "16px",
+                fontFamily: "Minion !important",
+            },
+          },
+          {
+            props: { variant: "infoText" },
+            style: {
+                fontSize: "14px",
+                color: "#666",
+                fontFamily: "Minion !important",
+                marginBottom: "4px",
+                display: "block",
+            },
+          },
+        ],
         styleOverrides: {
           root: {
             display: "block",

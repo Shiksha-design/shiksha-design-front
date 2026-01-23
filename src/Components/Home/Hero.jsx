@@ -1,8 +1,8 @@
 import { Box, Button, Container, Grid, Rating, Typography, } from '@mui/material';
 import heroImage from '../../assets/heroImage.svg';
 import { colors } from '../../Config/theme';
-import { AppsOutlined, GridView } from '@mui/icons-material';
-import LeaderLogo from '../LeaderText';
+import { AppsOutlined } from '@mui/icons-material';
+import HighlightText from '../HighlightText';
 
 const Hero = () => {
     return (
@@ -12,7 +12,7 @@ const Hero = () => {
                 {/* Left Content */}
                 <Grid item xs={12} md={6}>
                     <Typography variant="h2" fontWeight="700" sx={{ color: '#26394D', mb: 2, lineHeight: 1 }}>
-                        Be a <LeaderLogo /> in<br />
+                        Be a <HighlightText>Leader</HighlightText> in<br />
                         your field - Grow<br />
                         with Lcurve
                     </Typography>
@@ -25,7 +25,7 @@ const Hero = () => {
                             startIcon={<AppsOutlined />}
 
                             sx={{
-                                bgcolor: '#ea580c',
+                                bgcolor: '#FD661F',
                                 textTransform: 'none',
                                 borderRadius: 2,
                                 fontWeight: 'bold',
