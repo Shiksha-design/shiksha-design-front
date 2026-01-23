@@ -14,6 +14,7 @@ const HighlightText = ({ children, className }) => {
                     fontFamily: 'inherit',
                     position: 'relative',
                     zIndex: 1,
+                    lineHeight: 1
                 }}
             >
                 {children}
@@ -24,7 +25,7 @@ const HighlightText = ({ children, className }) => {
                 preserveAspectRatio="none"
                 sx={{
                     position: 'absolute',
-                    bottom: '-0.1em',
+                    bottom: '-0.2em',
                     left: 0,
                     width: '100%',
                     height: '0.5em',

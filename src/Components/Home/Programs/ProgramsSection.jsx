@@ -87,7 +87,7 @@ const ProgramsSection = () => {
     const [sidebarHeight, setSidebarHeight] = useState('auto');
 
     return (
-        <Box sx={{ py: 6, bgcolor: colors.programsBg || "#F0F8FF" }}>
+        <Box sx={{ py: 3, bgcolor: colors.programsBg || "#F0F8FF" }}>
             <Container maxWidth="lg">
                 <Typography variant="h2" fontWeight="700" sx={{ color: '#26394D', mb: 6, lineHeight: 1, textAlign: 'center' }}>
 

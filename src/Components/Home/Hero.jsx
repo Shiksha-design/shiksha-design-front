@@ -6,7 +6,7 @@ import HighlightText from '../HighlightText';
 
 const Hero = () => {
     return (
-        <Container maxWidth="lg" sx={{ pb: 8 }}>
+        <Container sx={{ pb: 8 }}>
             <Grid container spacing={4} alignItems="center">
 
                 {/* Left Content */}
