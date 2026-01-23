@@ -11,7 +11,7 @@ const Hero = () => {
 
                 {/* Left Content */}
                 <Grid item xs={12} md={6}>
-                    <Typography variant="h2" fontWeight="700" sx={{ color: '#26394D', mb: 2, lineHeight: 1 }}>
+                    <Typography variant="h2" fontWeight="700" sx={{ color: '#26394D', mb: 2, lineHeight: 1.1 }}>
                         Be a <HighlightText>Leader</HighlightText> in<br />
                         your field - Grow<br />
                         with Lcurve
