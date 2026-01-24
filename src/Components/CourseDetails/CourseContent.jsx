@@ -20,11 +20,22 @@ const CourseContent = () => {
 
                 <Grid item xs={12} md={8}>
                     <Box sx={{ mb: 4, borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={activeTab} onChange={(event, newValue) => setActiveTab(newValue)}>
+                        <Tabs
+                            value={activeTab}
+                            onChange={(e, newValue) => {
+                                setActiveTab(newValue);
+                                const element = document.getElementById(newValue);
+                                if (element) {
+                                    element.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }}
+                            TabIndicatorProps={{ sx: { display: 'none' } }}
+                        >
                             {tabs.map((tab) => (
                                 <Tab
                                     key={tab}
                                     label={tab}
+                                    value={tab}
                                     sx={{
                                         cursor: 'pointer',
                                         pb: 1,
@@ -43,24 +54,24 @@ const CourseContent = () => {
 
                 <Grid item xs={12} md={8}>
                     {/* OVERVIEW SECTION */}
-                    <Box id="Overview">
+                    <Box id="Overview" sx={{ scrollMarginTop: '120px' }}>
                         <CourseOverview />
                     </Box>
 
                     {/* CURRICULUM SECTION */}
-                    <Box id="Curriculum">
+                    <Box id="Curriculum" sx={{ scrollMarginTop: '120px' }}>
                         <CourseCurriculum />
                     </Box>
 
-                    <Box id="Instructor">
+                    <Box id="Instructor" sx={{ scrollMarginTop: '120px' }}>
                         <CourseInstructor />
                     </Box>
 
-                    <Box id="FAQs">
+                    <Box id="FAQs" sx={{ scrollMarginTop: '120px' }}>
                         <CourseFAQ />
                     </Box>
 
-                    <Box id="Reviews">
+                    <Box id="Reviews" sx={{ scrollMarginTop: '120px' }}>
                         <CourseReviews />
                     </Box>
 
