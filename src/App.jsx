@@ -5,6 +5,7 @@ import GuestRoute from './Components/Guards/GuestRoute';
 import Header from './Components/Layout/Header';
 import Footer from './Components/Layout/Footer';
 import AllCourses from './Pages/AllCourses/AllCourses';
+import CourseDetails from './Pages/CourseDetails/CourseDetails';
 import AppBreadcrumbs from './Components/Common/AppBreadcrumbs';
 import { Box } from '@mui/material';
 
@@ -20,6 +21,7 @@ function App() {
             {/* Routes that don't need authentication (Public) */}
             <Route path="/" element={<Home />} />
             <Route path="/all-courses" element={<AllCourses />} />
+            <Route path="/course/:id" element={<CourseDetails />} />
 
 
             {/* Catch all */}

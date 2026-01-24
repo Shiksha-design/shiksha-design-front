@@ -1,7 +1,8 @@
 import React from "react";
 import { Box, Paper, Typography, Chip, Button } from "@mui/material";
-import { School, AccessTimeFilled, SignalCellularAltOutlined, FileCopy } from "@mui/icons-material";
+import { School, AccessTimeFilled, SignalCellularAltOutlined, FileCopy, Star, ArrowForward } from "@mui/icons-material";
 import { colors } from "../../Config/theme";
+import { Link } from "react-router-dom";
 
 const CourseListCard = ({ course }) => {
     return (
@@ -120,11 +121,14 @@ const CourseListCard = ({ course }) => {
                         </Typography>
                     </Box>
 
-                    <Button sx={{
-                        textTransform: 'none',
-                        color: '#475569',
-                        '&:hover': { bgcolor: 'transparent', color: colors.primary }
-                    }}>
+                    <Button
+                        component={Link}
+                        to={`/course/${course.id}`}
+                        sx={{
+                            textTransform: 'none',
+                            color: '#475569',
+                            '&:hover': { bgcolor: 'transparent', color: colors.primary }
+                        }}>
                         View more
                     </Button>
                 </Box>
