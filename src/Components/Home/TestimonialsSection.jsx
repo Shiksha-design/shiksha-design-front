@@ -5,6 +5,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TestimonialCard from './TestimonialCard';
 import HighlightText from '../HighlightText';
 import { colors } from '../../Config/theme';
+import SectionTitle from '../Common/SectionTitle';
 
 const testimonials = [
     {
@@ -79,11 +80,11 @@ const TestimonialsSection = () => {
             />
 
             <Container maxWidth="xl" sx={{ position: 'relative' }}>
-                <Box sx={{ textAlign: 'center', mb: 6 }}>
-                    <Typography variant="h2" fontWeight="700" sx={{ color: '#26394D', mb: 2 }}>
+                <Box sx={{ textAlign: 'center', }}>
+                    <SectionTitle sx={{ mb: 2 }}>
                         What Our <HighlightText>Students</HighlightText>
                         <br /> Say About Us
-                    </Typography>
+                    </SectionTitle>
                     <Typography variant="body1" sx={{ color: '#5A6B7C', maxWidth: '700px', mx: 'auto' }}>
                         Our students have gone on to build successful careers with leading organizations across diverse industries, showcasing the skills, knowledge, and confidence they gained through our programs.
                     </Typography>

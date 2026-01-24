@@ -16,6 +16,7 @@ const TestimonialCard = ({ testimonial }) => {
                 flexDirection: 'column',
                 position: 'relative',
                 transition: 'all 0.3s ease',
+                backgroundColor: 'transparent',
                 '&:hover': {
                     boxShadow: '0px 10px 40px rgba(0,0,0,0.08)',
                     transform: 'translateY(-5px)',

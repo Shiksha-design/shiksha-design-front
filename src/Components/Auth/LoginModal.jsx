@@ -137,7 +137,10 @@ const LoginModal = ({ open, onClose }) => {
                         sx={{ maxWidth: '80%', height: 'auto' }}
                     />
                 </Box>
-                <Divider orientation="vertical" flexItem />
+                <Divider orientation="vertical" flexItem sx={{
+                    display: { xs: 'none', md: 'flex' },
+
+                }} />
                 {/* Right Side - Form */}
                 <Box sx={{ flex: 1, p: 0, position: 'relative', }}>
 
@@ -147,9 +150,10 @@ const LoginModal = ({ open, onClose }) => {
                         <Button
                             variant="outlined"
                             fullWidth
-                            startIcon={<Google sx={{ color: '#db4437' }} />}
-                            sx={{ mb: 3, textTransform: 'none', color: '#555', borderColor: '#ddd', py: 1, bgcolor: '#fff' }}
+                            size='small'
+                            sx={{ mb: 3, textTransform: 'none', color: '#555', borderColor: '#ddd', py: 1, bgcolor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}
                         >
+                            <Box sx={{ backgroundColor: "#E32729", borderRadius: 1, p: 1, height: 15, width: 15, color: '#fff', alignItems: 'center', display: 'flex', justifyContent: 'center', mr: 1 }}>G+</Box>
                             {isRegister ? 'Signup with google' : 'Login with google'}
                         </Button>
 

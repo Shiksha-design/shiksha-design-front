@@ -1,19 +1,15 @@
-import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
-import { colors } from '../../Config/theme';
 import HighlightText from '../HighlightText';
 import mediaImage from '../../assets/media.png';
-
+import SectionTitle from '../Common/SectionTitle';
 const CompaniesSection = () => {
     return (
         <Box sx={{ py: 3, textAlign: 'center', bgcolor: '#F0F7FF' }}>
             <Container maxWidth="lg">
-                <Typography variant="h2" fontWeight="700" sx={{ color: '#26394D', mb: 1, lineHeight: 1.2 }}>
-                    <HighlightText>Companies</HighlightText> That Our
-                </Typography>
-                <Typography variant="h2" fontWeight="700" sx={{ color: '#26394D', mb: 3, lineHeight: 1.2 }}>
+                <SectionTitle sx={{ mb: 3 }}>
+                    <HighlightText>Companies</HighlightText> That Our<br />
                     Students Work At
-                </Typography>
+                </SectionTitle>
 
                 <Typography variant="body1" sx={{ color: '#26394D', mb: 3, maxWidth: '800px', mx: 'auto' }}>
                     Our students have gone on to build successful careers with leading organizations across diverse industries, showcasing the skills, knowledge, and confidence they gained through our programs.

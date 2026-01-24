@@ -1,9 +1,9 @@
 import React from 'react';
-import { Box, Container, Grid, Typography, Paper } from '@mui/material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // Or a similar icon
+import { Box, Container, Grid, Typography } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HighlightText from '../HighlightText';
-import { colors } from '../../Config/theme';
 import learner from "../../assets/learner.svg"
+import SectionTitle from "../Common/SectionTitle";
 
 const features = [
     {
@@ -28,25 +28,71 @@ const CommunitySection = () => {
     return (
         <Box sx={{ py: 3, bgcolor: '#F0F8FF' }}> {/* Light blue background similar to design */}
             <Container maxWidth="lg">
-                <Grid container spacing={8} alignItems="center">
-                    {/* Left Side: Content */}
-                    <Grid item xs={12} md={6}>
-                        <Typography variant="h3" fontWeight="700" sx={{ color: '#2A394E', mb: 3, lineHeight: 1.1 }}>
-                            Creating A <br />
-                            Community Of <br />
-                            <HighlightText>Life Long </HighlightText> Learners
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: '#26394D', mb: 5, lineHeight: 1.6 }}>
-                            We believe learning never stops. By fostering curiosity, collaboration, and growth, we bring together passionate minds to exchange knowledge, share experiences, and inspire each other on the journey of lifelong learning.
-                        </Typography>
+                <Box sx={{ display: { xs: "flex", md: "none" }, textAlign: "center" }}>
 
-                        <Grid container spacing={2}>
+                    <SectionTitle sx={{ mb: 3 }}>
+                        Creating A
+                        Community Of
+                        <HighlightText>Life Long </HighlightText> Learners
+                    </SectionTitle>
+                </Box>
+                <Grid container spacing={{ xs: 2, md: 4 }} alignItems="center">
+                    {/* Left Side: Content */}
+                    <Grid item xs={12} sm={6}>
+                        <Box sx={{ display: { xs: "none", md: "flex" }, }}>
+
+                            <SectionTitle sx={{ mb: 3 }}>
+                                Creating A <br />
+                                Community Of <br />
+                                <HighlightText>Life Long </HighlightText> Learners
+                            </SectionTitle>
+                        </Box>
+                        <Box
+                            sx={{
+                                display: { xs: "flex", md: "none" }, // visible only on mobile
+                                alignItems: "center",
+                                gap: 2,
+                                mb: 2
+                            }}
+                        >
+                            {/* Left 50% - Text */}
+                            <Box sx={{ flexBasis: { xs: "50%", sm: "100%", } }}>
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        color: "#26394D",
+                                        lineHeight: 1.6,
+                                    }}
+                                >
+                                    We believe learning never stops. By fostering curiosity, collaboration,
+                                    and growth, we bring together passionate minds to exchange knowledge,
+                                    share experiences, and inspire each other on the journey of lifelong
+                                    learning.
+                                </Typography>
+                            </Box>
+
+                            {/* Right 50% - Image */}
+                            <Box sx={{ flexBasis: "50%", display: { xs: "flex", sm: "none" }, justifyContent: "center" }}>
+                                <Box
+                                    component="img"
+                                    src={learner}
+                                    alt="Community of learners"
+                                    sx={{
+                                        width: "100%",
+                                        maxWidth: 250,
+                                    }}
+                                />
+                            </Box>
+                        </Box>
+
+
+                        <Grid container spacing={1}>
                             {features.map((feature, index) => (
-                                <Grid item xs={12} sm={6} key={index} sx={{ display: 'flex' }}>
+                                <Grid item xs={12} md={6} key={index} sx={{ display: 'flex' }}>
                                     <Box
                                         sx={{
                                             flexGrow: 1,
-                                            p: 2,
+                                            p: { xs: 1, md: 2 },
                                             borderRadius: 2,
                                             bgcolor: '#FFFFFF',
                                             border: '1px solid #E0E0E0',
@@ -79,7 +125,7 @@ const CommunitySection = () => {
                     </Grid>
 
                     {/* Right Side: Image */}
-                    <Grid item xs={12} md={6}>
+                    <Grid item sx={{ display: { xs: "none", sm: "flex" } }} sm={6}>
 
                         <Box
                             component="img"
