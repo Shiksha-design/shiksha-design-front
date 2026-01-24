@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import Hero from '../../Components/Home/Hero';
 import StatsBanner from '../../Components/Home/StatsBanner';
 import ProgramsSection from '../../Components/Home/Programs/ProgramsSection';
+import HowItWorksSection from '../../Components/Home/HowItWorksSection';
 import CompaniesSection from '../../Components/Home/CompaniesSection';
 import CommunitySection from '../../Components/Home/CommunitySection';
 import ExperienceStats from '../../Components/Home/ExperienceStats';
@@ -14,6 +15,7 @@ const Home = () => {
             <Hero />
             <StatsBanner />
             <ProgramsSection />
+            <HowItWorksSection />
             <CompaniesSection />
             <CommunitySection />
             <ExperienceStats />

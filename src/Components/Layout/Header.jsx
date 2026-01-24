@@ -130,7 +130,7 @@ const Header = () => {
     return (
         <>
             <AppBar position="fixed" color="transparent" elevation={0} sx={{ bgcolor: colors.mainBg, py: 1 }}>
-                <Container maxWidth="xl">
+                <Container maxWidth="lg">
                     <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
 
                         {/* ==================== LEFT SECTION ==================== */}
