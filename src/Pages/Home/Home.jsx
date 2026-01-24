@@ -4,6 +4,7 @@ import StatsBanner from '../../Components/Home/StatsBanner';
 import ProgramsSection from '../../Components/Home/Programs/ProgramsSection';
 import CompaniesSection from '../../Components/Home/CompaniesSection';
 import CommunitySection from '../../Components/Home/CommunitySection';
+import ExperienceStats from '../../Components/Home/ExperienceStats';
 import TestimonialsSection from '../../Components/Home/TestimonialsSection';
 import SubscribeSection from '../../Components/Home/SubscribeSection';
 
@@ -15,6 +16,7 @@ const Home = () => {
             <ProgramsSection />
             <CompaniesSection />
             <CommunitySection />
+            <ExperienceStats />
             <TestimonialsSection />
             <SubscribeSection />
         </Box>

@@ -48,7 +48,7 @@ const Header = () => {
     };
 
     const drawerContent = (
-        <Box sx={{ width: 280, p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <img src={mainLogo} alt="Smiksha Designs" style={{ height: '30px' }} />
                 <IconButton onClick={handleDrawerToggle}>
@@ -65,7 +65,7 @@ const Header = () => {
                 borderRadius: 2,
                 px: 2,
                 py: 1,
-                mb: 3
+                mb: 3,
             }}>
                 <Search sx={{ color: '#94a3b8', mr: 1 }} />
                 <InputBase
@@ -129,7 +129,7 @@ const Header = () => {
 
     return (
         <>
-            <AppBar position="fixed" color="transparent" elevation={0} sx={{ bgcolor: colors.mainBg, pt: 1 }}>
+            <AppBar position="fixed" color="transparent" elevation={0} sx={{ bgcolor: colors.mainBg, py: 1 }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
 
@@ -141,7 +141,7 @@ const Header = () => {
                                 aria-label="open drawer"
                                 edge="start"
                                 onClick={handleDrawerToggle}
-                                sx={{ mr: 1, display: { lg: 'none' } }}
+                                sx={{ mr: 1, display: { md: 'none' } }}
                             >
                                 <MenuIcon />
                             </IconButton>
@@ -151,7 +151,7 @@ const Header = () => {
                                 component={Link}
                                 href="/"
                                 sx={{
-                                    display: { xs: 'none', lg: 'flex' }, // Hide on mobile
+                                    display: { xs: 'none', md: 'flex' }, // Hide on mobile
                                     alignItems: 'center',
                                     textDecoration: 'none',
                                     mr: 4
@@ -167,20 +167,37 @@ const Header = () => {
                                 to="/all-courses"
                                 startIcon={<AppsOutlined />}
                                 sx={{
-                                    mr: 3,
+                                    mr: 2,
                                     bgcolor: colors.primary,
                                     textTransform: 'none',
                                     borderRadius: 2,
-                                    display: { xs: 'none', lg: 'flex' }
+                                    whiteSpace: 'nowrap',
+                                    display: { xs: 'none', md: 'flex' }
                                 }}
                             >
                                 All Courses
                             </Button>
+                            <Box sx={{
+                                display: { xs: 'none', md: 'flex' },
+                                alignItems: 'center',
+                                bgcolor: '#fff',
+                                borderRadius: 2,
+                                border: '1px solid #e2e8f0',
+                                px: 2,
+                                py: 0.5,
+                                mr: 2
+                            }}>
+                                <Search sx={{ color: '#94a3b8', mr: 1 }} />
+                                <InputBase
+                                    placeholder="Search your course"
+                                    sx={{ flex: 1, fontSize: '0.95rem' }}
+                                />
+                            </Box>
                         </Box>
 
                         {/* ==================== CENTER SECTION (MOBILE ONLY) ==================== */}
                         <Box sx={{
-                            display: { xs: 'flex', lg: 'none' },
+                            display: { xs: 'flex', md: 'none' },
                             alignItems: 'center',
                             flexGrow: 1,
                             justifyContent: 'center'
@@ -218,34 +235,15 @@ const Header = () => {
                             >
                                 All Courses
                             </Button>
+
                         </Box>
 
                         {/* ==================== RIGHT SECTION ==================== */}
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            {/* Desktop: Search Bar */}
-                            <Box sx={{
-                                display: { xs: 'none', lg: 'flex' },
-                                alignItems: 'center',
-                                bgcolor: '#fff',
-                                borderRadius: 2,
-                                border: '1px solid #e2e8f0',
-                                width: '100%',
-                                maxWidth: 400,
-                                px: 2,
-                                py: 0.5,
-                                mr: 2
-                            }}>
-                                <Search sx={{ color: '#94a3b8', mr: 1 }} />
-                                <InputBase
-                                    placeholder="Search your course"
-                                    sx={{ flex: 1, fontSize: '0.95rem' }}
-                                />
-                            </Box>
-
                             {/* Mobile: Search Icon */}
                             <IconButton
                                 sx={{
-                                    display: { xs: 'flex', lg: 'none' },
+                                    display: { xs: 'flex', md: 'none' },
                                     color: '#475569'
                                 }}
                             >
@@ -253,7 +251,7 @@ const Header = () => {
                             </IconButton>
 
                             {/* Desktop: Menu Items */}
-                            <Box sx={{ display: { xs: 'none', lg: 'flex' }, alignItems: 'center', gap: 3 }}>
+                            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
                                 <Button
                                     sx={{ textTransform: 'none', color: '#475569', fontWeight: 500 }}
                                 >
@@ -271,7 +269,15 @@ const Header = () => {
                                         <Typography variant="body2" color="text.primary" fontWeight={600}>
                                             {user.name || user.email.split('@')[0]}
                                         </Typography>
-                                        <Button variant="outlined" size="small" onClick={handleLogout}>
+                                        <Button
+                                            variant="outlined"
+                                            sx={{
+                                                textTransform: 'none',
+                                                borderRadius: 2,
+                                                px: 4,
+                                                color: colors.primary,
+                                                borderColor: colors.primary
+                                            }} onClick={handleLogout}>
                                             Logout
                                         </Button>
                                     </Box>
@@ -311,7 +317,6 @@ const Header = () => {
                     keepMounted: true, // Better open performance on mobile.
                 }}
                 sx={{
-                    display: { xs: 'block', md: 'none' },
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 280 },
                 }}
             >
