@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Paper, Typography, Chip, Button } from "@mui/material";
-import { AccessTime, School, BarChart, MenuBook } from "@mui/icons-material";
+import { School, AccessTimeFilled, SignalCellularAltOutlined, FileCopy } from "@mui/icons-material";
 import { colors } from "../../Config/theme";
 
 const CourseListCard = ({ course }) => {
@@ -9,8 +9,8 @@ const CourseListCard = ({ course }) => {
             elevation={0}
             sx={{
                 display: "flex",
-                flexDirection: { xs: "column", md: "row" },
-                borderRadius: 2,
+                flexDirection: { xs: "column", sm: "row" },
+                borderRadius: 3,
                 overflow: "hidden",
                 bgcolor: colors.white,
                 boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.05)",
@@ -20,13 +20,14 @@ const CourseListCard = ({ course }) => {
             {/* Course Image */}
             <Box
                 sx={{
-                    width: { xs: "100%", md: "300px" },
-                    minWidth: { md: "300px" },
+                    width: { xs: "100%", sm: "300px" },
+                    minWidth: { sm: "300px" },
                     bgcolor: "#94a3b8", // Placeholder background if image fails or is loading
                     position: "relative",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    minHeight: { xs: 200, md: "auto" }
                 }}
             >
                 {/* Mock image placeholder or actual image */}
@@ -82,9 +83,9 @@ const CourseListCard = ({ course }) => {
                         {course.title}
                     </Typography>
 
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, color: colors.gray }}>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                            <AccessTime sx={{ fontSize: 18, color: colors.highlight }} />
+                            <AccessTimeFilled sx={{ fontSize: 18, color: colors.highlight }} />
                             <Typography variant="caption" sx={{ fontSize: 13 }}>{course.duration || "2 Weeks"}</Typography>
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
@@ -92,11 +93,11 @@ const CourseListCard = ({ course }) => {
                             <Typography variant="caption" sx={{ fontSize: 13 }}>{course.students || "156 Students"}</Typography>
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                            <BarChart sx={{ fontSize: 18, color: colors.highlight }} />
+                            <SignalCellularAltOutlined sx={{ fontSize: 18, color: colors.highlight }} />
                             <Typography variant="caption" sx={{ fontSize: 13 }}>{course.level || "All levels"}</Typography>
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                            <MenuBook sx={{ fontSize: 18, color: colors.highlight }} />
+                            <FileCopy sx={{ fontSize: 18, color: colors.highlight }} />
                             <Typography variant="caption" sx={{ fontSize: 13 }}>{course.lessons || "20 Lessons"}</Typography>
                         </Box>
                     </Box>

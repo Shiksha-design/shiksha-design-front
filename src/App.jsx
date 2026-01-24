@@ -14,7 +14,6 @@ function App() {
       {/* Wrapper to ensure Footer stays at bottom if content is short */}
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Header />
-        <AppBreadcrumbs />
 
         <Box component="main" sx={{ flexGrow: 1 }}>
           <Routes>

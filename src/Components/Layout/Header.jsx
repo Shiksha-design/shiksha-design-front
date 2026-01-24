@@ -16,7 +16,6 @@ import {
     Divider,
     Stack,
     useTheme,
-    useMediaQuery
 } from '@mui/material';
 import { Search, KeyboardArrowDown, AppsOutlined, Menu as MenuIcon, Close } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
@@ -26,6 +25,7 @@ import actions from '../../Redux/Reducer/auth/action';
 import LoginModal from '../Auth/LoginModal';
 import mainLogo from '../../assets/mainLogo.svg';
 import { colors } from '../../Config/theme';
+import AppBreadcrumbs from '../Common/AppBreadcrumbs';
 
 const Header = () => {
     const [loginOpen, setLoginOpen] = useState(false);
@@ -129,7 +129,7 @@ const Header = () => {
 
     return (
         <>
-            <AppBar position="fixed" color="transparent" elevation={0} sx={{ bgcolor: colors.mainBg, py: 1 }}>
+            <AppBar position="fixed" color="transparent" elevation={0} sx={{ bgcolor: colors.mainBg, pt: 1 }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
 
@@ -295,8 +295,11 @@ const Header = () => {
 
                     </Toolbar>
                 </Container>
+                <AppBreadcrumbs />
+
 
                 <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
+
             </AppBar>
 
             {/* Mobile Drawer remains the same (kept for extended menu items like Profile/Logout/etc) */}
