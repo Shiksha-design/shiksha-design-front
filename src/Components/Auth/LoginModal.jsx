@@ -264,7 +264,7 @@ const LoginModal = ({ open, onClose }) => {
                                         }
                                         label={<Typography variant="caption" color="textSecondary">Keep me signed in</Typography>}
                                     />
-                                    <Link component="button" variant="caption" underline="hover" color="textSecondary">
+                                    <Link component="button" onClick={(e) => { e.preventDefault(); }} variant="caption" underline="hover" color="textSecondary">
                                         Forget password?
                                     </Link>
                                 </Box>
