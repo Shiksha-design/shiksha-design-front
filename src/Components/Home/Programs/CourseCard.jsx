@@ -18,8 +18,6 @@ const CourseCard = ({ course }) => {
                 borderRadius: 2
             }}
         >
-
-
             <Box sx={{ p: 1, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                 <Box sx={{ position: "relative" }}>
                     <CardMedia
@@ -35,20 +33,20 @@ const CourseCard = ({ course }) => {
                             label="Bestseller"
                             sx={{
                                 position: "absolute",
-                                top: 12,
-                                left: 12,
+                                top: 5,
+                                left: 5,
                                 bgcolor: colors.highlight,
                                 color: colors.white,
-                                fontWeight: 600,
                                 fontSize: "12px",
                                 height: "24px",
                                 borderRadius: "4px",
                                 fontFamily: "Minion !important",
+                                textTransform: "none",
                             }}
                         />
                     )}
                 </Box>
-                <Typography variant="cardTitle">
+                <Typography variant="cardSubtitle">
                     {course.title}
                 </Typography>
 
@@ -64,8 +62,8 @@ const CourseCard = ({ course }) => {
                 </div>
 
                 <Box sx={{ mb: 2 }}>
-                    <Typography variant="infoText">Starts: {course.startDate}</Typography> <br />
-                    <Typography variant="infoText">Duration: {course.duration}</Typography>
+                    <Typography variant="cardSubtitle">Starts: {course.startDate}</Typography>
+                    <Typography variant="cardSubtitle">Duration: {course.duration}</Typography>
                 </Box>
 
                 <Button

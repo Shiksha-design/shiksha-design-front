@@ -11,7 +11,7 @@ const CompaniesSection = () => {
                     Students Work At
                 </SectionTitle>
 
-                <Typography variant="body1" sx={{ color: '#26394D', mb: 3, maxWidth: '800px', mx: 'auto' }}>
+                <Typography sx={{ fontSize: { xs: "12px", md: "16px" }, color: '#26394D', mb: 5, mx: 'auto', px: { xs: 0, sm: 4, md: 8 } }}>
                     Our students have gone on to build successful careers with leading organizations across diverse industries, showcasing the skills, knowledge, and confidence they gained through our programs.
                 </Typography>
 

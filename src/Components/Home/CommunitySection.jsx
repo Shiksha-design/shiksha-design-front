@@ -26,11 +26,11 @@ const features = [
 
 const CommunitySection = () => {
     return (
-        <Box sx={{ py: 3, bgcolor: '#F0F8FF' }}> {/* Light blue background similar to design */}
+        <Box sx={{ py: 3 }}> {/* Light blue background similar to design */}
             <Container maxWidth="lg">
                 <Box sx={{ display: { xs: "flex", md: "none" }, textAlign: "center" }}>
 
-                    <SectionTitle sx={{ mb: 3 }}>
+                    <SectionTitle sx={{ pb: 1, }}>
                         Creating A
                         Community Of
                         <HighlightText>Life Long </HighlightText> Learners
@@ -39,9 +39,9 @@ const CommunitySection = () => {
                 <Grid container spacing={{ xs: 2, md: 4 }} alignItems="center">
                     {/* Left Side: Content */}
                     <Grid item xs={12} sm={6}>
-                        <Box sx={{ display: { xs: "none", md: "flex" }, }}>
+                        <Box sx={{ display: { xs: "none", md: "flex", }, }}>
 
-                            <SectionTitle sx={{ mb: 3 }}>
+                            <SectionTitle sx={{ mb: 3, textAlign: "left" }}>
                                 Creating A <br />
                                 Community Of <br />
                                 <HighlightText>Life Long </HighlightText> Learners

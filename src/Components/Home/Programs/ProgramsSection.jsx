@@ -100,7 +100,7 @@ const ProgramsSection = () => {
 
     // Mobile specific state and hooks
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [expanded, setExpanded] = useState(false);
 
     const handleAccordionChange = (panel) => (event, isExpanded) => {
@@ -108,9 +108,9 @@ const ProgramsSection = () => {
     };
 
     return (
-        <Box sx={{ py: 3, bgcolor: colors.programsBg || "#F0F8FF" }}>
-            <Container maxWidth="lg">
-                <SectionTitle sx={{ mb: 6, textAlign: 'center' }}>
+        <Box sx={{ pt: { xs: 4, sm: 6 }, bgcolor: colors.programsBg || "#F0F8FF" }}>
+            <Container maxWidth="lg" >
+                <SectionTitle sx={{ textAlign: 'center', pb: { xs: 1, md: 2 }, }}>
                     Explore Our <HighlightText>Programs</HighlightText>
                 </SectionTitle>
 
@@ -127,8 +127,6 @@ const ProgramsSection = () => {
                                     borderRadius: '8px !important',
                                     boxShadow: 'none',
                                     '&:before': { display: 'none' }, // Remove default divider
-                                    bgcolor: expanded === category ? colors.primary : '#fff',
-                                    color: expanded === category ? '#fff' : 'inherit'
                                 }}
                             >
                                 <AccordionSummary
@@ -136,10 +134,13 @@ const ProgramsSection = () => {
                                     aria-controls={`panel${index}-content`}
                                     id={`panel${index}-header`}
                                     sx={{
-                                        fontWeight: 600
+                                        fontWeight: 600,
+                                        bgcolor: expanded === category ? colors.primary : '#fff',
+                                        color: expanded === category ? '#fff' : 'inherit',
+                                        borderRadius: '8px'
                                     }}
                                 >
-                                    <Typography fontWeight={expanded === category ? 600 : 400}>
+                                    <Typography fontWeight={expanded === category ? 600 : 400} color={expanded === category ? '#fff' : 'inherit'}>
                                         {category}
                                     </Typography>
                                 </AccordionSummary>
@@ -156,7 +157,7 @@ const ProgramsSection = () => {
                                         scrollbarWidth: 'none',
                                     }}>
                                         {mockCourses.map((course) => (
-                                            <Box key={course.id} sx={{ minWidth: 280, maxWidth: 280 }}>
+                                            <Box key={course.id} sx={{ minWidth: 200, maxWidth: 200 }}>
                                                 <CourseCard course={course} />
                                             </Box>
                                         ))}
@@ -167,8 +168,8 @@ const ProgramsSection = () => {
                     </Box>
                 ) : (
                     // Desktop View: Sidebar + Grid
-                    <Grid container spacing={4}>
-                        <Grid item xs={12} md={3}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={4} md={3}>
                             <CategorySidebar
                                 categories={categories}
                                 activeCategory={activeCategory}
@@ -176,26 +177,22 @@ const ProgramsSection = () => {
                                 onHeightChange={setSidebarHeight}
                             />
                         </Grid>
-                        <Grid item xs={12} md={9}>
+                        <Grid item xs={12} sm={8} md={9}>
                             <Box sx={{
                                 maxHeight: sidebarHeight,
                                 overflowY: "auto",
+                                /* Hide scrollbar for Chrome, Safari, Edge */
                                 "&::-webkit-scrollbar": {
-                                    width: "6px",
+                                    display: "none",
                                 },
-                                "&::-webkit-scrollbar-track": {
-                                    background: "#f1f1f1",
-                                    borderRadius: "4px",
-                                },
-                                "&::-webkit-scrollbar-thumb": {
-                                    background: "#c1c1c1",
-                                    borderRadius: "4px",
-                                },
-                                "&::-webkit-scrollbar-thumb:hover": {
-                                    background: "#a8a8a8",
-                                },
+
+                                /* Hide scrollbar for Firefox */
+                                scrollbarWidth: "none",
+
+                                /* Hide scrollbar for IE/Edge legacy */
+                                msOverflowStyle: "none",
                             }}>
-                                <Grid container spacing={3} sx={{ py: 1 }}>
+                                <Grid container spacing={3} sx={{ pb: 1 }}>
                                     {mockCourses.map((course) => (
                                         <Grid item xs={12} sm={6} lg={4} key={course.id}>
                                             <CourseCard course={course} />

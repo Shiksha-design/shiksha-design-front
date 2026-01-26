@@ -5,20 +5,18 @@ import { colors } from '../../Config/theme';
 const HighlightText = ({ children, className }) => {
     return (
         <Box component="span" sx={{ position: 'relative', display: 'inline-block' }} className={className}>
-            <Typography
-                component="span"
-                sx={{
+            <span
+                variant="sectionHeader"
+                style={{
                     color: colors.highlight || '#FF6B35',
-                    fontWeight: 700,
+                    fontWeight: "inherit",
                     fontSize: 'inherit',
                     fontFamily: 'inherit',
-                    position: 'relative',
-                    zIndex: 1,
-                    lineHeight: 1
+                    lineHeight: "inherit"
                 }}
             >
                 {children}
-            </Typography>
+            </span>
             <Box
                 component="svg"
                 viewBox="0 0 300 25"
@@ -28,8 +26,7 @@ const HighlightText = ({ children, className }) => {
                     bottom: '-0.2em',
                     left: 0,
                     width: '100%',
-                    height: '0.5em',
-                    zIndex: 0,
+                    height: '0.3em',
                     pointerEvents: 'none'
                 }}
             >
@@ -37,7 +34,7 @@ const HighlightText = ({ children, className }) => {
                 <path
                     d="M 2 20 Q 80 10, 180 10 T 300 15"
                     stroke={colors.highlight || "#FF6B35"}
-                    strokeWidth="7"
+                    strokeWidth="6"
                     fill="none"
                     strokeLinecap="round"
                 />

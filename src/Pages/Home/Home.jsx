@@ -8,6 +8,7 @@ import CommunitySection from '../../Components/Home/CommunitySection';
 import ExperienceStats from '../../Components/Home/ExperienceStats';
 import TestimonialsSection from '../../Components/Home/TestimonialsSection';
 import SubscribeSection from '../../Components/Home/SubscribeSection';
+import homeBottomSectionBg from '../../assets/homeBottomSectionBg.png';
 
 const Home = () => {
     return (
@@ -18,9 +19,13 @@ const Home = () => {
             <HowItWorksSection />
             <CompaniesSection />
             <CommunitySection />
-            <ExperienceStats />
-            <TestimonialsSection />
-            <SubscribeSection />
+            {
+                <Box sx={{ backgroundImage: `url(${homeBottomSectionBg})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundColor: "#F0F7FF" }}>
+                    <ExperienceStats />
+                    <TestimonialsSection />
+                    <SubscribeSection />
+                </Box>
+            }
         </Box>
     );
 };

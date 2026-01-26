@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Box,
     Container,
@@ -18,7 +17,7 @@ const SubscribeSection = () => {
                     py: 4,
                     pt: { xs: 18, md: 4 }, // Add padding top on mobile for avatars
                     px: { xs: 2, md: 4 },
-                    borderRadius: 3,
+                    borderRadius: 6,
                     position: "relative",
                     overflow: "hidden", // Allow avatars to be partially clipped if needed, or visual effect
                     color: "#fff",
@@ -126,13 +125,18 @@ const SubscribeSection = () => {
                 />
 
                 {/* CONTENT */}
-                <Container maxWidth="sm" sx={{ textAlign: "center" }}>
+                <Container maxWidth="sm" sx={{
+                    display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",
+                    minHeight: "180px",
+
+                }}>
                     <Typography
                         variant="h5"
                         sx={{
                             fontWeight: 700,
                             letterSpacing: "0.5px",
                             mb: 1.5,
+                            color: "inherit"
                         }}
                     >
                         SUBSCRIBE AND NEVER MISS AN UPDATE
@@ -143,6 +147,8 @@ const SubscribeSection = () => {
                             opacity: 0.9,
                             mb: { xs: 3, md: 4 },
                             fontSize: "1rem",
+                            color: "inherit"
+
                         }}
                     >
                         20k+ students daily learn with Eduvi. Subscribe for new courses.
@@ -155,7 +161,7 @@ const SubscribeSection = () => {
                             display: "flex",
                             gap: 2,
                             maxWidth: 620,
-                            mx: "auto",
+                            width: "100%"
                         }}
                     >
                         <TextField
@@ -170,6 +176,7 @@ const SubscribeSection = () => {
                                     backgroundColor: "#fff",
                                     borderRadius: 1,
                                     fontSize: "1rem",
+                                    flex: 1
                                 },
                             }}
                         />

@@ -17,7 +17,7 @@ const CategorySidebar = ({ categories, activeCategory, onSelectCategory, onHeigh
             ref={listRef}
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
         >
-            <List component="nav">
+            <List component="nav" sx={{ p: 0 }}>
                 {categories.map((category) => {
                     const isActive = activeCategory === category;
                     return (

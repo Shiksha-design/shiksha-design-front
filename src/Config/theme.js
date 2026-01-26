@@ -7,8 +7,8 @@ export const colors = {
   signUpBg: "#F0F7FF",
   black: "#0a0a0a",
   hoverColor: "#007b7b",
-  secondary: "#33c2751a",
-  accent: "#1E90FF",
+  secondary: "#FD661F",
+  accent: "#090b0cff",
   background: "white",
   input: "#ffffff00",
   text: "#0a0a0a",
@@ -43,21 +43,16 @@ export const darkColors = {
 };
 
 export const FontFamily = {
-  Regular: "EuropaRegular !important",
-  Bold: "EuropaBold !important",
-  Minion: "Minion !important",
+  Regular: "'Open Sans', sans-serif !important",
+  Bold: "'Open Sans', sans-serif !important",
+  Minion: "'Open Sans', sans-serif !important",
 };
-const Minion = {
-  fontFamily: FontFamily.Regular,
-  fontStyle: "normal",
-  fontDisplay: "swap",
-  src: "url('../Assets/Fonts/Minion.ttf') format('ttf')",
-};
+
 const theme = (themeData) =>
-  createTheme(theme, {
+  createTheme({
     MuiCssBaseline: {
       "@global": {
-        "@font-face": [Minion],
+        fontFamily: "'Open Sans', sans-serif !important",
       },
     },
     palette: {
@@ -93,14 +88,23 @@ const theme = (themeData) =>
             props: { variant: "sectionHeader" },
             style: {
               fontWeight: 700,
-              fontSize: "40px",
-              color: "#2A394E",
+              fontSize: "72px !important",
+              lineHeight: "84px",
+              fontFamily: "'Open Sans', sans-serif !important",
+              letterSpacing: "0px",
+              verticalAlign: "middle",
+              color: "#2A394E", // Keeping theme color
               textAlign: "center",
-              fontFamily: "Minion !important",
               marginBottom: "48px",
               "@media (max-width: 768px)": {
-                fontSize: "32px",
+                fontSize: "48px !important", // Adjusted for mobile from 72px potentially
+                lineHeight: "1.2",
                 marginBottom: "32px",
+              },
+              "@media (max-width: 480px)": {
+                fontSize: "24px !important", // Adjusted for mobile from 72px potentially
+                lineHeight: "1.2",
+                marginBottom: "16px",
               },
             },
           },
@@ -111,7 +115,7 @@ const theme = (themeData) =>
                 fontSize: "20px",
                 color: "#2A394E",
                 marginBottom: "8px",
-                fontFamily: "Minion !important",
+                fontFamily: "'Open Sans', sans-serif !important",
                 display: "-webkit-box",
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: "vertical",
@@ -123,12 +127,10 @@ const theme = (themeData) =>
             props: { variant: "cardSubtitle" },
             style: {
                 fontWeight: 400,
-                fontSize: "16px",
-                color: "#555",
-                marginBottom: "16px",
-                fontFamily: "Minion !important",
+                fontSize: "18px",
+                color: "#26394D",
+                fontFamily: "'Open Sans', sans-serif !important",
                 lineHeight: 1.5,
-                display: "-webkit-box",
                 WebkitLineClamp: 3,
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
@@ -138,7 +140,7 @@ const theme = (themeData) =>
             props: { variant: "sidebarItem" },
             style: {
                 fontSize: "16px",
-                fontFamily: "Minion !important",
+                fontFamily: "'Open Sans', sans-serif !important",
             },
           },
           {
@@ -146,7 +148,7 @@ const theme = (themeData) =>
             style: {
                 fontSize: "14px",
                 color: "#666",
-                fontFamily: "Minion !important",
+                fontFamily: "'Open Sans', sans-serif !important",
                 marginBottom: "4px",
                 display: "block",
             },
@@ -156,7 +158,7 @@ const theme = (themeData) =>
           root: {
             display: "block",
             transition: "0.5s",
-            fontFamily: "Minion !important",
+            fontFamily: "'Open Sans', sans-serif !important",
             letterSpacing: "0.6px",
             color: themeData.text,
             overflow: "hidden",
@@ -166,10 +168,11 @@ const theme = (themeData) =>
               fontSize: 12,
             },
           },
+
           h1: {
             fontSize: 50,
             fontWeight: 700,
-            fontFamily: "Minion !important",
+            fontFamily: "'Open Sans', sans-serif !important",
             "@media (max-width: 768px)": {
               fontSize: "36px !important",
             },
@@ -177,7 +180,7 @@ const theme = (themeData) =>
           h3: {
             fontSize: 40,
             fontWeight: 700,
-            fontFamily: "Minion !important",
+            fontFamily: "'Open Sans', sans-serif !important",
             "@media (max-width: 768px)": {
               fontSize: "26px !important",
             },
@@ -185,14 +188,14 @@ const theme = (themeData) =>
           title: {
             fontSize: 32,
             fontWeight: 700,
-            fontFamily: "Minion !important",
+            fontFamily: "'Open Sans', sans-serif !important",
             "@media (max-width: 768px)": {
               fontSize: "18px !important",
             },
           },
           subText: {
             fontWeight: "500 !important",
-            fontFamily: "Minion !important",
+            fontFamily: "'Open Sans', sans-serif !important",
             fontSize: 16,
             "@media (max-width: 768px)": {
               fontSize: "14px !important",
@@ -200,12 +203,12 @@ const theme = (themeData) =>
           },
           subTitle: {
             fontWeight: "700 !important",
-            fontFamily: "Minion !important",
+            fontFamily: "'Open Sans', sans-serif !important",
             fontSize: 18,
           },
           head: {
             fontWeight: "700 !important",
-            fontFamily: "Minion !important",
+            fontFamily: "'Open Sans', sans-serif !important",
             fontSize: 26,
           },
         },
@@ -213,13 +216,14 @@ const theme = (themeData) =>
       MuiIconButton: {
         styleOverrides: {
           root: {
-            color: themeData.primary,
+            color: themeData.text,
             transition: "500ms",
-            fontFamily: `EuropaRegular !important`,
+            fontFamily: "'Open Sans', sans-serif !important",
             // "&:hover": {
             //   backgroundColor: themeData.white,
             //   color: themeData.white,
             // },
+            outline: "none !important",
             "@media (hover: none)": {
               "&:hover": {
                 backgroundColor: "transparent",
@@ -233,100 +237,66 @@ const theme = (themeData) =>
         styleOverrides: {
           root: {
             color: themeData.primary,
-            backgroundColor: themeData.white,
+            backgroundColor: "transparent",
             transition: "all 300ms ease",
-            fontFamily: `Minion !important`,
-            fontWeight: 700,
-            fontSize: 14,
-            position: "relative",
-            overflow: "hidden",
-            padding: "10px",
-            borderRadius: 8,
-            zIndex: 1,
-            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+            fontFamily: "'Open Sans', sans-serif !important",
+            fontWeight: 400,
+            fontSize: 16,
+            borderRadius: "8px",
+            textTransform: 'none',
+            padding: "8px 16px",
+            outline: "none !important",
+            "@media (max-width: 768px)": {
+              fontSize: "14px !important",
+              borderRadius: "4px",
+              padding: "6px 8px !important",
+            },
+             "&:hover": {
+                backgroundColor: `${themeData.primary} !important`,
+                color: themeData.white,
+              },
           },
-          containedPrimary: {
+
+          contained: {
             color: themeData.headerText,
-            backgroundColor: themeData.secondary,
-            zIndex: 1,
-            "&::before, &::after": {
-              content: '""',
-              position: "absolute",
-              top: 0,
-              width: "51%",
-              height: "100%",
-              backgroundColor: themeData.hoverColor,
-              transition: "transform 300ms ease",
-              zIndex: -1,
-            },
-            "&::before": {
-              left: 0,
-              transform: "translateX(-102%)",
-            },
-            "&::after": {
-              right: 0,
-              transform: "translateX(102%)",
-            },
-            "&:hover": {
-              color: themeData.white,
-              "&::before": {
-                transform: "translateX(0)",
-              },
-              "&::after": {
-                transform: "translateX(0)",
-              },
-            },
-            // "@media (hover: none)": {
-            //   "&:hover": {
-            //     backgroundColor: "transparent",
-            //     color: `${themeData.primary} !important`,
-            //     "&::before, &::after": {
-            //       transform: "translateX(-102%)",
-            //     },
-            //   },
-            // },
-          },
-          secondary: {
-            color: themeData.primary,
-            backgroundColor: themeData.white,
-            "&::before": {
-              content: '""',
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              backgroundColor: themeData.hoverColor,
-              transform: "scaleX(0)",
-              transformOrigin: "right",
-              transition: "transform 500ms ease",
-              zIndex: -1,
-            },
-            "&:hover": {
-              color: themeData.white,
-              "&::before": {
-                transform: "scaleX(1)",
-                transformOrigin: "left",
-              },
-            },
-            "@media (hover: none)": {
-              "&:hover": {
-                backgroundColor: themeData.transparent,
-                color: `${themeData.primary} !important`,
-                "&::before": {
-                  transform: "scaleX(0)",
-                },
-              },
-            },
+            backgroundColor: themeData.primary,
+            color: themeData.white,
           },
         },
+        variants: [
+          {
+            props: { variant: "outlined" },
+            style: {
+              color: themeData.primary,
+              borderColor: themeData.primary,
+              paddingLeft: "16px !important",
+              paddingRight: "16px !important",
+              "&:hover": {
+                backgroundColor: `${themeData.primary} !important`,
+                color: themeData.white,
+              },
+            },
+          },
+          {
+            props: { variant: "secondary" },
+            style: {
+              color: themeData.white,
+              backgroundColor: themeData.secondary,
+              "&:hover": {
+                backgroundColor: `${themeData.secondary} !important`,
+                color: themeData.white,
+              },
+            },
+          },
+        ],
       },
 
       MuiTab: {
         styleOverrides: {
           root: {
-            fontFamily: `Minion`,
+            fontFamily: "'Open Sans', sans-serif",
             fontWeight: "600",
+            outline: "none !important",
           },
         },
       },
@@ -340,11 +310,16 @@ const theme = (themeData) =>
       MuiOutlinedInput: {
         styleOverrides: {
           input: {
-            fontFamily: "Minion",
-            fontSize: 14,
+            fontFamily: "'Open Sans', sans-serif",
+            fontWeight: 400,
+            fontSize: 16, // Updated from 14 to 16 based on user context
+            lineHeight: "24px",
+            letterSpacing: "0px",
             "&::placeholder": {
               color: "gray", // Placeholder color
               opacity: 1, // Ensure full color opacity
+              fontFamily: "'Open Sans', sans-serif", // explicit placeholder font
+              fontWeight: 400,
             },
           },
           root: {
@@ -365,19 +340,9 @@ const theme = (themeData) =>
           root: {
             padding: "4px 0px",
             fontSize: 12,
-            fontFamily: "Minion",
-            textTransform: "uppercase",
+            fontFamily: "'Open Sans', sans-serif",
+            textTransform: "none",
             height: "auto",
-          },
-        },
-      },
-      MuiLink: {
-        styleOverrides: {
-          root: {
-            textDecoration: "none",
-            padding: 0,
-            margin: 0,
-            fontFamily: "Minion",
           },
         },
       },

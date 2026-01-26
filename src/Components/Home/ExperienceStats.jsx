@@ -33,52 +33,55 @@ const stats = [
 
 const ExperienceStats = () => {
     return (
-        <Container maxWidth="lg" sx={{ py: 6 }}>
-            <Box
-                sx={{
-                    backgroundImage: `url(${experienceStateBg})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundColor: colors.primary,
-                    borderRadius: { xs: 4, md: 50 }, // Rounded corners (Pill on desktop)
-                    py: { xs: 6, md: 4 },
-                    px: { xs: 4, md: 8 },
-                    color: '#fff',
-                    boxShadow: '0px 10px 40px rgba(0, 113, 229, 0.2)'
-                }}
-            >
-                <Grid container spacing={{ xs: 4, md: 8 }} alignItems="center" justifyContent="center">
-                    {stats.map((stat, index) => (
-                        <Grid item xs={12} sm={6} md={3} key={index}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, }}>
-                                {/* Icon Circle */}
-                                <Avatar
-                                    sx={{
-                                        width: 64,
-                                        height: 64,
-                                        bgcolor: '#fff',
-                                        color: '#26394D' // Dark icon color
-                                    }}
-                                >
-                                    {stat.icon}
-                                </Avatar>
+        <Box sx={{ background: `linear-gradient(to bottom, ${colors.mainBg} 50%, transparent 50%)` }}>
+            <Container maxWidth="lg" sx={{ py: 6 }}>
+                <Box
+                    sx={{
+                        backgroundImage: `url(${experienceStateBg})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundColor: colors.primary,
+                        borderRadius: { xs: 4, md: 50 }, // Rounded corners (Pill on desktop)
+                        py: { xs: 6, md: 4 },
+                        px: { xs: 4, md: 4 },
+                        color: '#fff',
+                        boxShadow: '0px 10px 40px rgba(0, 113, 229, 0.2)'
+                    }}
+                >
+                    <Grid container spacing={{ xs: 4, md: 2 }} alignItems="center" justifyContent="center">
+                        {stats.map((stat, index) => (
+                            <Grid item xs={8} sm={6} md={3} key={index}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, }}>
+                                    {/* Icon Circle */}
+                                    <Avatar
+                                        sx={{
+                                            width: 64,
+                                            height: 64,
+                                            bgcolor: '#fff',
+                                            color: '#26394D' // Dark icon color
+                                        }}
+                                    >
+                                        {stat.icon}
+                                    </Avatar>
 
-                                {/* Text Content */}
-                                <Box>
-                                    <Typography variant="h5" fontWeight={700}>
-                                        {stat.count}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ opacity: 0.9, fontWeight: 400 }}>
-                                        {stat.label}
-                                    </Typography>
+                                    {/* Text Content */}
+                                    <Box>
+                                        <Typography color={"inherit"} sx={{ fontSize: { xs: "1 6px", md: "24px" } }}>
+                                            {stat.count}
+                                        </Typography>
+                                        <Typography sx={{ opacity: 0.8, fontSize: { xs: "12px", md: "16px" }, color: "inherit" }}>
+                                            {stat.label}
+                                        </Typography>
+                                    </Box>
                                 </Box>
-                            </Box>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Box>
-        </Container>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Box>
+            </Container>
+        </Box>
+
     );
 };
 

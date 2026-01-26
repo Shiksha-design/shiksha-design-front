@@ -4,7 +4,6 @@ import {
     Button,
     Checkbox,
     Dialog,
-    DialogContent,
     FormControlLabel,
     TextField,
     Typography,
@@ -274,23 +273,20 @@ const LoginModal = ({ open, onClose }) => {
                         </form>
                         <Button
                             variant="contained"
-                            color="primary"
                             fullWidth
                             size="large"
                             disabled={loading}
                             sx={{ textTransform: 'none', py: 1.2, borderRadius: 1 }}
+                            onClick={handleSubmit}
                         >
                             {isRegister ? 'Sign up' : 'Sign In'}
                         </Button>
 
                         <Box textAlign="center" mt={2}>
-                            <Typography variant="caption" color="textSecondary">
+                            <Typography variant="caption" color="textSecondary" sx={{ display: 'flex', gap: 0.5, justifyContent: "center" }}>
                                 {isRegister ? "Already have account? " : "Don't have an account? "}
                                 <Link
-                                    component="button"
-                                    variant="caption"
-                                    underline="hover"
-                                    sx={{ color: '#1976d2', fontWeight: 600 }}
+                                    underline='none'
                                     onClick={() => setIsRegister(!isRegister)}
                                 >
                                     {isRegister ? 'Sign in' : 'Sign up'}

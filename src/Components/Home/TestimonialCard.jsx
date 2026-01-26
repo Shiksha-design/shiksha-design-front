@@ -2,13 +2,16 @@ import React from 'react';
 import { Box, Typography, Avatar, Paper } from '@mui/material';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { colors } from '../../Config/theme';
+import quote from '../../assets/qute.png';
 
 const TestimonialCard = ({ testimonial }) => {
     return (
+
         <Paper
             elevation={0}
             sx={{
-                p: 2,
+                px: 2,
+                py: 4,
                 borderRadius: 4,
                 border: `1px solid ${'#26394D'}`,
                 height: '100%',
@@ -24,6 +27,7 @@ const TestimonialCard = ({ testimonial }) => {
                 }
             }}
         >
+            <img src={quote} alt="quote" style={{ position: 'absolute', top: -25, left: -10, width: 70, height: 46, zIndex: 1 }} />
             {/* Header with Avatar and formatting */}
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                 <Avatar
@@ -37,20 +41,21 @@ const TestimonialCard = ({ testimonial }) => {
                     }}
                 />
                 <Box>
-                    <Typography variant="h6" sx={{ fontWeight: 700, color: '#2A394E', lineHeight: 1.2 }}>
+                    <Typography sx={{ fontSize: { xs: "18px", md: "24px" }, fontWeight: 400, color: '#26394D', lineHeight: "24px" }}>
                         {testimonial.name}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: colors.highlight, fontWeight: 500 }}>
+                    <Typography sx={{ fontSize: { xs: "14px", md: "16px" }, fontWeight: 400, color: '#FD661F', lineHeight: 1.2 }}>
                         {testimonial.role}
                     </Typography>
                 </Box>
             </Box>
 
             {/* Content */}
-            <Typography variant="body1" sx={{ color: '#5A6B7C', lineHeight: 1.6, flex: 1 }}>
+            <Typography sx={{ fontSize: { xs: "14px", md: "16px" }, fontWeight: 400, color: '#26394D', lineHeight: "28px" }}>
                 "{testimonial.quote}"
             </Typography>
         </Paper>
+
     );
 };
 

@@ -149,7 +149,7 @@ const Header = () => {
                             {/* Desktop: Logo (Hidden on Mobile) */}
                             <Box
                                 component={Link}
-                                href="/"
+                                to="/"
                                 sx={{
                                     display: { xs: 'none', md: 'flex' }, // Hide on mobile
                                     alignItems: 'center',
@@ -169,7 +169,6 @@ const Header = () => {
                                 sx={{
                                     mr: 2,
                                     bgcolor: colors.primary,
-                                    textTransform: 'none',
                                     borderRadius: 2,
                                     whiteSpace: 'nowrap',
                                     display: { xs: 'none', md: 'flex' }
@@ -205,7 +204,7 @@ const Header = () => {
                             {/* Mobile: Logo */}
                             <Box
                                 component={Link}
-                                href="/"
+                                to="/"
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
@@ -271,26 +270,13 @@ const Header = () => {
                                         </Typography>
                                         <Button
                                             variant="outlined"
-                                            sx={{
-                                                textTransform: 'none',
-                                                borderRadius: 2,
-                                                px: 4,
-                                                color: colors.primary,
-                                                borderColor: colors.primary
-                                            }} onClick={handleLogout}>
+                                            onClick={handleLogout}>
                                             Logout
                                         </Button>
                                     </Box>
                                 ) : (
                                     <Button
                                         variant="outlined"
-                                        sx={{
-                                            textTransform: 'none',
-                                            borderRadius: 2,
-                                            px: 4,
-                                            color: colors.primary,
-                                            borderColor: colors.primary
-                                        }}
                                         onClick={() => setLoginOpen(true)}
                                     >
                                         Login

@@ -47,38 +47,31 @@ const testimonials = [
 
 const TestimonialsSection = () => {
     const scrollRef = useRef(null);
+    const [activeIndex, setActiveIndex] = React.useState(0);
 
     const scroll = (direction) => {
         const { current } = scrollRef;
         if (current) {
-            const scrollAmount = 320; // Approx card width + gap
-            current.scrollBy({
-                left: direction === 'left' ? -scrollAmount : scrollAmount,
+            const scrollAmount = 324; // 300px width + 24px gap
+            const targetScroll = current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount);
+            current.scrollTo({
+                left: targetScroll,
                 behavior: 'smooth'
             });
         }
     };
 
+    const handleScroll = () => {
+        const { current } = scrollRef;
+        if (current) {
+            const scrollAmount = 324;
+            const index = Math.round(current.scrollLeft / scrollAmount);
+            setActiveIndex(index);
+        }
+    };
+
     return (
         <Box sx={{ position: 'relative', overflow: 'hidden' }}>
-            {/* Background Map Placeholder - subtle opacity */}
-            <Box
-                component="img"
-                src="/assets/world-map.png" // Assuming you might have a map, or we can leave it blank/pattern
-                sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '100%',
-                    maxWidth: '1200px',
-                    opacity: 0.03,
-                    zIndex: 0,
-                    pointerEvents: 'none'
-                }}
-                onError={(e) => e.target.style.display = 'none'} // Hide if not found
-            />
-
             <Container maxWidth="xl" sx={{ position: 'relative' }}>
                 <Box sx={{ textAlign: 'center', }}>
                     <SectionTitle sx={{ mb: 2 }}>
@@ -94,6 +87,7 @@ const TestimonialsSection = () => {
                     {/* Carousel Container */}
                     <Box
                         ref={scrollRef}
+                        onScroll={handleScroll}
                         sx={{
                             display: 'flex',
                             gap: 3,
@@ -121,28 +115,61 @@ const TestimonialsSection = () => {
                         ))}
                     </Box>
 
-                    {/* Navigation Buttons */}
-                    <Box sx={{ display: 'flex', justifyContent: 'end', gap: 2 }}>
-                        <IconButton
-                            onClick={() => scroll('left')}
-                            sx={{
-                                bgcolor: '#F0F7FF',
-                                color: '#26394D',
-                                '&:hover': { bgcolor: colors.highlight, color: '#fff' }
-                            }}
-                        >
-                            <ArrowBackIcon />
-                        </IconButton>
-                        <IconButton
-                            onClick={() => scroll('right')}
-                            sx={{
-                                bgcolor: '#F0F7FF',
-                                color: '#26394D',
-                                '&:hover': { bgcolor: colors.highlight, color: '#fff' }
-                            }}
-                        >
-                            <ArrowForwardIcon />
-                        </IconButton>
+                    {/* Controls Container */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 4, mt: 2 }}>
+                        {/* Pagination Dots */}
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            {testimonials.map((_, index) => (
+                                <Box
+                                    key={index}
+                                    sx={{
+                                        width: activeIndex === index ? 32 : 10,
+                                        height: 10,
+                                        borderRadius: activeIndex === index ? 4 : '50%',
+                                        bgcolor: activeIndex === index ? '#26394D' : '#E6EBF2',
+                                        transition: 'all 0.3s ease',
+                                        cursor: 'pointer'
+                                    }}
+                                    onClick={() => {
+                                        const { current } = scrollRef;
+                                        if (current) {
+                                            current.scrollTo({
+                                                left: index * 324,
+                                                behavior: 'smooth'
+                                            });
+                                        }
+                                    }}
+                                />
+                            ))}
+                        </Box>
+
+                        {/* Navigation Buttons */}
+                        <Box sx={{ display: 'flex', gap: 2 }}>
+                            <IconButton
+                                onClick={() => scroll('left')}
+                                sx={{
+                                    bgcolor: '#E6EBF2',
+                                    color: '#26394D',
+                                    width: 48,
+                                    height: 48,
+                                    '&:hover': { bgcolor: '#dbe2ea' }
+                                }}
+                            >
+                                <ArrowBackIcon />
+                            </IconButton>
+                            <IconButton
+                                onClick={() => scroll('right')}
+                                sx={{
+                                    bgcolor: '#E6EBF2',
+                                    color: '#26394D',
+                                    width: 48,
+                                    height: 48,
+                                    '&:hover': { bgcolor: '#dbe2ea' }
+                                }}
+                            >
+                                <ArrowForwardIcon />
+                            </IconButton>
+                        </Box>
                     </Box>
                 </Box>
             </Container>
