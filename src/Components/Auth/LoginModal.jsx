@@ -107,7 +107,8 @@ const LoginModal = ({ open, onClose }) => {
             <Box sx={{
                 display: 'flex', minHeight: 500,
                 bgcolor: colors.mainBg,
-                p: 5,
+                py: 5,
+                px: 3,
 
 
             }}>
@@ -117,15 +118,16 @@ const LoginModal = ({ open, onClose }) => {
                     display: { xs: 'none', md: 'flex' },
                     flexDirection: 'column',
                     justifyContent: 'center',
+                    alignItems: 'center',
                 }}>
-                    <Box sx={{ ml: 2 }}>
+                    <Box >
 
                         <Box>
 
                             <img src={mainLogo} alt="Smiksha Designs" style={{ height: '25px' }} />
                         </Box>
 
-                        <Typography variant="h6" fontWeight="bold" sx={{ mb: 1, color: '#26394D', lineHeight: '24px' }}>
+                        <Typography variant="h6" sx={{ mb: 1, fontSize: "36px", color: '#26394D', lineHeight: '40px', fontWeight: '700' }}>
                             Welcome to<br />Lcurve Online<br />Learning Platform
                         </Typography>
                     </Box>
@@ -133,7 +135,7 @@ const LoginModal = ({ open, onClose }) => {
                         component="img"
                         src={leftLogin}
                         alt="Illustration"
-                        sx={{ maxWidth: '80%', height: 'auto' }}
+                        sx={{ maxWidth: '70%', height: 'auto' }}
                     />
                 </Box>
                 <Divider orientation="vertical" flexItem sx={{
@@ -152,7 +154,7 @@ const LoginModal = ({ open, onClose }) => {
                             size='small'
                             sx={{ mb: 3, textTransform: 'none', color: '#555', borderColor: '#ddd', py: 1, bgcolor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}
                         >
-                            <Box sx={{ backgroundColor: "#E32729", borderRadius: 1, p: 1, height: 15, width: 15, color: '#fff', alignItems: 'center', display: 'flex', justifyContent: 'center', mr: 1 }}>G+</Box>
+                            <Box sx={{ backgroundColor: "#E32729", borderRadius: 1, p: 2, height: 20, width: 20, color: '#fff', alignItems: 'center', display: 'flex', justifyContent: 'center', mr: 1 }}>G+</Box>
                             {isRegister ? 'Signup with google' : 'Login with google'}
                         </Button>
 
