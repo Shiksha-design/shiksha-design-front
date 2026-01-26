@@ -9,6 +9,7 @@ import CourseDetails from './Pages/CourseDetails/CourseDetails';
 import AppBreadcrumbs from './Components/Common/AppBreadcrumbs';
 import { Box } from '@mui/material';
 import RefundPolicy from './Pages/RefundPolicy/RefundPolicy';
+import Blog from './Pages/Blog/Blog';
 import { colors } from './Config/theme';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/all-courses" element={<AllCourses />} />
             <Route path="/course/:id" element={<CourseDetails />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/blog" element={<Blog />} />
 
 
             {/* Catch all */}

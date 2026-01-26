@@ -166,7 +166,62 @@ const theme = (themeData) =>
                 lineHeight: "32px !important",
               },
             },
-          }
+          },
+          {
+            props: { variant: "blogTitle" },
+            style: {
+              fontWeight: 700,
+              fontSize: "18px",
+              fontFamily: "'Open Sans', sans-serif !important",
+              color: "#333",
+              lineHeight: 1.5,
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            },
+          },
+          {
+            props: { variant: "blogMeta" },
+            style: {
+              fontWeight: 400,
+              fontSize: "12px",
+              fontFamily: "'Open Sans', sans-serif !important",
+              color: "#888",
+              display: "block",
+              marginTop: "8px",
+            },
+          },
+          {
+            props: { variant: "blogDesc" },
+            style: {
+              fontWeight: 400,
+              fontSize: "14px",
+              fontFamily: "'Open Sans', sans-serif !important",
+              color: "#555",
+              lineHeight: 1.6,
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              marginBottom: "16px",
+            },
+          },
+          {
+            props: { variant: "blogTag" },
+            style: {
+              fontWeight: 600,
+              fontSize: "10px",
+              fontFamily: "'Open Sans', sans-serif !important",
+              color: "#333",
+              backgroundColor: "#FFF",
+              padding: "4px 8px",
+              borderRadius: "4px",
+              textTransform: "uppercase",
+              display: "inline-block",
+              marginBottom: "8px",
+            },
+          },
         ],
         styleOverrides: {
           root: {
