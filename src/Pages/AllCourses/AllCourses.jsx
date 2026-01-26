@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Box, Container, Typography, Pagination, Stack, IconButton } from "@mui/material";
+import { Box, Container, Typography, Pagination, Stack } from "@mui/material";
 import { colors } from "../../Config/theme";
 import CourseListCard from "../../Components/AllCourses/CourseListCard";
-import SectionTitle from "../../Components/Common/SectionTitle";
-import { Search } from "@mui/icons-material";
 
 // Mock Data (Expanded for pagination demo)
 const allCoursesData = Array.from({ length: 8 }).map((_, index) => ({
@@ -29,16 +27,12 @@ const AllCourses = () => {
     // For now simple display
 
     return (
-        <Box sx={{ py: 6, bgcolor: colors.mainBg, minHeight: '100vh' }}>
+        <Box sx={{ pt: 8, pb: 6, bgcolor: colors.mainBg, minHeight: '100vh' }}>
             <Container maxWidth="lg">
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <SectionTitle sx={{ mb: 2 }}>
+                    <Typography variant="pageTitle" sx={{ mb: 2 }}>
                         All Courses
-                    </SectionTitle>
-
-                    <IconButton>
-                        <Search />
-                    </IconButton>
+                    </Typography>
                 </Box>
 
                 <Box sx={{ mb: 6, display: "flex", flexDirection: "column", gap: 2 }}>
@@ -54,12 +48,6 @@ const AllCourses = () => {
                         page={page}
                         onChange={(e, v) => setPage(v)}
                         shape="rounded"
-                        sx={{
-                            '& .MuiPaginationItem-root': {
-                                fontFamily: 'Minion !important',
-                                fontWeight: 600
-                            }
-                        }}
                     />
                 </Stack>
             </Container>

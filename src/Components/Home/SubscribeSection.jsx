@@ -128,14 +128,14 @@ const SubscribeSection = () => {
                 <Container maxWidth="sm" sx={{
                     display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",
                     minHeight: "180px",
+                    textAlign: "center",
 
                 }}>
                     <Typography
-                        variant="h5"
                         sx={{
                             fontWeight: 700,
-                            letterSpacing: "0.5px",
                             mb: 1.5,
+                            fontSize: { xs: "18px", md: "24px" },
                             color: "inherit"
                         }}
                     >
@@ -144,10 +144,12 @@ const SubscribeSection = () => {
 
                     <Typography
                         sx={{
-                            opacity: 0.9,
                             mb: { xs: 3, md: 4 },
-                            fontSize: "1rem",
-                            color: "inherit"
+                            fontSize: { xs: "14px", md: "16px" },
+                            color: "inherit",
+                            fontWeight: 400,
+                            lineHeight: 1.2,
+                            opacity: 0.8
 
                         }}
                     >
@@ -185,17 +187,9 @@ const SubscribeSection = () => {
                             variant="contained"
                             sx={{
                                 bgcolor: colors.highlight,
-                                color: "#fff",
-                                textTransform: "none",
-                                fontWeight: 600,
-                                px: 4,
-                                py: 1,
-                                borderRadius: 1,
-                                boxShadow: "none",
-                                whiteSpace: "nowrap",
+                                minWidth: "90px",
                                 "&:hover": {
-                                    bgcolor: "#E55A1A",
-                                    boxShadow: "none",
+                                    bgcolor: "#E55A1A !important",
                                 },
                             }}
                         >

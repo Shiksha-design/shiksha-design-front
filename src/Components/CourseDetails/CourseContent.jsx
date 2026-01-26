@@ -62,6 +62,30 @@ const CourseContent = () => {
                     <Box id="Curriculum" sx={{ scrollMarginTop: '120px' }}>
                         <CourseCurriculum />
                     </Box>
+                    <Box sx={{ flexDirection: 'row', alignItems: 'center', display: { xs: "flex", md: "none" }, mb: 4 }}>
+                        <Box sx={{ height: "532px", m: -3 }}>
+                            {/* Image Card */}
+                            <img src={courseImage} alt="" />
+                        </Box>
+                        {/* Form Card */}
+                        <Paper sx={{ p: 3, borderRadius: 3, height: "532px", mt: 2 }}>
+                            <Typography variant="h6" fontWeight={700} sx={{ mb: 1 }}>Admissions Close On 7th Oct</Typography>
+                            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                                Still not sure? Talk with our advisor and get your doubts sorted.
+                            </Typography>
+
+                            <Stack spacing={2}>
+                                <TextField fullWidth size="small" placeholder="Full Name" />
+                                <TextField fullWidth size="small" placeholder="Email" />
+                                <TextField fullWidth size="small" placeholder="Mobile Number" />
+                                <FormControlLabel
+                                    control={<Checkbox size="small" />}
+                                    label={<Typography variant="caption" color="text.secondary">By providing contact details, you agree to our Terms.</Typography>}
+                                />
+                                <Button variant="contained" fullWidth sx={{ textTransform: 'none' }}>Talk to our advisor</Button>
+                            </Stack>
+                        </Paper>
+                    </Box>
 
                     <Box id="Instructor" sx={{ scrollMarginTop: '120px' }}>
                         <CourseInstructor />
@@ -77,7 +101,7 @@ const CourseContent = () => {
 
 
                 </Grid>
-                <Grid item xs={12} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Grid item xs={12} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', display: { xs: "none", md: "flex" } }}>
                     {/* Image Card */}
                     <Box sx={{ height: 532, }}>
                         <img src={courseImage} alt="" />
@@ -102,7 +126,7 @@ const CourseContent = () => {
                         </Stack>
                     </Paper>
                 </Grid>
-            </Grid>
+            </Grid >
         </>
     );
 };

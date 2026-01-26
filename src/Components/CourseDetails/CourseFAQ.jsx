@@ -31,7 +31,7 @@ const CourseFAQ = () => {
 
     return (
         <Box sx={{ mb: 6 }}>
-            <Typography variant="h5" fontWeight={700} sx={{ mb: 3, color: colors.primary }}>
+            <Typography variant="title" sx={{ mb: 3, color: colors.primary }}>
                 FAQ
             </Typography>
 

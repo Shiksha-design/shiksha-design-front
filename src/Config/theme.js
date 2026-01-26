@@ -153,6 +153,20 @@ const theme = (themeData) =>
                 display: "block",
             },
           },
+          {
+            props: { variant: "pageTitle" },
+            style: {
+              fontSize: "48px",
+              fontWeight: 700,
+              fontFamily: "'Open Sans', sans-serif !important",
+              fontStyle: "bold",
+              lineHeight: "60px",
+              "@media (max-width: 768px)": {
+                fontSize: "24px !important",
+                lineHeight: "32px !important",
+              },
+            },
+          }
         ],
         styleOverrides: {
           root: {
@@ -251,10 +265,6 @@ const theme = (themeData) =>
               borderRadius: "4px",
               padding: "6px 8px !important",
             },
-             "&:hover": {
-                backgroundColor: `${themeData.primary} !important`,
-                color: themeData.white,
-              },
           },
 
           contained: {
@@ -297,6 +307,7 @@ const theme = (themeData) =>
             fontFamily: "'Open Sans', sans-serif",
             fontWeight: "600",
             outline: "none !important",
+            textTransform: "none",
           },
         },
       },
@@ -343,6 +354,15 @@ const theme = (themeData) =>
             fontFamily: "'Open Sans', sans-serif",
             textTransform: "none",
             height: "auto",
+          },
+        },
+      },
+      MuiPaginationItem: {
+        styleOverrides: {
+          root: {
+            color: themeData.text,
+            fontFamily: "'Open Sans', sans-serif !important",
+            outline: "none !important",
           },
         },
       },

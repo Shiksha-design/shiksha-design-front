@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Box, Container, Grid, Typography, Button, IconButton, Divider, Link, Stack } from '@mui/material';
 import { Facebook, Twitter, YouTube, Instagram, Android, Apple } from '@mui/icons-material';
 import { colors } from '../../Config/theme';
@@ -56,8 +57,9 @@ const Footer = () => {
                         <Typography variant="h6" sx={titleStyle}>Company</Typography>
                         <Link href="#" sx={listStyle}>About us</Link>
                         <Link href="#" sx={listStyle}>Careers</Link>
-                        <Link href="#" sx={listStyle}>Terms and Conditions</Link>
-                        <Link href="#" sx={listStyle}>Privacy Policy</Link>
+                        <Link component={RouterLink} to="/terms-conditions" sx={listStyle}>Terms and Conditions</Link>
+                        <Link component={RouterLink} to="/privacy-policy" sx={listStyle}>Privacy Policy</Link>
+                        <Link component={RouterLink} to="/refund-policy" sx={listStyle}>Refund Policy</Link>
                         <Link href="#" sx={listStyle}>Contact us</Link>
                     </Grid>
 
@@ -145,9 +147,11 @@ const Footer = () => {
                 {/* Bottom Copyright */}
                 <Box sx={{ textAlign: 'center' }}>
                     <Box sx={{ mb: 1, display: 'flex', justifyContent: 'center', gap: 2 }}>
-                        <Link href="#" sx={{ color: '#fff', textDecoration: 'none', fontSize: '0.875rem' }}>Terms and Conditions</Link>
+                        <Link component={RouterLink} to="/terms-conditions" sx={{ color: '#fff', textDecoration: 'none', fontSize: '0.875rem' }}>Terms and Conditions</Link>
                         <Typography component="span" sx={{ color: '#fff' }}>•</Typography>
-                        <Link href="#" sx={{ color: '#fff', textDecoration: 'none', fontSize: '0.875rem' }}>Privacy Policy</Link>
+                        <Link component={RouterLink} to="/privacy-policy" sx={{ color: '#fff', textDecoration: 'none', fontSize: '0.875rem' }}>Privacy Policy</Link>
+                        <Typography component="span" sx={{ color: '#fff' }}>•</Typography>
+                        <Link component={RouterLink} to="/refund-policy" sx={{ color: '#fff', textDecoration: 'none', fontSize: '0.875rem' }}>Refund Policy</Link>
                     </Box>
                     <Typography variant="caption" display="block" sx={{ color: '#7E8C9D', mb: 1 }}>
                         Address: Delhi 110015

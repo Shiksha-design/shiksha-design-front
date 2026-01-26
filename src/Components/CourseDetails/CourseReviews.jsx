@@ -37,36 +37,37 @@ const RatingBar = ({ stars, percent }) => (
 const CourseReviews = () => {
     return (
         <Box sx={{ mb: 6 }}>
-            <Typography variant="h5" fontWeight={700} sx={{ mb: 3, color: colors.primary }}>
+            <Typography variant="title" sx={{ mb: 3, color: colors.primary }}>
                 Reviews
             </Typography>
 
             <Box sx={{ p: 3, border: '1px solid #e2e8f0', borderRadius: 2, mb: 4 }}>
-                <Grid container spacing={4}>
-                    <Grid item xs={12} md={4}>
-                        <Box sx={{ textAlign: 'left' }}>
-                            <Typography variant="h3" fontWeight={700} color="#1e293b" sx={{ mb: 1 }}>
-                                4.0
-                            </Typography>
-                            <Rating value={4} readOnly sx={{ color: '#ff5722', mb: 1 }} />
-                            <Typography variant="body2" color="text.secondary">
-                                based on 146,951 ratings
-                            </Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} md={8}>
-                        <RatingBar stars={5} percent={90} />
-                        <RatingBar stars={4} percent={5} />
-                        <RatingBar stars={3} percent={2} />
-                        <RatingBar stars={2} percent={2} />
-                        <RatingBar stars={1} percent={1} />
-                    </Grid>
-                </Grid>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Box>
+                        <Typography variant="h3" fontWeight={700} color="#1e293b" sx={{ mb: 1 }}>
+                            4.0
+                        </Typography>
+                    </Box>
+                    <Box>
+                        <Rating value={4} readOnly sx={{ color: '#ff5722', mb: 1 }} />
+                        <Typography variant="body2" color="text.secondary">
+                            based on 146,951 ratings
+                        </Typography>
+                    </Box>
+                </Box>
+                <Box>
+                    <RatingBar stars={5} percent={90} />
+                    <RatingBar stars={4} percent={5} />
+                    <RatingBar stars={3} percent={2} />
+                    <RatingBar stars={2} percent={2} />
+                    <RatingBar stars={1} percent={1} />
+                </Box>
 
                 <Stack>
                     {reviews.map((review, index) => (
                         <Box key={index} sx={{ display: 'flex', gap: 2, borderBottom: '1px solid #e2e8f0', borderTop: index === 0 ? '1px solid #e2e8f0' : 'none', py: 3 }}>
-                            <Avatar src={review.avatar} sx={{ width: 60, height: 60, border: '3px solid #fff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
+                            <Avatar src={review.avatar} sx={{ width: 60, height: 60, border: `3px solid ${colors.primary}`, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
                             <Box sx={{ flexGrow: 1 }}>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                                     <Typography variant="subtitle1" fontWeight={600} color={colors.primary}>
@@ -94,7 +95,7 @@ const CourseReviews = () => {
 
 
 
-        </Box>
+        </Box >
     );
 };
 

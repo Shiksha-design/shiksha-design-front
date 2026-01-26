@@ -59,15 +59,14 @@ const HowItWorksSection = () => {
                                     <Box
                                         sx={{
                                             bgcolor: '#fff',
-                                            borderRadius: 1,
+                                            borderRadius: "20px",
                                             p: { xs: 1, md: 2 },
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: { xs: 0.5, md: 1 },
                                             width: '100%',
-                                            maxWidth: { xs: "82%", md: '80%' }, // Ensure space for the number
+                                            maxWidth: { xs: "82%", md: '80%' },
                                             zIndex: 1,
-                                            // boxShadow: '0px 4px 20px rgba(0,0,0,0.05)',
                                             boxShadow: '10px 25px 100px 0px #0B707740',
                                         }}
                                     >
