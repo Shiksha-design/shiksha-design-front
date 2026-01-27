@@ -12,6 +12,7 @@ import RefundPolicy from "./Pages/RefundPolicy/RefundPolicy";
 import Blog from "./Pages/Blog/Blog";
 import { colors } from "./Config/theme";
 import BlogInsight from "./Pages/Blog/BlogInsight";
+import Career from "./Pages/Career/Career";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/refund-policy" element={<RefundPolicy />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog-insight" element={<BlogInsight />} />
+            <Route path="/career" element={<Career />} />
 
             {/* Catch all */}
             <Route path="*" element={<Navigate to="/" replace />} />

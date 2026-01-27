@@ -15,6 +15,7 @@ import RelatedBlogs from "../../Components/Blog/RelatedBlogs";
 import CourseCard from "../../Components/Home/Programs/CourseCard";
 import univercityLogo from "../../assets/univercityLogo.png";
 import placeholderImage from "../../assets/placeholderImage.png";
+import pie from "../../assets/pie.png";
 
 // Mock Data
 const blogData = {
@@ -229,7 +230,7 @@ const BlogInsight = () => {
                   fontWeight: "bold",
                 }}
               >
-                PT
+                <img src={pie} alt="Author" />
               </Box>
 
               <Box>
