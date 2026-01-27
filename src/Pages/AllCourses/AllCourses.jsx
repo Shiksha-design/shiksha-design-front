@@ -27,7 +27,7 @@ const AllCourses = () => {
     // For now simple display
 
     return (
-        <Box sx={{ pt: 8, pb: 6, bgcolor: colors.mainBg, minHeight: '100vh' }}>
+        <Box sx={{ pt: 10, pb: 6, bgcolor: colors.mainBg, minHeight: '100vh' }}>
             <Container maxWidth="lg">
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <Typography variant="pageTitle" sx={{ mb: 2 }}>

@@ -45,7 +45,7 @@ const CourseReviews = () => {
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Box>
-                        <Typography variant="h3" fontWeight={700} color="#1e293b" sx={{ mb: 1 }}>
+                        <Typography variant="h3" fontWeight={700} color="#26394D" sx={{ mb: 1 }}>
                             4.0
                         </Typography>
                     </Box>
@@ -73,7 +73,7 @@ const CourseReviews = () => {
                                     <Typography variant="subtitle1" fontWeight={600} color={colors.primary}>
                                         {review.name}
                                     </Typography>
-                                    <Typography variant="caption" color="text.secondary">
+                                    <Typography variant="caption" color={colors.primary}>
                                         {review.date}
                                     </Typography>
                                 </Box>

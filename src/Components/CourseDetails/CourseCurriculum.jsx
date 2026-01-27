@@ -72,7 +72,7 @@ const CourseCurriculum = () => {
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center', pr: 2 }}>
                             <Typography
                                 fontWeight={500}
-                                sx={{ color: expanded === `panel${index}` ? colors.primary : '#334155' }}
+                                sx={{ color: expanded === `panel${index}` ? colors.secondary : '#26394D' }}
                             >
                                 {section.title}
                             </Typography>
@@ -98,13 +98,8 @@ const CourseCurriculum = () => {
                                         {item.preview && (
                                             <Button
                                                 variant="contained"
-                                                size="small"
                                                 sx={{
-                                                    textTransform: 'none',
-                                                    bgcolor: colors.primary,
-                                                    height: 28,
-                                                    fontSize: '0.75rem',
-                                                    boxShadow: 'none'
+                                                    borderRadius:1
                                                 }}
                                             >
                                                 Preview

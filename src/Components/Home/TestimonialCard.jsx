@@ -23,7 +23,6 @@ const TestimonialCard = ({ testimonial }) => {
                 '&:hover': {
                     boxShadow: '0px 10px 40px rgba(0,0,0,0.08)',
                     transform: 'translateY(-5px)',
-                    borderColor: 'transparent'
                 }
             }}
         >

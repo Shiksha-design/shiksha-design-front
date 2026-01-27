@@ -73,12 +73,12 @@ const TestimonialsSection = () => {
     return (
         <Box sx={{ position: 'relative', overflow: 'hidden' }}>
             <Container maxWidth="xl" sx={{ position: 'relative' }}>
-                <Box sx={{ textAlign: 'center', }}>
+                <Box sx={{ textAlign: 'center',maxWidth:"lg", mx:"auto" }}>
                     <SectionTitle sx={{ mb: 2 }}>
                         What Our <HighlightText>Students</HighlightText>
                         <br /> Say About Us
                     </SectionTitle>
-                    <Typography variant="body1" sx={{ color: '#5A6B7C', maxWidth: '700px', mx: 'auto' }}>
+                    <Typography  sx={{ fontSize:"16px", color: '#26394D', lineHeight:"24px" }}>
                         Our students have gone on to build successful careers with leading organizations across diverse industries, showcasing the skills, knowledge, and confidence they gained through our programs.
                     </Typography>
                 </Box>
@@ -106,6 +106,7 @@ const TestimonialsSection = () => {
                                 sx={{
                                     flex: '0 0 auto',
                                     pb: 2,
+                                    mt:3,
                                     width: 300,
                                     scrollSnapAlign: 'center'
                                 }}
