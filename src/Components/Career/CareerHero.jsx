@@ -47,18 +47,18 @@ const CareerHero = () => {
           </Typography>
           <Typography
             sx={{
-              color: "#64748b",
-              maxWidth: "900px",
-              mx: "auto",
-              fontSize: "14px",
-              lineHeight: 1.6,
+              color: "#26394D",
+              fontSize: { xs: "14px", md: "16px" },
+              lineHeight: "28px",
+              fontWeight: 400,
+              letterSpacing: "0",
             }}
           >
             We firmly believe in and embrace an open culture. Our teams comprise
             individuals from diverse backgrounds bringing about their own
-            experiences. Our experiences and processes are constantly evolving.
+            experiences Our experiences and processes are constantly evolving.
             We believe in innovative practices that continually push the
-            boundaries of what's possible for the industry.
+            boundaries of what’s possible for the industry.
           </Typography>
         </Box>
 

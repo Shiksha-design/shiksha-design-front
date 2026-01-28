@@ -68,9 +68,9 @@ const BlogCard = ({
         <Typography
           sx={{
             fontWeight: 400,
-            fontSize: { xs: "20px", md: "20px" },
-            mb: 2,
-            lineHeight: { xs: "28px", md: "28px" },
+            fontSize: { xs: "16px", md: "20px" },
+            mb: { xs: 2, md: 3 },
+            lineHeight: { xs: "20px", md: "28px" },
             color: "#26394D",
           }}
         >
@@ -80,9 +80,9 @@ const BlogCard = ({
         <Typography
           sx={{
             color: "#26394D",
-            mb: 3,
-            lineHeight: "28px",
-            fontSize: "16px",
+            mb: { xs: 2, md: 3 },
+            lineHeight: { xs: "20px", md: "28px" },
+            fontSize: { xs: "14px", md: "16px" },
             display: "-webkit-box",
             WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical",
@@ -94,7 +94,12 @@ const BlogCard = ({
         </Typography>
 
         <Typography
-          sx={{ mb: 4, fontSize: "14px", fontWeight: 400, color: "#26394D" }}
+          sx={{
+            mb: { xs: 2, md: 4 },
+            fontSize: "14px",
+            fontWeight: 400,
+            color: "#26394D",
+          }}
         >
           By {author} | Updated: {date}
         </Typography>

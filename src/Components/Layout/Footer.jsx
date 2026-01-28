@@ -41,7 +41,7 @@ const Footer = () => {
     <Box sx={{ bgcolor: "#26394D", color: "#fff", pt: 8, pb: 4 }}>
       <Container maxWidth="lg">
         {/* Top Section */}
-        <Grid container spacing={4} sx={{ mb: 6 }}>
+        <Grid container>
           {/* Follow us */}
           <Grid item xs={12} sm={6} md={2}>
             <Typography variant="h6" sx={titleStyle}>
@@ -127,7 +127,7 @@ const Footer = () => {
             <Link component={RouterLink} to="/refund-policy" sx={listStyle}>
               Refund Policy
             </Link>
-            <Link href="#" sx={listStyle}>
+            <Link component={RouterLink} to="/contact-us" sx={listStyle}>
               Contact us
             </Link>
           </Grid>
@@ -214,7 +214,7 @@ const Footer = () => {
           </Grid>
         </Grid>
 
-        <Divider sx={{ borderColor: "#3E4F61", mb: 4 }} />
+        <Divider sx={{ borderColor: "#E1EAF5", my: 5 }} />
 
         {/* Middle Text Links */}
         <Box sx={{ mb: 4 }}>
@@ -235,7 +235,7 @@ const Footer = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ mb: 6 }}>
+        <Box>
           <Typography
             variant="h6"
             sx={{ color: "#fff", fontSize: "1rem", mb: 1.5 }}
@@ -259,7 +259,7 @@ const Footer = () => {
           </Typography>
         </Box>
 
-        <Divider sx={{ borderColor: "#3E4F61", mb: 4 }} />
+        <Divider sx={{ borderColor: "#E1EAF5", my: 5 }} />
 
         {/* Bottom Copyright */}
         <Box sx={{ textAlign: "center" }}>
@@ -290,20 +290,6 @@ const Footer = () => {
               }}
             >
               Privacy Policy
-            </Link>
-            <Typography component="span" sx={{ color: "#fff" }}>
-              •
-            </Typography>
-            <Link
-              component={RouterLink}
-              to="/refund-policy"
-              sx={{
-                color: "#fff",
-                textDecoration: "none",
-                fontSize: "0.875rem",
-              }}
-            >
-              Refund Policy
             </Link>
           </Box>
           <Typography

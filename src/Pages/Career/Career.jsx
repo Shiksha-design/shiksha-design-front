@@ -5,7 +5,6 @@ import BenefitsSection from "../../Components/Career/BenefitsSection";
 import PositionsSection from "../../Components/Career/PositionsSection";
 import GallerySection from "../../Components/Career/GallerySection";
 import DisclaimerSection from "../../Components/Career/DisclaimerSection";
-import SubscribeSection from "../../Components/Home/SubscribeSection";
 
 const Career = () => {
   return (

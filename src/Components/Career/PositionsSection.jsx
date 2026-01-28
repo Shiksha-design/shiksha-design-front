@@ -12,17 +12,19 @@ import { ArrowForward } from "@mui/icons-material";
 
 const positions = [
   {
-    icon: <DesktopMac sx={{ fontSize: 30 }} />,
+    icon: <Monitor sx={{ fontSize: 30 }} />,
     title: "Graphic Designer",
     types: ["Full-time", "Remote"],
   },
   {
-    icon: <PhoneIphone sx={{ fontSize: 30 }} />,
+    icon: <Monitor sx={{ fontSize: 30 }} />,
+
     title: "Digital Product Marketer",
     types: ["Full-time", "Remote"],
   },
   {
-    icon: <Videocam sx={{ fontSize: 30 }} />,
+    icon: <Monitor sx={{ fontSize: 30 }} />,
+
     title: "Video Editor",
     types: ["Full-time", "Remote"],
   },
@@ -32,7 +34,8 @@ const positions = [
     types: ["Full-time", "Remote"],
   },
   {
-    icon: <AddToQueue sx={{ fontSize: 30 }} />,
+    icon: <Monitor sx={{ fontSize: 30 }} />,
+
     title: "Digital Product Marketer",
     types: ["Full-time", "Remote"],
   },
@@ -40,16 +43,23 @@ const positions = [
 
 const PositionsSection = () => {
   return (
-    <Box sx={{ bgcolor: colors.primary, py: 10 }}>
+    <Box
+      sx={{
+        background: `linear-gradient(
+                72.2deg,
+                rgba(0, 113, 229, 0.9) 26.49%,
+                rgba(9, 82, 156, 0.9) 85.53%
+            )`,
+        py: 10,
+      }}
+    >
       <Container maxWidth="lg">
         <Typography
-          variant="h3"
+          variant="title"
           sx={{
             textAlign: "center",
-            fontWeight: 700,
             color: "white",
-            mb: 8,
-            fontSize: { xs: "28px", md: "36px" },
+            mb: 4,
           }}
         >
           Positions
@@ -71,7 +81,7 @@ const PositionsSection = () => {
                 bgcolor: "rgba(255, 255, 255, 0.1)",
                 border: "1px solid rgba(255, 255, 255, 0.2)",
                 borderRadius: 2,
-                p: 3,
+                p: 2,
                 width: { xs: "100%", sm: "350px", md: "360px" }, // Fixed width for cards
                 textAlign: "center",
                 color: "white",
@@ -85,7 +95,12 @@ const PositionsSection = () => {
               <Box sx={{ mb: 2 }}>{job.icon}</Box>
               <Typography
                 variant="h6"
-                sx={{ fontWeight: 700, mb: 2, fontSize: "18px" }}
+                sx={{
+                  fontWeight: 700,
+                  mb: 2,
+                  fontSize: "18px",
+                  color: "white",
+                }}
               >
                 {job.title}
               </Typography>
@@ -107,6 +122,7 @@ const PositionsSection = () => {
                       px: 2,
                       py: 0.5,
                       fontSize: "12px",
+                      color: "white",
                     }}
                   >
                     {type}

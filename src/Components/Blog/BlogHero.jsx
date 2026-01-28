@@ -20,7 +20,7 @@ const BlogHero = () => {
           item
           xs={12}
           sm={6}
-          sx={{ position: "relative", minHeight: { xs: 250, md: 346 } }}
+          sx={{ position: "relative", minHeight: { xs: 200, md: 346 } }}
         >
           <Box
             sx={{
@@ -77,8 +77,8 @@ const BlogHero = () => {
           <Typography
             sx={{
               fontWeight: 400,
-              fontSize: { xs: "20px", md: "24px" },
-              mb: 2,
+              fontSize: { xs: "16px", md: "24px" },
+              mb: { xs: 2, md: 3 },
               lineHeight: { xs: "28px", md: "32px" },
               color: "#26394D",
             }}
@@ -89,9 +89,9 @@ const BlogHero = () => {
           <Typography
             sx={{
               color: "#26394D",
-              mb: 3,
-              lineHeight: "28px",
-              fontSize: "16px",
+              mb: { xs: 2, md: 3 },
+              lineHeight: { xs: "20px", md: "28px" },
+              fontSize: { xs: "14px", md: "16px" },
             }}
           >
             AWS provides services for every domain such as computing, data
@@ -99,7 +99,12 @@ const BlogHero = () => {
           </Typography>
 
           <Typography
-            sx={{ mb: 4, fontSize: "14px", fontWeight: 400, color: "#26394D" }}
+            sx={{
+              mb: { xs: 2, md: 4 },
+              fontSize: { xs: "14px", md: "16px" },
+              fontWeight: 400,
+              color: "#26394D",
+            }}
           >
             By John Doe | Updated: 12/10/25
           </Typography>

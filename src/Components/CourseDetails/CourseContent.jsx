@@ -78,123 +78,132 @@ const CourseContent = () => {
           <Box id="Curriculum" sx={{ scrollMarginTop: "120px" }}>
             <CourseCurriculum />
           </Box>
-          <Box
+          <Grid
+            container
             sx={{
-              flexDirection: "row",
-              alignItems: "center",
-              display: { xs: "flex", md: "none" },
+              // display: { xs: "block", md: "none" },
               mb: 4,
+              borderRadius: 3,
+              overflow: "hidden",
             }}
           >
-            <Box
+            <Grid
+              item
+              xs={6}
               sx={{
-                height: "532px",
-                m: -3,
                 display: { xs: "none", sm: "flex" },
               }}
             >
               {/* Image Card */}
-              <img src={courseImage} alt="" />
-            </Box>
+              <Box
+                component={"img"}
+                src={
+                  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+                }
+                alt="placeholder"
+                height={532}
+              />
+            </Grid>
             {/* Form Card */}
-            <Paper
-              sx={{
-                p: 3,
-                borderRadius: 3,
-                height: { xs: "auto", md: "532px" },
-                mt: 2,
-              }}
-            >
-              <Box sx={{ textAlign: "center" }}>
-                <Typography
-                  sx={{
-                    mb: 1,
-                    fontSize: "20px !important",
-                    color: "#26394D",
-                    fontWeight: 400,
-                  }}
-                >
-                  Admissions Close On 7th Oct
-                </Typography>
-                <Typography
-                  sx={{
-                    mb: 3,
-                    fontSize: "12px !important",
-                    fontWeight: 400,
-                    letterSpacing: "0px",
-                    colr: "#26394D",
-                  }}
-                >
-                  Still not sure? Talk with our advisor and get your doubts
-                  sorted before you miss hte chance to enroll into the course
-                </Typography>
-              </Box>
+            <Grid item xs={12} sm={6}>
+              <Paper
+                sx={{
+                  p: 3,
+                  borderRadius: 0,
+                  height: "100%",
+                }}
+              >
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography
+                    sx={{
+                      mb: 1,
+                      fontSize: "20px !important",
+                      color: "#26394D",
+                      fontWeight: 400,
+                    }}
+                  >
+                    Admissions Close On 7th Oct
+                  </Typography>
+                  <Typography
+                    sx={{
+                      mb: 3,
+                      fontSize: "12px !important",
+                      fontWeight: 400,
+                      letterSpacing: "0px",
+                      colr: "#26394D",
+                    }}
+                  >
+                    Still not sure? Talk with our advisor and get your doubts
+                    sorted before you miss hte chance to enroll into the course
+                  </Typography>
+                </Box>
 
-              <Stack spacing={4}>
-                <TextField
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <PersonOutline
-                          fontSize="small"
-                          sx={{ color: "#999" }}
-                        />
-                      </InputAdornment>
-                    ),
-                  }}
-                  label="Full Name"
-                  fullWidth
-                  size="small"
-                  placeholder="Full Name"
-                />
-                <TextField
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <EmailOutlined
-                          fontSize="small"
-                          sx={{ color: "#999" }}
-                        />
-                      </InputAdornment>
-                    ),
-                  }}
-                  label="Email"
-                  fullWidth
-                  size="small"
-                  placeholder="Email"
-                />
-                <TextField
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Phone fontSize="small" sx={{ color: "#999" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  label="Mobile Number"
-                  fullWidth
-                  size="small"
-                  placeholder="Mobile Number"
-                />
-                <FormControlLabel
-                  control={<Checkbox size="small" />}
-                  label={
-                    <Typography variant="caption" color="text.secondary">
-                      By providing your contact details, you agree to our Terms
-                      of Use & Privacy Policy
-                    </Typography>
-                  }
-                />
-                <Button
-                  variant="contained"
-                  fullWidth
-                  sx={{ textTransform: "none" }}
-                >
-                  Talk to our advisor
-                </Button>
-              </Stack>
-            </Paper>
-          </Box>
+                <Stack spacing={4}>
+                  <TextField
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <PersonOutline
+                            fontSize="small"
+                            sx={{ color: "#999" }}
+                          />
+                        </InputAdornment>
+                      ),
+                    }}
+                    label="Full Name"
+                    fullWidth
+                    size="small"
+                    placeholder="Full Name"
+                  />
+                  <TextField
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <EmailOutlined
+                            fontSize="small"
+                            sx={{ color: "#999" }}
+                          />
+                        </InputAdornment>
+                      ),
+                    }}
+                    label="Email"
+                    fullWidth
+                    size="small"
+                    placeholder="Email"
+                  />
+                  <TextField
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Phone fontSize="small" sx={{ color: "#999" }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                    label="Mobile Number"
+                    fullWidth
+                    size="small"
+                    placeholder="Mobile Number"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox size="small" />}
+                    label={
+                      <Typography variant="caption" color="text.secondary">
+                        By providing your contact details, you agree to our
+                        Terms of Use & Privacy Policy
+                      </Typography>
+                    }
+                  />
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    sx={{ textTransform: "none" }}
+                  >
+                    Talk to our advisor
+                  </Button>
+                </Stack>
+              </Paper>
+            </Grid>
+          </Grid>
 
           <Box id="Instructor" sx={{ scrollMarginTop: "120px" }}>
             <CourseInstructor />

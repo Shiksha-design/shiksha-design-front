@@ -6,20 +6,16 @@ const DisclaimerSection = () => {
   return (
     <Box sx={{ bgcolor: "#F8FAFC", py: 8 }}>
       <Container maxWidth="lg" sx={{ textAlign: "center" }}>
-        <Typography
-          variant="h5"
-          sx={{ color: colors.primary, fontWeight: 700, mb: 3 }}
-        >
+        <Typography variant="title" sx={{ color: colors.primary, mb: 3 }}>
           Disclaimer
         </Typography>
         <Typography
           sx={{
-            color: "#64748b",
-            fontSize: "12px",
-            lineHeight: 1.8,
-            maxWidth: "900px",
-            mx: "auto",
+            color: "#26394D",
+            fontSize: "16px",
+            lineHeight: "28px",
             mb: 4,
+            letterSpacing: "0",
           }}
         >
           Simplilearn is proud to be an Equal Opportunity Employer. We celebrate
@@ -33,17 +29,16 @@ const DisclaimerSection = () => {
         </Typography>
 
         <Typography
-          sx={{ color: "#D32F2F", fontSize: "12px", fontWeight: 700, mb: 1 }}
+          sx={{ color: "#D32F2F", fontSize: "16px", fontWeight: 700, mb: 1 }}
         >
           WARNING For RECRUITMENT SCAMS & FRAUD:
         </Typography>
         <Typography
           sx={{
-            color: "#64748b",
-            fontSize: "12px",
-            lineHeight: 1.8,
-            maxWidth: "900px",
-            mx: "auto",
+            color: "#26394D",
+            fontSize: "16px",
+            lineHeight: "28px",
+            letterSpacing: "0",
           }}
         >
           Simpillearn never asks for any kind of money, donation or credit card

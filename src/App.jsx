@@ -13,6 +13,7 @@ import Blog from "./Pages/Blog/Blog";
 import { colors } from "./Config/theme";
 import BlogInsight from "./Pages/Blog/BlogInsight";
 import Career from "./Pages/Career/Career";
+import ContactUs from "./Pages/ContactUs/ContactUs";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog-insight" element={<BlogInsight />} />
             <Route path="/career" element={<Career />} />
+            <Route path="/contact-us" element={<ContactUs />} />
 
             {/* Catch all */}
             <Route path="*" element={<Navigate to="/" replace />} />
