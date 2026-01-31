@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Typography, Button, Paper } from "@mui/material";
 import { ArrowForward } from "@mui/icons-material";
-import { colors } from "../../Config/theme";
 
 const BlogCard = ({
   image,
@@ -47,8 +46,8 @@ const BlogCard = ({
         <Typography
           sx={{
             position: "absolute",
-            top: 16,
-            left: 16,
+            top: 5,
+            left: 5,
             bgcolor: "#F0F7FF",
             color: "#26394D",
             fontWeight: 400,

@@ -65,19 +65,21 @@ const ContactUs = () => {
         <Container maxWidth="lg">
           <Typography
             variant="h3"
-            component="h1"
             sx={{
-              fontWeight: 700,
-              mb: 2,
-              fontFamily: FontFamily.Bold,
+              mb: 3,
               color: "inherit",
+              fontWeight: 700,
+              fontSize: { xs: "32px", md: "48px" },
             }}
           >
             Contact [Company name]
           </Typography>
           <Typography
-            variant="body1"
-            sx={{ maxWidth: "800px", lineHeight: 1.6, color: "inherit" }}
+            sx={{
+              color: "rgba(255, 255, 255, 0.9)",
+              fontSize: "16px",
+              lineHeight: 1.6,
+            }}
           >
             Shiksha is the world's #1 online bootcamp and one of the world's
             leading certification training providers. We partner with companies
@@ -270,11 +272,11 @@ const ContactUs = () => {
                       >
                         By providing your contact details, you agree to
                         our&nbsp;
-                        <Link href="#" underline="hover" variant="span">
+                        <Link href="#" variant="span" color={"inherit"}>
                           Terms of Use
                         </Link>
                         &nbsp; & &nbsp;
-                        <Link href="#" underline="hover" variant="span">
+                        <Link href="#" variant="span" color={"inherit"}>
                           Privacy Policy
                         </Link>
                       </Box>
@@ -282,14 +284,9 @@ const ContactUs = () => {
                   />
                   <Button
                     variant="contained"
+                    size="small"
                     onClick={handleSubmit}
                     sx={{
-                      bgcolor: colors.primary,
-                      px: 4,
-                      py: 1.2,
-                      borderRadius: 1,
-                      textTransform: "none",
-                      fontSize: "16px",
                       minWidth: "120px",
                     }}
                   >
@@ -387,7 +384,7 @@ const ContactUs = () => {
           <Typography
             variant="title"
             sx={{
-              mb: 4,
+              mb: 2,
               color: colors.primary,
             }}
           >
@@ -395,11 +392,11 @@ const ContactUs = () => {
           </Typography>
           <Grid container spacing={3}>
             {enquiryCards.map((card, index) => (
-              <Grid item xs={12} md={4} key={index}>
+              <Grid item xs={12} sm={4} md={4} key={index}>
                 <Paper
                   elevation={1}
                   sx={{
-                    py: 6,
+                    py: 5,
                     px: 3,
                     textAlign: "center",
                     borderRadius: 2,
@@ -417,9 +414,13 @@ const ContactUs = () => {
                   }}
                 >
                   <Box sx={{ mb: 2, color: "#26394D" }}>{card.icon}</Box>
-                  <Typography variant="h6" sx={{ mb: 3, color: "#4A5568" }}>
+                  <Typography sx={{ fontSize: "20px", color: "#26394D" }}>
                     {card.title}
                   </Typography>
+                  <Divider
+                    orientation="horizontal"
+                    sx={{ width: "100%", my: 2 }}
+                  />
 
                   <Box
                     component={Link}

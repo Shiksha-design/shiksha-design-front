@@ -65,7 +65,7 @@ const relatedPosts = Array(6).fill({
 
 const BlogInsight = () => {
   return (
-    <Box sx={{ bgcolor: colors.mainBg, minHeight: "100vh", py: 8 }}>
+    <Box sx={{ bgcolor: colors.mainBg, minHeight: "100vh", pt: 10 }}>
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           {/* Main Content - Left Side */}

@@ -27,30 +27,18 @@ const BlogHero = () => {
               width: "100%",
               height: "100%",
               bgcolor: "#FF7F50", // Fallback color
-              background: "linear-gradient(135deg, #FF9966 0%, #FF5E62 100%)", // Orange/Red gradient
+              background: `url(${"https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"})`, // Orange/Red gradient
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               borderRadius: 2,
             }}
-          >
-            {/* Placeholder for real image */}
-            <Typography
-              sx={{
-                color: "white",
-                fontWeight: 700,
-                fontSize: "2rem",
-                opcode: 0.5,
-              }}
-            >
-              Featured Post
-            </Typography>
-          </Box>
+          />
           <Box
             sx={{
               position: "absolute",
-              top: 24,
-              left: 24,
+              top: 5,
+              left: 5,
             }}
           >
             <Chip

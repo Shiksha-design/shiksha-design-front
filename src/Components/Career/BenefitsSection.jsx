@@ -58,7 +58,7 @@ const features = [
 
 const BenefitsSection = () => {
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 6 }}>
       <Typography
         variant="title"
         sx={{

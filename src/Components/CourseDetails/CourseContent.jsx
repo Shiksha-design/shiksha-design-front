@@ -81,7 +81,7 @@ const CourseContent = () => {
           <Grid
             container
             sx={{
-              // display: { xs: "block", md: "none" },
+              display: { xs: "flex", md: "none" },
               mb: 4,
               borderRadius: 3,
               overflow: "hidden",
@@ -101,7 +101,7 @@ const CourseContent = () => {
                   "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
                 }
                 alt="placeholder"
-                height={532}
+                sx={{ width: "100%", height: "100%" }}
               />
             </Grid>
             {/* Form Card */}
@@ -228,9 +228,15 @@ const CourseContent = () => {
           }}
         >
           {/* Image Card */}
-          <Box sx={{ height: 532 }}>
-            <img src={courseImage} alt="" />
-          </Box>
+          <Box
+            component={"img"}
+            src={
+              "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+            }
+            alt="placeholder"
+            height={532}
+            sx={{ borderRadius: 3, width: "100%" }}
+          />
 
           {/* Form Card */}
           <Paper sx={{ mt: 4, p: 3, borderRadius: 3 }}>

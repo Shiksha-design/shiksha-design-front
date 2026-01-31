@@ -8,7 +8,7 @@ import DisclaimerSection from "../../Components/Career/DisclaimerSection";
 
 const Career = () => {
   return (
-    <Box>
+    <Box sx={{ py: 4 }}>
       <CareerHero />
       <BenefitsSection />
       <PositionsSection />

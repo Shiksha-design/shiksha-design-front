@@ -101,7 +101,7 @@ const CareerHero = () => {
                       width: "100%",
                       maxWidth: { xs: "82%", md: "90%" },
                       zIndex: 1,
-                      boxShadow: "10px 25px 100px 0px #0B707740",
+                      boxShadow: "5px 15px 50px 0px #0B707740",
                     }}
                   >
                     {/* Icon Box */}

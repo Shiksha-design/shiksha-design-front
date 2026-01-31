@@ -1,14 +1,8 @@
 import React from "react";
-import { Box, Typography, Container, Grid, Button, Paper } from "@mui/material";
-import { colors } from "../../Config/theme";
-import {
-  Monitor,
-  PhoneIphone,
-  Videocam,
-  DesktopMac,
-  AddToQueue,
-} from "@mui/icons-material";
+import { Box, Typography, Container, Button, Paper } from "@mui/material";
+import { Monitor } from "@mui/icons-material";
 import { ArrowForward } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const positions = [
   {
@@ -42,6 +36,7 @@ const positions = [
 ];
 
 const PositionsSection = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -82,7 +77,7 @@ const PositionsSection = () => {
                 border: "1px solid rgba(255, 255, 255, 0.2)",
                 borderRadius: 2,
                 p: 2,
-                width: { xs: "100%", sm: "350px", md: "360px" }, // Fixed width for cards
+                width: { xs: "100%", sm: "300px", md: "360px" }, // Fixed width for cards
                 textAlign: "center",
                 color: "white",
                 transition: "all 0.3s ease",
@@ -131,7 +126,17 @@ const PositionsSection = () => {
               </Box>
 
               <Button
-                endIcon={<ArrowForward sx={{ fontSize: "16px !important" }} />}
+                onClick={() => {
+                  navigate(`/career-details/${index}`);
+                }}
+                endIcon={
+                  <ArrowForward
+                    sx={{
+                      fontSize: "16px !important",
+                      transform: "rotate(-40deg)",
+                    }}
+                  />
+                }
                 sx={{
                   color: "white",
                   textTransform: "none",
