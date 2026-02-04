@@ -112,7 +112,7 @@ const Footer = () => {
             <Typography variant="h6" sx={titleStyle}>
               Company
             </Typography>
-            <Link href="#" sx={listStyle}>
+            <Link component={RouterLink} to="/about-us" sx={listStyle}>
               About us
             </Link>
             <Link component={RouterLink} to="/career" sx={listStyle}>

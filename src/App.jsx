@@ -15,6 +15,7 @@ import BlogInsight from "./Pages/Blog/BlogInsight";
 import Career from "./Pages/Career/Career";
 import CareerDetails from "./Pages/Career/CareerDetails";
 import ContactUs from "./Pages/ContactUs/ContactUs";
+import AboutUs from "./Pages/AboutUs/AboutUs";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
             <Route path="/career" element={<Career />} />
             <Route path="/career-details/:id" element={<CareerDetails />} />
             <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/about-us" element={<AboutUs />} />
 
             {/* Catch all */}
             <Route path="*" element={<Navigate to="/" replace />} />

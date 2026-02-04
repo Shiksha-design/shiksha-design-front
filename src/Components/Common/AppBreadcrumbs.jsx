@@ -6,6 +6,7 @@ import { colors } from "../../Config/theme";
 
 const breadcrumbNameMap = {
   "/all-courses": "All Courses",
+  "/about-us": "About Us",
   // Add other routes here as needed
 };
 
@@ -34,8 +35,6 @@ const AppBreadcrumbs = () => {
               Home
             </Typography>
           </Link>
-
-          <Typography sx={{ color: "#94a3b8", fontSize: 14 }}>Video</Typography>
 
           {pathnames.map((value, index) => {
             const last = index === pathnames.length - 1;
