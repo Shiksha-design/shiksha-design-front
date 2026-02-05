@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { colors } from "../../Config/theme";
-import courseImage from "../../assets/courseImage.svg";
+import placeholderImage from "../../assets/placeholderImage.png";
 import CourseOverview from "./CourseOverview";
 import CourseCurriculum from "./CourseCurriculum";
 import CourseInstructor from "./CourseInstructor";
@@ -97,9 +97,7 @@ const CourseContent = () => {
               {/* Image Card */}
               <Box
                 component={"img"}
-                src={
-                  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
-                }
+                src={placeholderImage}
                 alt="placeholder"
                 sx={{ width: "100%", height: "100%" }}
               />
@@ -230,9 +228,7 @@ const CourseContent = () => {
           {/* Image Card */}
           <Box
             component={"img"}
-            src={
-              "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
-            }
+            src={placeholderImage}
             alt="placeholder"
             height={532}
             sx={{ borderRadius: 3, width: "100%" }}

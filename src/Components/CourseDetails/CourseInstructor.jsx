@@ -23,7 +23,6 @@ const CourseInstructor = () => {
         sx={{
           display: "flex",
           gap: 3,
-          flexDirection: { xs: "column", sm: "row" },
         }}
       >
         {/* Logo / Avatar */}
@@ -31,7 +30,7 @@ const CourseInstructor = () => {
           sx={{
             width: 120,
             height: 120,
-            bgcolor: "#D50000", // Red background as per design
+            bgcolor: "#D50000",
             borderRadius: 3,
             display: "flex",
             justifyContent: "center",
@@ -86,31 +85,30 @@ const CourseInstructor = () => {
               <Typography variant="body2">20 Lessons</Typography>
             </Box>
           </Stack>
-
-          <Typography variant="body2" color="text.secondary" paragraph>
-            LearnPress is a comprehensive WordPress LMS Plugin for WordPress.
-            This is one of the best WordPress LMS Plugins which can be used to
-            easily create & sell courses online.
-          </Typography>
-
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
-              Follow:
-            </Typography>
-            <IconButton size="small">
-              <Facebook fontSize="small" />
-            </IconButton>
-            <IconButton size="small">
-              <X fontSize="small" />
-            </IconButton>
-            <IconButton size="small">
-              <Instagram fontSize="small" />
-            </IconButton>
-            <IconButton size="small">
-              <YouTube fontSize="small" />
-            </IconButton>
-          </Box>
         </Box>
+      </Box>
+      <Typography variant="body2" color="text.secondary" paragraph>
+        LearnPress is a comprehensive WordPress LMS Plugin for WordPress. This
+        is one of the best WordPress LMS Plugins which can be used to easily
+        create & sell courses online.
+      </Typography>
+
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
+          Follow:
+        </Typography>
+        <IconButton size="small">
+          <Facebook fontSize="small" />
+        </IconButton>
+        <IconButton size="small">
+          <X fontSize="small" />
+        </IconButton>
+        <IconButton size="small">
+          <Instagram fontSize="small" />
+        </IconButton>
+        <IconButton size="small">
+          <YouTube fontSize="small" />
+        </IconButton>
       </Box>
     </Box>
   );

@@ -16,9 +16,12 @@ import {
   Divider,
   Stack,
   useTheme,
-  Select,
   MenuItem,
   OutlinedInput,
+  Autocomplete,
+  TextField,
+  Select,
+  ClickAwayListener,
 } from "@mui/material";
 import {
   Search,
@@ -35,10 +38,12 @@ import LoginModal from "../Auth/LoginModal";
 import mainLogo from "../../assets/mainLogo.svg";
 import { colors } from "../../Config/theme";
 import AppBreadcrumbs from "../Common/AppBreadcrumbs";
+import ProgramsContent from "../Home/Programs/ProgramsContent";
 
 const Header = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showAllCourses, setShowAllCourses] = useState(false);
   const user = useSelector((state) => state.auth?.userdata);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,6 +59,7 @@ const Header = () => {
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+    setShowAllCourses(false);
   };
 
   const drawerContent = (
@@ -95,17 +101,6 @@ const Header = () => {
       </Box>
 
       <List sx={{ flex: 1 }}>
-        <ListItem disablePadding>
-          <ListItemButton
-            component={Link}
-            to="/all-courses"
-            onClick={handleDrawerToggle}
-            sx={{ borderRadius: 2 }}
-          >
-            <AppsOutlined sx={{ mr: 2, color: colors.primary }} />
-            <ListItemText primary="All Courses" />
-          </ListItemButton>
-        </ListItem>
         <ListItem disablePadding>
           <ListItemButton onClick={handleDrawerToggle} sx={{ borderRadius: 2 }}>
             <ListItemText primary="Field Title" />
@@ -158,7 +153,12 @@ const Header = () => {
         position="fixed"
         color="transparent"
         elevation={0}
-        sx={{ bgcolor: colors.mainBg, pt: 1 }}
+        sx={{
+          bgcolor: colors.mainBg,
+          pt: 1,
+          zIndex: (theme) =>
+            showAllCourses ? theme.zIndex.drawer + 1 : theme.zIndex.drawer,
+        }}
       >
         <Container maxWidth="lg">
           <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
@@ -194,21 +194,24 @@ const Header = () => {
               </Box>
 
               {/* Desktop: All Courses Button (Hidden on Mobile) */}
-              <Button
-                variant="contained"
-                component={Link}
-                to="/all-courses"
-                startIcon={<AppsOutlined />}
-                sx={{
-                  mr: 2,
-                  bgcolor: colors.primary,
-                  borderRadius: 2,
-                  whiteSpace: "nowrap",
-                  display: { xs: "none", md: "flex" },
-                }}
-              >
-                All Courses
-              </Button>
+              {/* Desktop: All Courses Button (Hidden on Mobile) */}
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <Button
+                  variant="contained"
+                  onClick={() => setShowAllCourses(!showAllCourses)}
+                  startIcon={<AppsOutlined />}
+                  sx={{
+                    mr: 2,
+                    bgcolor: colors.primary,
+                    borderRadius: 2,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  All Courses
+                </Button>
+
+                {/* Mega Menu Drawer */}
+              </Box>
               <Box
                 sx={{
                   display: { xs: "none", md: "flex" },
@@ -222,9 +225,25 @@ const Header = () => {
                 }}
               >
                 <Search sx={{ color: "#94a3b8", mr: 1 }} />
-                <InputBase
-                  placeholder="Search your course"
-                  sx={{ flex: 1, fontSize: "0.95rem" }}
+                <Autocomplete
+                  freeSolo
+                  options={["Course 1", "Course 2", "Course 3"]}
+                  onChange={(event, newValue) => {
+                    navigate("/all-courses");
+                  }}
+                  sx={{ width: 250 }} // Adjust width as needed
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      placeholder="Search your course"
+                      variant="standard"
+                      InputProps={{
+                        ...params.InputProps,
+                        disableUnderline: true,
+                        sx: { fontSize: "0.95rem" },
+                      }}
+                    />
+                  )}
                 />
               </Box>
             </Box>
@@ -259,9 +278,8 @@ const Header = () => {
               {/* Mobile: All Courses Button */}
               <Button
                 variant="contained"
-                component={Link}
-                to="/all-courses"
                 startIcon={<AppsOutlined />}
+                onClick={() => setShowAllCourses(!showAllCourses)}
                 sx={{
                   bgcolor: colors.primary,
                   textTransform: "none",
@@ -371,7 +389,6 @@ const Header = () => {
 
         <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
       </AppBar>
-
       {/* Mobile Drawer remains the same (kept for extended menu items like Profile/Logout/etc) */}
       <Drawer
         variant="temporary"
@@ -385,6 +402,26 @@ const Header = () => {
         }}
       >
         {drawerContent}
+      </Drawer>
+
+      <Drawer
+        variant="temporary"
+        anchor="top"
+        open={showAllCourses}
+        onClose={() => setShowAllCourses(false)}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer,
+          "& .MuiDrawer-paper": {
+            top: { xs: "68px", md: "75px" },
+            boxSizing: "border-box",
+            bgcolor: colors.mainBg,
+            py: 1,
+          },
+        }}
+      >
+        <Container maxWidth="lg">
+          <ProgramsContent />
+        </Container>
       </Drawer>
 
       {/* Toolbar spacer */}
