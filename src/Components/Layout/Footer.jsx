@@ -137,7 +137,7 @@ const Footer = () => {
             <Typography variant="h6" sx={titleStyle}>
               For Business
             </Typography>
-            <Link href="#" sx={listStyle}>
+            <Link href="/about-us" sx={listStyle}>
               About us
             </Link>
             <Link component={RouterLink} to="/career" sx={listStyle}>
