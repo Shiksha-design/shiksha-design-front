@@ -40,10 +40,13 @@ import { colors } from "../../Config/theme";
 import AppBreadcrumbs from "../Common/AppBreadcrumbs";
 import ProgramsContent from "../Home/Programs/ProgramsContent";
 
+import ConfirmDialog from "../Admin/Common/ConfirmDialog";
+
 const Header = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showAllCourses, setShowAllCourses] = useState(false);
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const user = useSelector((state) => state.auth?.userdata);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,9 +55,18 @@ const Header = () => {
   const isAuthenticated = user && Object.keys(user).length > 0 && user.email;
 
   const handleLogout = () => {
+    setLogoutDialogOpen(true);
+  };
+
+  const handleLogoutConfirm = () => {
     dispatch(actions.clearAllData());
     navigate("/");
     setMobileOpen(false);
+    setLogoutDialogOpen(false);
+  };
+
+  const handleLogoutCancel = () => {
+    setLogoutDialogOpen(false);
   };
 
   const handleDrawerToggle = () => {
@@ -426,6 +438,13 @@ const Header = () => {
 
       {/* Toolbar spacer */}
       <Toolbar sx={{ py: 1 }} />
+      <ConfirmDialog
+        open={logoutDialogOpen}
+        onClose={handleLogoutCancel}
+        onConfirm={handleLogoutConfirm}
+        title="Logout Confirmation"
+        message="Are you sure you want to logout?"
+      />
     </>
   );
 };

@@ -3,11 +3,18 @@ const actions = {
   SET_THEME_DATA: "auth/SET_THEME_DATA",
   SET_SWITCH_BOOL: "auth/SET_SWITCH_BOOL",
   CLEAR_ALL_STORAGE_DATA: "auth/CLEAR_ALL_STORAGE_DATA",
+  SET_TOKEN: "auth/SET_TOKEN",
 
   setUserData: (userdata) => (dispatch) =>
     dispatch({
       type: actions.SET_USER_DATA,
       userdata,
+    }),
+
+  setToken: (token) => (dispatch) =>
+    dispatch({
+      type: actions.SET_TOKEN,
+      token,
     }),
 
   setThemeData: (themeData) => (dispatch) =>

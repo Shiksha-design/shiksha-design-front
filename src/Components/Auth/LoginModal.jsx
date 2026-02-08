@@ -1,305 +1,480 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-    Box,
-    Button,
-    Checkbox,
-    Dialog,
-    FormControlLabel,
-    TextField,
-    Typography,
-    InputAdornment,
-    IconButton,
-    Divider,
-    Link
-} from '@mui/material';
-import { Visibility, VisibilityOff, EmailOutlined, LockOutlined, Close, Google, PersonOutline } from '@mui/icons-material';
-import { useDispatch } from 'react-redux';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import { MockAuthService } from '../../Services/MockAuthService';
-import actions from '../../Redux/Reducer/auth/action';
-import leftLogin from '../../assets/leftLogin.svg';
-import { colors } from '../../Config/theme';
-import mainLogo from '../../assets/mainLogo.svg';
-
+  Box,
+  Button,
+  Checkbox,
+  Dialog,
+  FormControlLabel,
+  TextField,
+  Typography,
+  InputAdornment,
+  IconButton,
+  Divider,
+  Link,
+} from "@mui/material";
+import {
+  Visibility,
+  VisibilityOff,
+  EmailOutlined,
+  LockOutlined,
+  Close,
+  Google,
+  PersonOutline,
+} from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
+import actions from "../../Redux/Reducer/auth/action";
+import leftLogin from "../../assets/leftLogin.svg";
+import { colors } from "../../Config/theme";
+import mainLogo from "../../assets/mainLogo.svg";
+import authService from "../../Services/authService";
+import AppSnackbar from "../Admin/Common/AppSnackbar";
 
 const LoginModal = ({ open, onClose }) => {
-    const [isRegister, setIsRegister] = useState(false);
-    const [formData, setFormData] = useState({
-        fullName: '',
-        email: '',
-        password: '',
+  const [isRegister, setIsRegister] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    agreed: false,
+    keepSigned: false,
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Reset state when modal opens/closes
+  React.useEffect(() => {
+    if (!open) {
+      setIsRegister(false);
+      setFormData({
+        fullName: "",
+        email: "",
+        password: "",
         agreed: false,
-        keepSigned: false
-    });
-    const [showPassword, setShowPassword] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+        keepSigned: false,
+      });
+    }
+  }, [open]);
 
-    // Reset state when modal opens/closes
-    React.useEffect(() => {
-        if (!open) {
-            setIsRegister(false);
-            setFormData({
-                fullName: '',
-                email: '',
-                password: '',
-                agreed: false,
-                keepSigned: false
-            });
+  const handleChange = (e) => {
+    const { name, value, checked, type } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      if (isRegister) {
+        if (!formData.agreed) {
+          alert("Please agree to the Terms & Conditions");
+          setLoading(false);
+          return;
         }
-    }, [open]);
+        // Register
+        const response = await authService.signup({
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+        });
 
-    const handleChange = (e) => {
-        const { name, value, checked, type } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
-    };
+        // Assuming successful signup auto-login or returns token/user
+        // If backend requires login after signup, we might need to do that.
+        // But usually response has user/token.
+        // Adjust based on actual API response structure.
+        // CURL response not shown, assuming standard: { user: {...}, token: "..." }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            if (isRegister) {
-                if (!formData.agreed) {
-                    alert("Please agree to the Terms & Conditions");
-                    setLoading(false);
-                    return;
-                }
-                const response = await MockAuthService.register(formData);
-                dispatch(actions.setUserData(response.user));
-            } else {
-                const response = await MockAuthService.login(formData.email, formData.password);
-                dispatch(actions.setUserData(response.user));
-            }
-            onClose();
-            navigate('/');
-        } catch (error) {
-            console.error(error);
-            alert((isRegister ? 'Registration' : 'Login') + ' failed: ' + error);
-        } finally {
-            setLoading(false);
+        if (response.data) {
+          if (response.data.token) {
+            dispatch(actions.setToken(response.data.token));
+          }
+          dispatch(actions.setUserData(response.data));
         }
-    };
 
-    return (
-        <Dialog
-            open={open}
-            onClose={onClose}
-            maxWidth="md"
-            fullWidth
-            PaperProps={{
-                sx: {
-                    borderRadius: 4,
-                    maxWidth: 900,
-                    overflow: 'hidden'
-                }
-            }}
+        setSnackbar({
+          open: true,
+          message: "Registration successful",
+          severity: "success",
+        });
+      } else {
+        // Login
+        const response = await authService.login(
+          formData.email,
+          formData.password,
+        );
+
+        if (response.data) {
+          if (response.data.token) {
+            dispatch(actions.setToken(response.data.token));
+          }
+          dispatch(actions.setUserData(response.data));
+
+          // Check for admin redirect
+          if (
+            response.data.id === "698868808407837a730bb7cd" ||
+            response.data.email === "admin@mailinator.com"
+          ) {
+            // Small delay to ensure state is updated
+            setTimeout(() => {
+              navigate("/admin/dashboard");
+            }, 100);
+          }
+        }
+      }
+      onClose();
+    } catch (error) {
+      console.error(error);
+      // Handle Axios error structure
+      const message =
+        error.response?.data?.message || error.message || "Operation failed";
+      // alert((isRegister ? "Registration" : "Login") + " failed: " + message);
+      setSnackbar({
+        open: true,
+        message:
+          (isRegister ? "Registration" : "Login") + " failed: " + message,
+        severity: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
+
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="md"
+      fullWidth
+      PaperProps={{
+        sx: {
+          borderRadius: 4,
+          maxWidth: 900,
+          overflow: "hidden",
+        },
+      }}
+    >
+      <IconButton
+        onClick={onClose}
+        sx={{
+          position: "absolute",
+          right: 8,
+          top: 8,
+          color: "#999",
+          zIndex: 10,
+        }}
+      >
+        <Close />
+      </IconButton>
+      <Box
+        sx={{
+          display: "flex",
+          minHeight: 500,
+          bgcolor: colors.mainBg,
+          py: 5,
+          px: 3,
+        }}
+      >
+        {/* Left Side - Illustration */}
+        <Box
+          sx={{
+            flex: 1,
+            display: { xs: "none", md: "flex" },
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-            <IconButton
-                onClick={onClose}
-                sx={{ position: 'absolute', right: 8, top: 8, color: '#999', zIndex: 10 }}
-            >
-                <Close />
-            </IconButton>
-            <Box sx={{
-                display: 'flex', minHeight: 500,
-                bgcolor: colors.mainBg,
-                py: 5,
-                px: 3,
-
-
-            }}>
-                {/* Left Side - Illustration */}
-                <Box sx={{
-                    flex: 1,
-                    display: { xs: 'none', md: 'flex' },
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                    <Box >
-
-                        <Box>
-
-                            <img src={mainLogo} alt="Smiksha Designs" style={{ height: '25px' }} />
-                        </Box>
-
-                        <Typography variant="h6" sx={{ mb: 1, fontSize: "36px", color: '#26394D', lineHeight: '40px', fontWeight: '700' }}>
-                            Welcome to<br />Lcurve Online<br />Learning Platform
-                        </Typography>
-                    </Box>
-                    <Box
-                        component="img"
-                        src={leftLogin}
-                        alt="Illustration"
-                        sx={{ maxWidth: '70%', height: 'auto' }}
-                    />
-                </Box>
-                <Divider orientation="vertical" flexItem sx={{
-                    display: { xs: 'none', md: 'flex' },
-
-                }} />
-                {/* Right Side - Form */}
-                <Box sx={{ flex: 1, p: 0, position: 'relative', }}>
-
-
-                    <Box sx={{ p: 5, display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
-
-                        <Button
-                            variant="outlined"
-                            fullWidth
-                            size='small'
-                            sx={{ mb: 3, textTransform: 'none', color: '#555', borderColor: '#ddd', py: 1, bgcolor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}
-                        >
-                            <Box sx={{ backgroundColor: "#E32729", borderRadius: 1, p: 2, height: 20, width: 20, color: '#fff', alignItems: 'center', display: 'flex', justifyContent: 'center', mr: 1 }}>G+</Box>
-                            {isRegister ? 'Signup with google' : 'Login with google'}
-                        </Button>
-
-                        <Divider sx={{ mb: 3, color: '#999', fontSize: '0.8rem' }}>
-                            {isRegister ? 'Or signup with your email' : 'Or login with your email'}
-                        </Divider>
-
-                        <form onSubmit={handleSubmit}>
-                            {isRegister && (
-                                <>
-                                    <Typography variant="subtitle2" sx={{ mb: 0.5, fontWeight: 500 }}>Full Name</Typography>
-                                    <TextField
-                                        fullWidth
-                                        placeholder="Ex: John Doe"
-                                        name="fullName"
-                                        value={formData.fullName}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        size="small"
-                                        sx={{ mb: 2, bgcolor: '#fff' }}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <PersonOutline fontSize="small" sx={{ color: '#999' }} />
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                    />
-                                </>
-                            )}
-
-                            <Typography variant="subtitle2" sx={{ mb: 0.5, fontWeight: 500 }}>Email</Typography>
-                            <TextField
-                                fullWidth
-                                placeholder="Ex: example@email.com"
-                                name="email"
-                                type="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                variant="outlined"
-                                size="small"
-                                sx={{ mb: 2, bgcolor: '#fff' }}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <EmailOutlined fontSize="small" sx={{ color: '#999' }} />
-                                        </InputAdornment>
-                                    )
-                                }}
-                            />
-
-                            <Typography variant="subtitle2" sx={{ mb: 0.5, fontWeight: 500 }}>Password</Typography>
-                            <TextField
-                                fullWidth
-                                placeholder="Enter Password"
-                                name="password"
-                                type={showPassword ? 'text' : 'password'}
-                                value={formData.password}
-                                onChange={handleChange}
-                                variant="outlined"
-                                size="small"
-                                sx={{ mb: 2, bgcolor: '#fff' }}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <LockOutlined fontSize="small" sx={{ color: '#999' }} />
-                                        </InputAdornment>
-                                    ),
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                onClick={() => setShowPassword(!showPassword)}
-                                                edge="end"
-                                                size="small"
-                                            >
-                                                {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    )
-                                }}
-                            />
-
-                            {isRegister ? (
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            name="agreed"
-                                            checked={formData.agreed}
-                                            onChange={handleChange}
-                                            color="primary"
-                                            size="small"
-                                        />
-                                    }
-                                    label={<Typography variant="caption" color="textSecondary">I agreed to the Terms & Conditions</Typography>}
-                                    sx={{ mb: 3 }}
-                                />
-                            ) : (
-                                <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                name="keepSigned"
-                                                checked={formData.keepSigned}
-                                                onChange={handleChange}
-                                                color="primary"
-                                                size="small"
-                                            />
-                                        }
-                                        label={<Typography variant="caption" color="textSecondary">Keep me signed in</Typography>}
-                                    />
-                                    <Link component="button" onClick={(e) => { e.preventDefault(); }} variant="caption" underline="hover" color="textSecondary">
-                                        Forget password?
-                                    </Link>
-                                </Box>
-                            )}
-
-
-                        </form>
-                        <Button
-                            variant="contained"
-                            fullWidth
-                            size="large"
-                            disabled={loading}
-                            sx={{ textTransform: 'none', py: 1.2, borderRadius: 1 }}
-                            onClick={handleSubmit}
-                        >
-                            {isRegister ? 'Sign up' : 'Sign In'}
-                        </Button>
-
-                        <Box textAlign="center" mt={2}>
-                            <Typography variant="caption" color="textSecondary" sx={{ display: 'flex', gap: 0.5, justifyContent: "center" }}>
-                                {isRegister ? "Already have account? " : "Don't have an account? "}
-                                <Link
-                                    underline='none'
-                                    onClick={() => setIsRegister(!isRegister)}
-                                >
-                                    {isRegister ? 'Sign in' : 'Sign up'}
-                                </Link>
-                            </Typography>
-                        </Box>
-                    </Box>
-                </Box>
+          <Box>
+            <Box>
+              <img
+                src={mainLogo}
+                alt="Smiksha Designs"
+                style={{ height: "25px" }}
+              />
             </Box>
-        </Dialog>
-    );
+
+            <Typography
+              variant="h6"
+              sx={{
+                mb: 1,
+                fontSize: "36px",
+                color: "#26394D",
+                lineHeight: "40px",
+                fontWeight: "700",
+              }}
+            >
+              Welcome to
+              <br />
+              Lcurve Online
+              <br />
+              Learning Platform
+            </Typography>
+          </Box>
+          <Box
+            component="img"
+            src={leftLogin}
+            alt="Illustration"
+            sx={{ maxWidth: "70%", height: "auto" }}
+          />
+        </Box>
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{
+            display: { xs: "none", md: "flex" },
+          }}
+        />
+        {/* Right Side - Form */}
+        <Box sx={{ flex: 1, p: 0, position: "relative" }}>
+          <Box
+            sx={{
+              p: 5,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              height: "100%",
+            }}
+          >
+            <Button
+              variant="outlined"
+              fullWidth
+              size="small"
+              sx={{
+                mb: 3,
+                textTransform: "none",
+                color: "#555",
+                borderColor: "#ddd",
+                py: 1,
+                bgcolor: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
+            >
+              <Box
+                sx={{
+                  backgroundColor: "#E32729",
+                  borderRadius: 1,
+                  p: 2,
+                  height: 20,
+                  width: 20,
+                  color: "#fff",
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  mr: 1,
+                }}
+              >
+                G+
+              </Box>
+              {isRegister ? "Signup with google" : "Login with google"}
+            </Button>
+
+            <Divider sx={{ mb: 3, color: "#999", fontSize: "0.8rem" }}>
+              {isRegister
+                ? "Or signup with your email"
+                : "Or login with your email"}
+            </Divider>
+
+            <form onSubmit={handleSubmit}>
+              {isRegister && (
+                <>
+                  <Typography
+                    variant="subtitle2"
+                    sx={{ mb: 0.5, fontWeight: 500 }}
+                  >
+                    Full Name
+                  </Typography>
+                  <TextField
+                    fullWidth
+                    placeholder="Ex: John Doe"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    variant="outlined"
+                    size="small"
+                    sx={{ mb: 2, bgcolor: "#fff" }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <PersonOutline
+                            fontSize="small"
+                            sx={{ color: "#999" }}
+                          />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </>
+              )}
+
+              <Typography variant="subtitle2" sx={{ mb: 0.5, fontWeight: 500 }}>
+                Email
+              </Typography>
+              <TextField
+                fullWidth
+                placeholder="Ex: example@email.com"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                variant="outlined"
+                size="small"
+                sx={{ mb: 2, bgcolor: "#fff" }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailOutlined fontSize="small" sx={{ color: "#999" }} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+
+              <Typography variant="subtitle2" sx={{ mb: 0.5, fontWeight: 500 }}>
+                Password
+              </Typography>
+              <TextField
+                fullWidth
+                placeholder="Enter Password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={formData.password}
+                onChange={handleChange}
+                variant="outlined"
+                size="small"
+                sx={{ mb: 2, bgcolor: "#fff" }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LockOutlined fontSize="small" sx={{ color: "#999" }} />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                        size="small"
+                      >
+                        {showPassword ? (
+                          <VisibilityOff fontSize="small" />
+                        ) : (
+                          <Visibility fontSize="small" />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+
+              {isRegister ? (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="agreed"
+                      checked={formData.agreed}
+                      onChange={handleChange}
+                      color="primary"
+                      size="small"
+                    />
+                  }
+                  label={
+                    <Typography variant="caption" color="textSecondary">
+                      I agreed to the Terms & Conditions
+                    </Typography>
+                  }
+                  sx={{ mb: 3 }}
+                />
+              ) : (
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  mb={3}
+                >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="keepSigned"
+                        checked={formData.keepSigned}
+                        onChange={handleChange}
+                        color="primary"
+                        size="small"
+                      />
+                    }
+                    label={
+                      <Typography variant="caption" color="textSecondary">
+                        Keep me signed in
+                      </Typography>
+                    }
+                  />
+                  <Link
+                    component="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                    variant="caption"
+                    underline="hover"
+                    color="textSecondary"
+                  >
+                    Forget password?
+                  </Link>
+                </Box>
+              )}
+            </form>
+            <Button
+              variant="contained"
+              fullWidth
+              size="large"
+              disabled={loading}
+              sx={{ textTransform: "none", py: 1.2, borderRadius: 1 }}
+              onClick={handleSubmit}
+            >
+              {isRegister ? "Sign up" : "Sign In"}
+            </Button>
+
+            <Box textAlign="center" mt={2}>
+              <Typography
+                variant="caption"
+                color="textSecondary"
+                sx={{ display: "flex", gap: 0.5, justifyContent: "center" }}
+              >
+                {isRegister
+                  ? "Already have account? "
+                  : "Don't have an account? "}
+                <Link
+                  underline="none"
+                  onClick={() => setIsRegister(!isRegister)}
+                >
+                  {isRegister ? "Sign in" : "Sign up"}
+                </Link>
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+      <AppSnackbar
+        open={snackbar.open}
+        onClose={handleSnackbarClose}
+        message={snackbar.message}
+        severity={snackbar.severity}
+      />
+    </Dialog>
+  );
 };
 
 export default LoginModal;
