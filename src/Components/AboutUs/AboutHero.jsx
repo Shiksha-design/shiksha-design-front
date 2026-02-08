@@ -2,10 +2,11 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import { colors } from "../../Config/theme";
 import placeholder from "../../assets/placeholderImage.png";
 import SectionTitle from "../Common/SectionTitle";
+import { aboutHeroStyles } from "./styles";
 
 const AboutHero = () => {
   return (
-    <Box sx={{ pt: 10, pb: 6, bgcolor: colors.mainBg }}>
+    <Box sx={aboutHeroStyles.container}>
       <Container maxWidth="lg">
         <Grid
           container
@@ -14,26 +15,14 @@ const AboutHero = () => {
           justifyContent="space-between"
         >
           <Grid item xs={12} sm={6}>
-            <SectionTitle
-              sx={{
-                mb: 3,
-                textAlign: { xs: "center", sm: "left" },
-              }}
-            >
+            <SectionTitle sx={aboutHeroStyles.title}>
               We Transform Lives by{" "}
-              <Box component="span" sx={{ color: colors.secondary }}>
+              <Box component="span" sx={aboutHeroStyles.highlightText}>
                 Empowering
               </Box>{" "}
               People Via Digital Skills.
             </SectionTitle>
-            <Typography
-              sx={{
-                fontSize: { xs: "14px", md: "16px" },
-                color: "#26394D",
-                letterSpacing: "0",
-                textAlign: { xs: "center", sm: "left" },
-              }}
-            >
+            <Typography sx={aboutHeroStyles.description}>
               We firmly believe in and embrace an open culture. Our teams
               comprise individuals from diverse backgrounds bringing about their
               own experiences Our experiences and processes are constantly
@@ -42,22 +31,7 @@ const AboutHero = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6} display="flex" justifyContent="center">
-            <Box
-              sx={{
-                width: { xs: 300, md: 420 },
-                height: { xs: 300, md: 420 },
-                background: `url(${placeholder})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                borderRadius: 4,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                position: "relative",
-                overflow: "hidden",
-                objectFit: "contain",
-              }}
-            >
+            <Box sx={aboutHeroStyles.imageBox(placeholder)}>
               <img src={placeholder} alt="placeholder" />
             </Box>
           </Grid>

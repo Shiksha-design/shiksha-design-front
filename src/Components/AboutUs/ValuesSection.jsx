@@ -4,31 +4,21 @@ import LandscapeIcon from "@mui/icons-material/Landscape";
 import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 import FlagIcon from "@mui/icons-material/Flag";
 import { colors } from "../../Config/theme";
+import { valuesSectionStyles } from "./styles";
 
 const ValueCard = ({ icon, title, description }) => (
-  <Paper
-    elevation={0}
-    sx={{
-      p: 4,
-      height: "100%",
-      borderRadius: 4,
-      textAlign: "left",
-      border: `1px solid ${colors.borderColor || "#E0E0E0"}`,
-      transition: "all 0.3s ease",
-      "&:hover": {
-        boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
-        transform: "translateY(-5px)",
-        borderColor: colors.primary,
-      },
-    }}
-  >
-    <Box sx={{ color: "#26394D", mb: 2 }}>
-      {React.cloneElement(icon, { sx: { fontSize: 48, strokeWidth: 1 } })}
+  <Paper elevation={0} sx={valuesSectionStyles.card}>
+    <Box sx={valuesSectionStyles.iconBox}>
+      {React.cloneElement(icon, { sx: valuesSectionStyles.icon })}
     </Box>
-    <Typography variant="h5" fontWeight="700" sx={{ mb: 2, color: "#26394D" }}>
+    <Typography
+      variant="h5"
+      fontWeight="700"
+      sx={valuesSectionStyles.cardTitle}
+    >
       {title}
     </Typography>
-    <Typography variant="body1" sx={{ color: "#555", lineHeight: 1.6 }}>
+    <Typography variant="body1" sx={valuesSectionStyles.cardDescription}>
       {description}
     </Typography>
   </Paper>
@@ -57,15 +47,12 @@ const ValuesSection = () => {
   ];
 
   return (
-    <Box sx={{ py: { xs: 6, md: 10 }, bgcolor: colors.mainBg }}>
+    <Box sx={valuesSectionStyles.container}>
       <Container maxWidth="lg">
         <Typography
           variant="title"
           align="center"
-          sx={{
-            mb: 6,
-            color: colors.primary,
-          }}
+          sx={valuesSectionStyles.title}
         >
           Our Values
         </Typography>

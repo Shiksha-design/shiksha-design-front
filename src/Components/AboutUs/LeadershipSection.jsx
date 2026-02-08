@@ -3,6 +3,7 @@ import { Box, Container, Typography, IconButton, Paper } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { colors } from "../../Config/theme";
+import { leadershipSectionStyles } from "./styles";
 
 /* ---------------- DATA ---------------- */
 
@@ -49,57 +50,19 @@ const SCROLL_STEP = CARD_WIDTH + GAP;
 
 const LeaderSwiperCard = ({ leader, active }) => {
   return (
-    <Box
-      sx={{
-        width: 280,
-        pt: 10, // Push card down so image can stick out
-        transition: "all 0.4s ease",
-        transform: active ? "scale(1.15)" : "scale(0.95)",
-        opacity: active ? 1 : 0.8,
-        position: "relative",
-      }}
-    >
+    <Box sx={leadershipSectionStyles.card(active)}>
       <Box
         component="img"
         src={leader.image}
         alt={leader.name}
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: "50%",
-          transform: "translateX(-50%)",
-          height: 240,
-          width: "auto",
-          maxWidth: "100%",
-          // zIndex: 2,
-          objectFit: "contain",
-          filter: "drop-shadow(0 10px 10px rgba(0,0,0,0.1))",
-        }}
+        sx={leadershipSectionStyles.cardImage}
       />
 
       {/* CARD CONTENT */}
-      <Paper
-        elevation={0}
-        sx={{
-          bgcolor: "#0071E5", // Primary Blue
-          color: "#fff",
-          borderRadius: 4,
-          p: 3,
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end", // Align text to bottom/center
-          boxShadow: active
-            ? "0 20px 40px rgba(0, 113, 229, 0.3)"
-            : "0 10px 20px rgba(0,0,0,0.1)",
-          position: "relative",
-          zIndex: 1,
-          mt: 4, // Shift card down
-        }}
-      >
+      <Paper elevation={0} sx={leadershipSectionStyles.cardContent(active)}>
         <Typography
           fontWeight={700}
-          sx={{ fontSize: "18px", color: "white" }}
+          sx={leadershipSectionStyles.cardName}
           mb={1.5}
         >
           {leader.name}
@@ -108,12 +71,7 @@ const LeaderSwiperCard = ({ leader, active }) => {
         <Typography
           fontSize={14}
           lineHeight={1.6}
-          sx={{
-            opacity: 0.9,
-            fontSize: "14px",
-            color: "white",
-            letterSpacing: "0",
-          }}
+          sx={leadershipSectionStyles.cardDescription}
         >
           {leader.description}
         </Typography>
@@ -150,12 +108,12 @@ const LeadershipSection = () => {
   };
 
   return (
-    <Box sx={{ py: { xs: 6, sm: 10 }, bgcolor: colors.mainBg }}>
+    <Box sx={leadershipSectionStyles.container}>
       <Container maxWidth="lg">
         <Typography
           variant="title"
           align="center"
-          sx={{ mb: 8, color: colors.primary }}
+          sx={leadershipSectionStyles.title}
         >
           Meet The Leadership Team
         </Typography>
@@ -164,62 +122,30 @@ const LeadershipSection = () => {
           {/* Arrows */}
           <IconButton
             onClick={() => scroll("left")}
-            sx={{
-              position: "absolute",
-              left: 0,
-              top: "50%",
-              transform: "translateY(-50%)",
-              zIndex: 10,
-              bgcolor: "#E6EBF2",
-              display: { xs: "none", sm: "flex" },
-            }}
+            sx={leadershipSectionStyles.arrowButton("left")}
           >
             <ArrowBackIcon />
           </IconButton>
 
           <IconButton
             onClick={() => scroll("right")}
-            sx={{
-              position: "absolute",
-              right: 0,
-              top: "50%",
-              transform: "translateY(-50%)",
-              zIndex: 10,
-              bgcolor: "#E6EBF2",
-              display: { xs: "none", sm: "flex" },
-            }}
+            sx={leadershipSectionStyles.arrowButton("right")}
           >
             <ArrowForwardIcon />
           </IconButton>
 
           {/* VIEWPORT (locks to 3 cards) */}
-          <Box
-            sx={{
-              maxWidth: { xs: "100%", sm: "83%" },
-              mx: "auto",
-              overflow: "hidden",
-            }}
-          >
+          <Box sx={leadershipSectionStyles.viewport}>
             {/* TRACK */}
             <Box
               ref={scrollRef}
               onScroll={handleScroll}
-              sx={{
-                display: "flex",
-                gap: `${GAP}px`,
-                py: 6,
-                scrollSnapType: "x mandatory",
-                overflowX: "scroll",
-                "&::-webkit-scrollbar": { display: "none" },
-              }}
+              sx={leadershipSectionStyles.track(GAP)}
             >
               {leaders.map((leader, index) => (
                 <Box
                   key={leader.id}
-                  sx={{
-                    flex: `0 0 ${CARD_WIDTH}px`,
-                    scrollSnapAlign: "center",
-                  }}
+                  sx={leadershipSectionStyles.cardWrapper(CARD_WIDTH)}
                 >
                   <LeaderSwiperCard
                     leader={leader}
@@ -231,14 +157,7 @@ const LeadershipSection = () => {
           </Box>
 
           {/* Dots */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              gap: 1,
-              mt: 4,
-            }}
-          >
+          <Box sx={leadershipSectionStyles.dotsContainer}>
             {leaders.map((_, index) => (
               <Box
                 key={index}
@@ -248,14 +167,7 @@ const LeadershipSection = () => {
                     behavior: "smooth",
                   })
                 }
-                sx={{
-                  width: activeIndex === index ? 32 : 10,
-                  height: 10,
-                  borderRadius: activeIndex === index ? 4 : "50%",
-                  bgcolor: activeIndex === index ? colors.primary : "#E6EBF2",
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                }}
+                sx={leadershipSectionStyles.dot(activeIndex === index)}
               />
             ))}
           </Box>
