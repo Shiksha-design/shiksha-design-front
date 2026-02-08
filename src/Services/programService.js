@@ -20,6 +20,10 @@ const programService = {
     const response = await api.delete(`${endpoint}/${id}`);
     return response.data;
   },
+  getByCategoryId: async (id) => {
+    const response = await api.get(`${endpoint}`);
+    return response.data;
+  },
 };
 
 export default programService;

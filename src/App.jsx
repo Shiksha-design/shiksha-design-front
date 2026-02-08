@@ -22,6 +22,7 @@ import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import TopFeatures from "./Pages/Admin/TopFeatures/TopFeatures";
 import Category from "./Pages/Admin/Category/Category";
 import Program from "./Pages/Admin/Program/Program";
+import StaticPage from "./Pages/Admin/StaticPage/StaticPage";
 
 function App() {
   return (
@@ -43,7 +44,7 @@ function App() {
             <Route path="top-features" element={<TopFeatures />} />
             <Route path="category" element={<Category />} />
             <Route path="program" element={<Program />} />
-            <Route path="static-pages" element={<AdminDashboard />} />{" "}
+            <Route path="static-pages" element={<StaticPage />} />{" "}
             {/* Placeholder */}
             <Route path="career" element={<AdminDashboard />} />{" "}
             {/* Placeholder */}

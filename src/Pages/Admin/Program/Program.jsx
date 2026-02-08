@@ -8,6 +8,7 @@ import {
   FormControl,
   InputLabel,
   Select,
+  Button,
 } from "@mui/material";
 import AdminTable from "../../../Components/Admin/Common/AdminTable";
 import AdminFormDialog from "../../../Components/Admin/Common/AdminFormDialog";
@@ -19,6 +20,7 @@ import ConfirmDialog from "../../../Components/Admin/Common/ConfirmDialog";
 
 const Program = () => {
   const [rows, setRows] = useState([]);
+  console.log("rows", rows);
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
   const [editingRow, setEditingRow] = useState(null);
@@ -87,16 +89,16 @@ const Program = () => {
   const handleEdit = (row) => {
     setEditingRow(row);
     setFormData({
-      name: row.name || "",
-      description: row.description || "",
-      duration: row.duration || "",
-      categoryId: row.categoryId || "",
-      isBestSeller: row.isBestSeller || false,
-      isVisible: row.isVisible !== undefined ? row.isVisible : true,
-      startDate: row.startDate
-        ? new Date(row.startDate).toISOString().slice(0, 16)
+      name: row?.name || "",
+      description: row?.description || "",
+      duration: row?.duration || "",
+      categoryId: row?.categoryId || "",
+      isBestSeller: row?.isBestSeller || false,
+      isVisible: row?.isVisible !== undefined ? row?.isVisible : true,
+      startDate: row?.startDate
+        ? new Date(row?.startDate).toISOString().slice(0, 16)
         : "",
-      images: row.images || "",
+      images: row?.images || "",
     });
     setOpen(true);
   };
@@ -151,17 +153,36 @@ const Program = () => {
   };
 
   const handleSubmit = async () => {
+    if (
+      !formData.name ||
+      !formData.description ||
+      !formData.duration ||
+      !formData.startDate ||
+      !formData.categoryId
+    ) {
+      setSnackbar({
+        open: true,
+        message: "Please fill in all required fields",
+        severity: "error",
+      });
+      return;
+    }
+
     setLoading(true);
     try {
       const payload = {
-        ...formData,
-        startDate: formData.startDate
-          ? new Date(formData.startDate).toISOString()
-          : null,
+        name: formData.name,
+        description: formData.description,
+        duration: Number(formData.duration), // Ensure number
+        categoryId: formData.categoryId,
+        startDate: new Date(formData.startDate).toISOString(),
+        images: formData.images,
+        isVisible: formData.isVisible,
+        isBestSeller: formData.isBestSeller,
       };
 
       if (editingRow) {
-        await programService.update(editingRow._id || editingRow.id, payload);
+        await programService.update(editingRow?._id || editingRow?.id, payload);
       } else {
         await programService.create(payload);
       }
@@ -200,7 +221,7 @@ const Program = () => {
     {
       id: "isVisible",
       label: "Visible",
-      render: (row) => (row.isVisible ? "Yes" : "No"),
+      render: (row) => (row?.isVisible ? "Yes" : "No"),
     },
   ];
 
@@ -230,6 +251,8 @@ const Program = () => {
             onChange={handleChange}
             fullWidth
             required
+            error={!formData.name}
+            helperText={!formData.name ? "Name is required" : ""}
           />
           <TextField
             label="Description"
@@ -239,6 +262,9 @@ const Program = () => {
             fullWidth
             multiline
             rows={3}
+            required
+            error={!formData.description}
+            helperText={!formData.description ? "Description is required" : ""}
           />
           <Box sx={{ display: "flex", gap: 2 }}>
             <TextField
@@ -248,8 +274,11 @@ const Program = () => {
               value={formData.duration}
               onChange={handleChange}
               fullWidth
+              required
+              error={!formData.duration}
+              helperText={!formData.duration ? "Duration is required" : ""}
             />
-            <FormControl fullWidth>
+            <FormControl fullWidth required error={!formData.categoryId}>
               <InputLabel id="category-label">Category</InputLabel>
               <Select
                 labelId="category-label"
@@ -258,9 +287,12 @@ const Program = () => {
                 label="Category"
                 onChange={handleChange}
               >
-                {categories.map((cat) => (
-                  <MenuItem key={cat._id || cat.id} value={cat._id || cat.id}>
-                    {cat.name}
+                {categories?.map((cat) => (
+                  <MenuItem
+                    key={cat?._id || cat?.id}
+                    value={cat?._id || cat?.id}
+                  >
+                    {cat?.name || cat?.value}
                   </MenuItem>
                 ))}
               </Select>
@@ -274,19 +306,63 @@ const Program = () => {
             onChange={handleChange}
             fullWidth
             InputLabelProps={{ shrink: true }}
+            required
+            error={!formData.startDate}
+            helperText={!formData.startDate ? "Start Date is required" : ""}
           />
-          <TextField
-            label="Image URL"
-            name="images"
-            value={formData.images}
-            onChange={handleChange}
-            fullWidth
-          />
+          <Box>
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="raised-button-file"
+              type="file"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    setFormData((prev) => ({ ...prev, images: reader.result }));
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+            />
+            <label htmlFor="raised-button-file">
+              <Button variant="contained" component="span" sx={{ mb: 2 }}>
+                Upload Image
+              </Button>
+            </label>
+            {formData.images && (
+              <Box
+                sx={{
+                  mt: 1,
+                  width: "100%",
+                  height: 200,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: "1px dashed grey",
+                  borderRadius: 2,
+                  overflow: "hidden",
+                }}
+              >
+                <img
+                  src={formData.images}
+                  alt="Preview"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+              </Box>
+            )}
+          </Box>
           <Box sx={{ display: "flex", gap: 2 }}>
             <FormControlLabel
               control={
                 <Switch
-                  checked={formData.isVisible}
+                  checked={formData?.isVisible}
                   onChange={handleChange}
                   name="isVisible"
                 />
@@ -296,7 +372,7 @@ const Program = () => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={formData.isBestSeller}
+                  checked={formData?.isBestSeller}
                   onChange={handleChange}
                   name="isBestSeller"
                 />

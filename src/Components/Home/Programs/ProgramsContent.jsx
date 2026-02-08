@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Grid,
@@ -14,95 +14,17 @@ import { colors } from "../../../Config/theme";
 import CategorySidebar from "./CategorySidebar";
 import CourseCard from "./CourseCard";
 import univercityLogo from "../../../assets/univercityLogo.png";
-
-// Mock Data
-const categories = [
-  "UI & UX Design",
-  "Generative AI",
-  "Product and Design",
-  "Service Design",
-  "Full Stack Developer",
-  "Data & Business Analytics",
-  "AI Design Tools",
-  "Graphic Design",
-  "Web Design",
-  "Web Development",
-  "Video Editing",
-  "Motion Graphics",
-  "Interaction Design",
-];
-
-const mockCourses = [
-  {
-    id: 1,
-    image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1632&ixlib=rb-4.0.3",
-    title:
-      "Professional Certificate Course in Generative AI and Machine Learning",
-    universityLogo: univercityLogo,
-    startDate: "10th Dec, 25",
-    duration: "6 Months",
-    bestseller: true,
-  },
-  {
-    id: 2,
-    image:
-      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1365&ixlib=rb-4.0.3",
-    title:
-      "Professional Certificate Course in Generative AI and Machine Learning",
-    universityLogo: univercityLogo,
-    startDate: "10th Dec, 25",
-    duration: "6 Months",
-    bestseller: false,
-  },
-  {
-    id: 3,
-    image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1632&ixlib=rb-4.0.3",
-    title:
-      "Professional Certificate Course in Generative AI and Machine Learning",
-    universityLogo: univercityLogo,
-    startDate: "10th Dec, 25",
-    duration: "6 Months",
-    bestseller: false,
-  },
-  {
-    id: 4,
-    image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1632&ixlib=rb-4.0.3",
-    title:
-      "Professional Certificate Course in Generative AI and Machine Learning",
-    universityLogo: univercityLogo,
-    startDate: "10th Dec, 25",
-    duration: "6 Months",
-    bestseller: false,
-  },
-  {
-    id: 5,
-    image:
-      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1365&ixlib=rb-4.0.3",
-    title:
-      "Professional Certificate Course in Generative AI and Machine Learning",
-    universityLogo: univercityLogo,
-    startDate: "10th Dec, 25",
-    duration: "6 Months",
-    bestseller: false,
-  },
-  {
-    id: 6,
-    image:
-      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1365&ixlib=rb-4.0.3",
-    title:
-      "Professional Certificate Course in Generative AI and Machine Learning",
-    universityLogo: univercityLogo,
-    startDate: "10th Dec, 25",
-    duration: "6 Months",
-    bestseller: false,
-  },
-];
+import categoryService from "../../../Services/categoryService";
+import programService from "../../../Services/programService";
+import ProgramsSkeleton from "./ProgramsSkeleton";
 
 const ProgramsContent = () => {
-  const [activeCategory, setActiveCategory] = useState("Generative AI");
+  const [categories, setCategories] = useState([]);
+  console.log("categories", categories);
+  const [programs, setPrograms] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [programsLoading, setProgramsLoading] = useState(true);
   const [sidebarHeight, setSidebarHeight] = useState("auto");
 
   // Mobile specific state and hooks
@@ -110,18 +32,90 @@ const ProgramsContent = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [expanded, setExpanded] = useState(false);
 
-  const handleAccordionChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setLoading(true);
+      try {
+        const response = await categoryService.getAll();
+        console.log("response", response);
+        if (response?.statusCode === 200 && response.data.length > 0) {
+          setCategories(
+            Array.isArray(response.data)
+              ? response.data
+              : response.data.data || [],
+          );
+
+          // Select first category by default
+          setSelectedCategoryId(response.data[0]._id);
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    if (!selectedCategoryId) return;
+
+    const fetchPrograms = async () => {
+      setProgramsLoading(true);
+      try {
+        const response =
+          await programService.getByCategoryId(selectedCategoryId);
+        if (response?.statusCode === 200) {
+          setPrograms(response.data);
+        } else {
+          setPrograms([]);
+        }
+      } catch (error) {
+        console.error("Error fetching programs:", error);
+        setPrograms([]);
+      } finally {
+        setProgramsLoading(false);
+      }
+    };
+
+    fetchPrograms();
+  }, [selectedCategoryId]);
+
+  const handleCategorySelect = (id) => {
+    setSelectedCategoryId(id);
   };
+
+  const handleAccordionChange = (categoryId) => (event, isExpanded) => {
+    setExpanded(isExpanded ? categoryId : false);
+    if (isExpanded) {
+      setSelectedCategoryId(categoryId);
+    }
+  };
+
+  // Helper to ensure course object has necessary fields
+  const processCourse = (course) => ({
+    ...course,
+    image:
+      course.images ||
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1632&ixlib=rb-4.0.3", // Fallback image
+    title: course.name || course.title || "Untitled Course",
+    universityLogo: course.universityLogo || univercityLogo,
+    startDate: course.startDate
+      ? new Date(course.startDate).toLocaleDateString()
+      : "TBA",
+    duration: course.duration || "Self-paced",
+    bestseller: course.isBestSeller || false,
+  });
 
   if (isMobile) {
     return (
       <Box>
         {categories.map((category, index) => (
           <Accordion
-            key={category}
-            expanded={expanded === category}
-            onChange={handleAccordionChange(category)}
+            key={category._id}
+            expanded={expanded === category._id}
+            onChange={handleAccordionChange(category._id)}
             sx={{
               mb: 1,
               borderRadius: "8px !important",
@@ -132,23 +126,23 @@ const ProgramsContent = () => {
             <AccordionSummary
               expandIcon={
                 <ExpandMoreIcon
-                  sx={{ color: expanded === category ? "#fff" : "inherit" }}
+                  sx={{ color: expanded === category._id ? "#fff" : "inherit" }}
                 />
               }
               aria-controls={`panel${index}-content`}
               id={`panel${index}-header`}
               sx={{
                 fontWeight: 600,
-                bgcolor: expanded === category ? colors.primary : "#fff",
-                color: expanded === category ? "#fff" : "inherit",
+                bgcolor: expanded === category._id ? colors.primary : "#fff",
+                color: expanded === category._id ? "#fff" : "inherit",
                 borderRadius: "8px",
               }}
             >
               <Typography
-                fontWeight={expanded === category ? 600 : 400}
-                color={expanded === category ? "#fff" : "inherit"}
+                fontWeight={expanded === category._id ? 600 : 400}
+                color={expanded === category._id ? "#fff" : "inherit"}
               >
-                {category}
+                {category.value}
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ bgcolor: "#F0F8FF", p: 2 }}>
@@ -165,11 +159,22 @@ const ProgramsContent = () => {
                   scrollbarWidth: "none",
                 }}
               >
-                {mockCourses.map((course) => (
-                  <Box key={course.id} sx={{ minWidth: 200, maxWidth: 200 }}>
-                    <CourseCard course={course} />
-                  </Box>
-                ))}
+                {programsLoading && expanded === category._id ? (
+                  <ProgramsSkeleton />
+                ) : programs.length > 0 ? (
+                  programs.map((course) => (
+                    <Box
+                      key={course._id || course.id}
+                      sx={{ minWidth: 200, maxWidth: 200 }}
+                    >
+                      <CourseCard course={processCourse(course)} />
+                    </Box>
+                  ))
+                ) : (
+                  <Typography variant="body2" sx={{ p: 2 }}>
+                    No programs found.
+                  </Typography>
+                )}
               </Box>
             </AccordionDetails>
           </Accordion>
@@ -183,9 +188,10 @@ const ProgramsContent = () => {
       <Grid item xs={12} sm={4} md={3}>
         <CategorySidebar
           categories={categories}
-          activeCategory={activeCategory}
-          onSelectCategory={setActiveCategory}
+          activeCategory={selectedCategoryId}
+          onSelectCategory={handleCategorySelect}
           onHeightChange={setSidebarHeight}
+          loading={loading}
         />
       </Grid>
       <Grid item xs={12} sm={8} md={9}>
@@ -203,13 +209,33 @@ const ProgramsContent = () => {
             msOverflowStyle: "none",
           }}
         >
-          <Grid container spacing={3} sx={{ pb: 1 }}>
-            {mockCourses.map((course) => (
-              <Grid item xs={12} sm={6} lg={4} key={course.id}>
-                <CourseCard course={course} />
-              </Grid>
-            ))}
-          </Grid>
+          {loading || programsLoading ? (
+            <ProgramsSkeleton />
+          ) : (
+            <Grid container spacing={3} sx={{ pb: 1 }}>
+              {programs.length > 0 ? (
+                programs.map((course) => (
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    lg={4}
+                    key={course._id || course.id}
+                  >
+                    <CourseCard course={processCourse(course)} />
+                  </Grid>
+                ))
+              ) : (
+                <Grid item xs={12}>
+                  <Box sx={{ p: 3, textAlign: "center" }}>
+                    <Typography variant="h6" color="textSecondary">
+                      No programs found for this category.
+                    </Typography>
+                  </Box>
+                </Grid>
+              )}
+            </Grid>
+          )}
         </Box>
       </Grid>
     </Grid>

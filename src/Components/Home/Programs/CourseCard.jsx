@@ -2,8 +2,15 @@ import React from "react";
 import { Box, Paper, CardMedia, Button, Chip, Typography } from "@mui/material";
 import { ChevronRight } from "@mui/icons-material";
 import { colors } from "../../../Config/theme";
+import placeholderImage from "../../../assets/placeholderImage.png";
 
 const CourseCard = ({ course }) => {
+  const image = Array.isArray(course?.image)
+    ? course.image.length > 0
+      ? course.image[0]
+      : placeholderImage
+    : placeholderImage;
+
   return (
     <Paper
       elevation={2}
@@ -22,12 +29,12 @@ const CourseCard = ({ course }) => {
           <CardMedia
             component="img"
             height="108"
-            image={course.image}
-            alt={course.title}
+            image={image}
+            alt={course?.title || ""}
             sx={{ objectFit: "cover", borderRadius: 2 }}
           />
           {/* Bestseller Badge */}
-          {course.bestseller && (
+          {course?.bestseller && (
             <Chip
               label="Bestseller"
               sx={{
@@ -45,7 +52,18 @@ const CourseCard = ({ course }) => {
             />
           )}
         </Box>
-        <Typography variant="cardSubtitle">{course.title}</Typography>
+        <Typography
+          variant="cardSubtitle"
+          title={course?.title}
+          sx={{
+            lineClamp: 2,
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+          }}
+        >
+          {course?.title}
+        </Typography>
 
         {/* University Logo */}
         <div>
@@ -62,7 +80,7 @@ const CourseCard = ({ course }) => {
             }}
           >
             <img
-              src={course.universityLogo}
+              src={course?.universityLogo}
               alt="University Logo"
               style={{
                 maxHeight: "100%",
@@ -78,7 +96,8 @@ const CourseCard = ({ course }) => {
             Starts: {course.startDate}
           </Typography>
           <Typography variant="cardSubtitle">
-            Duration: {course.duration}
+            Duration:{" "}
+            {`${course.duration} ${course.duration > 1 ? "Months" : "Month"}`}
           </Typography>
         </Box>
 
@@ -94,6 +113,7 @@ const CourseCard = ({ course }) => {
             borderRadius: "8px",
             py: 1,
             px: 2,
+            mt: "auto",
           }}
         >
           Learn More

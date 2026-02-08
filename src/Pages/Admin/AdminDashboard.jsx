@@ -24,17 +24,26 @@ const StatCard = ({ title, value, icon, color }) => (
         }}
       >
         <Box>
-          <Typography variant="h6" component="div">
+          <Typography variant="h6" component="div" sx={{ color: "#fff" }}>
             {title}
           </Typography>
-          <Typography variant="h4" fontWeight="bold">
+          <Typography variant="h4" fontWeight="bold" sx={{ color: "#fff" }}>
             {value}
           </Typography>
         </Box>
-        <Box
-          sx={{ p: 1, bgcolor: "rgba(255,255,255,0.2)", borderRadius: "50%" }}
-        >
-          {icon}
+        <Box>
+          <Box
+            sx={{
+              p: 1,
+              bgcolor: "rgba(255,255,255,0.2)",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {icon}
+          </Box>
         </Box>
       </Box>
     </CardContent>
