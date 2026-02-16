@@ -4,7 +4,7 @@ const endpoint = "/staticPages";
 
 const staticPageService = {
   getAll: async () => {
-    const response = await api.get(`${endpoint}/`);
+    const response = await api.get(`${endpoint}`);
     return response.data;
   },
   create: async (formData) => {
@@ -22,6 +22,10 @@ const staticPageService = {
         "Content-Type": "multipart/form-data",
       },
     });
+    return response.data;
+  },
+  getByPageType: async (pageType) => {
+    const response = await api.get(`${endpoint}/${pageType}`);
     return response.data;
   },
   // Delete removed as per user request

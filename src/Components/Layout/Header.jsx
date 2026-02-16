@@ -30,10 +30,10 @@ import {
   Menu as MenuIcon,
   Close,
 } from "@mui/icons-material";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import actions from "../../Redux/Reducer/auth/action";
+import { logout } from "../../utils/api";
 import LoginModal from "../Auth/LoginModal";
 import mainLogo from "../../assets/mainLogo.svg";
 import { colors } from "../../Config/theme";
@@ -48,7 +48,7 @@ const Header = () => {
   const [showAllCourses, setShowAllCourses] = useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const user = useSelector((state) => state.auth?.userdata);
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -59,8 +59,7 @@ const Header = () => {
   };
 
   const handleLogoutConfirm = () => {
-    dispatch(actions.clearAllData());
-    navigate("/");
+    logout(navigate);
     setMobileOpen(false);
     setLogoutDialogOpen(false);
   };
@@ -190,7 +189,7 @@ const Header = () => {
               {/* Desktop: Logo (Hidden on Mobile) */}
               <Box
                 component={Link}
-                to="/"
+                to="/home"
                 sx={{
                   display: { xs: "none", md: "flex" }, // Hide on mobile
                   alignItems: "center",

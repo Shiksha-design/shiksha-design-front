@@ -24,8 +24,8 @@ import ContactMailIcon from "@mui/icons-material/ContactMail";
 import BusinessIcon from "@mui/icons-material/Business";
 import GroupIcon from "@mui/icons-material/Group";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useDispatch } from "react-redux";
-import actions from "../../Redux/Reducer/auth/action";
+
+import { logout } from "../../utils/api";
 import ConfirmDialog from "../Admin/Common/ConfirmDialog";
 
 const drawerWidth = 240;
@@ -52,7 +52,6 @@ const AdminLayout = () => {
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -63,8 +62,7 @@ const AdminLayout = () => {
   };
 
   const handleLogoutConfirm = () => {
-    dispatch(actions.clearAllData());
-    navigate("/");
+    logout(navigate);
     setLogoutDialogOpen(false);
   };
 

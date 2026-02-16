@@ -33,6 +33,7 @@ const Program = () => {
     isVisible: true,
     startDate: "",
     images: "",
+    imageFile: null,
   });
   const [loading, setLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
@@ -44,6 +45,21 @@ const Program = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    let tempErrors = {};
+    if (!formData.name) tempErrors.name = "Name is required";
+    if (!formData.description)
+      tempErrors.description = "Description is required";
+    if (!formData.duration) tempErrors.duration = "Duration is required";
+    if (!formData.categoryId) tempErrors.categoryId = "Category is required";
+    if (!formData.startDate) tempErrors.startDate = "Start Date is required";
+    // if (!formData.images) tempErrors.images = "Image is required"; // Optional check
+
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
 
   const fetchData = async () => {
     setDataLoading(true);
@@ -73,6 +89,7 @@ const Program = () => {
 
   const handleAdd = () => {
     setEditingRow(null);
+    setErrors({});
     setFormData({
       name: "",
       description: "",
@@ -82,23 +99,27 @@ const Program = () => {
       isVisible: true,
       startDate: "",
       images: "",
+      imageFile: null,
     });
     setOpen(true);
   };
 
   const handleEdit = (row) => {
     setEditingRow(row);
+    setErrors({});
     setFormData({
       name: row?.name || "",
       description: row?.description || "",
       duration: row?.duration || "",
-      categoryId: row?.categoryId || "",
+      categoryId:
+        row?.categoryId?._id || row?.categoryId?.id || row?.categoryId || "",
       isBestSeller: row?.isBestSeller || false,
       isVisible: row?.isVisible !== undefined ? row?.isVisible : true,
       startDate: row?.startDate
         ? new Date(row?.startDate).toISOString().slice(0, 16)
         : "",
-      images: row?.images || "",
+      images: typeof row?.images === "string" ? row.images : "",
+      imageFile: null, // Reset file, keep existing URL in images
     });
     setOpen(true);
   };
@@ -150,36 +171,32 @@ const Program = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+    // Clear error for the field
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
   };
 
   const handleSubmit = async () => {
-    if (
-      !formData.name ||
-      !formData.description ||
-      !formData.duration ||
-      !formData.startDate ||
-      !formData.categoryId
-    ) {
-      setSnackbar({
-        open: true,
-        message: "Please fill in all required fields",
-        severity: "error",
-      });
+    if (!validate()) {
       return;
     }
 
     setLoading(true);
     try {
-      const payload = {
-        name: formData.name,
-        description: formData.description,
-        duration: Number(formData.duration), // Ensure number
-        categoryId: formData.categoryId,
-        startDate: new Date(formData.startDate).toISOString(),
-        images: formData.images,
-        isVisible: formData.isVisible,
-        isBestSeller: formData.isBestSeller,
-      };
+      const payload = new FormData();
+
+      payload.append("name", formData.name);
+      payload.append("description", formData.description);
+      payload.append("duration", formData.duration);
+      payload.append("categoryId", formData.categoryId);
+      payload.append("startDate", new Date(formData.startDate).toISOString());
+      payload.append("isVisible", String(formData.isVisible));
+      payload.append("isBestSeller", String(formData.isBestSeller));
+
+      if (formData.imageFile) {
+        payload.append("images", formData.imageFile);
+      }
 
       if (editingRow) {
         await programService.update(editingRow?._id || editingRow?.id, payload);
@@ -251,8 +268,8 @@ const Program = () => {
             onChange={handleChange}
             fullWidth
             required
-            error={!formData.name}
-            helperText={!formData.name ? "Name is required" : ""}
+            error={!!errors.name}
+            helperText={errors.name}
           />
           <TextField
             label="Description"
@@ -263,8 +280,8 @@ const Program = () => {
             multiline
             rows={3}
             required
-            error={!formData.description}
-            helperText={!formData.description ? "Description is required" : ""}
+            error={!!errors.description}
+            helperText={errors.description}
           />
           <Box sx={{ display: "flex", gap: 2 }}>
             <TextField
@@ -275,10 +292,10 @@ const Program = () => {
               onChange={handleChange}
               fullWidth
               required
-              error={!formData.duration}
-              helperText={!formData.duration ? "Duration is required" : ""}
+              error={!!errors.duration}
+              helperText={errors.duration}
             />
-            <FormControl fullWidth required error={!formData.categoryId}>
+            <FormControl fullWidth required error={!!errors.categoryId}>
               <InputLabel id="category-label">Category</InputLabel>
               <Select
                 labelId="category-label"
@@ -296,6 +313,19 @@ const Program = () => {
                   </MenuItem>
                 ))}
               </Select>
+              {errors.categoryId && (
+                <Box
+                  component="span"
+                  sx={{
+                    color: "#d32f2f",
+                    fontSize: "0.75rem",
+                    ml: 1.5,
+                    mt: 0.5,
+                  }}
+                >
+                  {errors.categoryId}
+                </Box>
+              )}
             </FormControl>
           </Box>
           <TextField
@@ -307,8 +337,8 @@ const Program = () => {
             fullWidth
             InputLabelProps={{ shrink: true }}
             required
-            error={!formData.startDate}
-            helperText={!formData.startDate ? "Start Date is required" : ""}
+            error={!!errors.startDate}
+            helperText={errors.startDate}
           />
           <Box>
             <input
@@ -321,7 +351,11 @@ const Program = () => {
                 if (file) {
                   const reader = new FileReader();
                   reader.onloadend = () => {
-                    setFormData((prev) => ({ ...prev, images: reader.result }));
+                    setFormData((prev) => ({
+                      ...prev,
+                      images: reader.result, // Keep base64 for preview
+                      imageFile: file, // Store file for upload
+                    }));
                   };
                   reader.readAsDataURL(file);
                 }

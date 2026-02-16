@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { TextField, FormControlLabel, Switch, Box } from "@mui/material";
+import {
+  TextField,
+  FormControlLabel,
+  Switch,
+  Box,
+  Button,
+} from "@mui/material";
 import AdminTable from "../../../Components/Admin/Common/AdminTable";
 import AdminFormDialog from "../../../Components/Admin/Common/AdminFormDialog";
 import topFeaturesService from "../../../Services/topFeaturesService";
 import AppSnackbar from "../../../Components/Admin/Common/AppSnackbar";
 
 import ConfirmDialog from "../../../Components/Admin/Common/ConfirmDialog";
+import { formatDate } from "../../../utils/dateUtils";
 
 const TopFeatures = () => {
   const [rows, setRows] = useState([]);
@@ -15,7 +22,18 @@ const TopFeatures = () => {
     iconName: "",
     value: "",
     isVisible: true,
+    featureImage: "",
   });
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    let tempErrors = {};
+    if (!formData.iconName) tempErrors.iconName = "Icon Name is required";
+    if (!formData.value) tempErrors.value = "Value is required";
+
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
   const [loading, setLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({
@@ -46,16 +64,19 @@ const TopFeatures = () => {
 
   const handleAdd = () => {
     setEditingRow(null);
-    setFormData({ iconName: "", value: "", isVisible: true });
+    setErrors({});
+    setFormData({ iconName: "", value: "", isVisible: true, featureImage: "" });
     setOpen(true);
   };
 
   const handleEdit = (row) => {
     setEditingRow(row);
+    setErrors({});
     setFormData({
       iconName: row.iconName || "",
       value: row.value || "",
       isVisible: row.isVisible !== undefined ? row.isVisible : true,
+      featureImage: row.featureImage || "",
     });
     setOpen(true);
   };
@@ -107,9 +128,13 @@ const TopFeatures = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
   };
 
   const handleSubmit = async () => {
+    if (!validate()) return;
     setLoading(true);
     try {
       if (editingRow) {
@@ -145,7 +170,33 @@ const TopFeatures = () => {
       label: "Icon Name",
       render: (row) => row.iconName || "-",
     },
+
+    // {
+    //   id: "featureImage",
+    //   label: "Feature Image",
+    //   render: (row) =>
+    //     row.featureImage ? (
+    //       <Box
+    //         component="img"
+    //         src={row.featureImage}
+    //         alt="Feature"
+    //         sx={{ width: 50, height: 50, objectFit: "cover", borderRadius: 1 }}
+    //       />
+    //     ) : (
+    //       "-"
+    //     ),
+    // },
     { id: "value", label: "Value", render: (row) => row.value },
+    {
+      id: "createdAt",
+      label: "Created At",
+      render: (row) => formatDate(row.createdAt),
+    },
+    {
+      id: "updatedAt",
+      label: "Updated At",
+      render: (row) => formatDate(row.updatedAt),
+    },
     {
       id: "isVisible",
       label: "Visible",
@@ -178,6 +229,9 @@ const TopFeatures = () => {
             value={formData.iconName}
             onChange={handleChange}
             fullWidth
+            required
+            error={!!errors.iconName}
+            helperText={errors.iconName}
           />
           <TextField
             label="Value"
@@ -185,7 +239,61 @@ const TopFeatures = () => {
             value={formData.value}
             onChange={handleChange}
             fullWidth
+            required
+            error={!!errors.value}
+            helperText={errors.value}
           />
+          {/* <Box>
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="feature-image-upload"
+              type="file"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    setFormData((prev) => ({
+                      ...prev,
+                      featureImage: reader.result,
+                    }));
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+            />
+            <label htmlFor="feature-image-upload">
+              <Button variant="contained" component="span" sx={{ mb: 2 }}>
+                Upload Feature Image
+              </Button>
+            </label>
+            {formData.featureImage && (
+              <Box
+                sx={{
+                  mt: 1,
+                  width: "100%",
+                  height: 200,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: "1px dashed grey",
+                  borderRadius: 2,
+                  overflow: "hidden",
+                }}
+              >
+                <img
+                  src={formData.featureImage}
+                  alt="Preview"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+              </Box>
+            )}
+          </Box> */}
           <FormControlLabel
             control={
               <Switch

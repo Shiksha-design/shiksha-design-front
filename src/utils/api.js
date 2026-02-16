@@ -1,4 +1,5 @@
 import axios from "axios";
+import actions from "../Redux/Reducer/auth/action";
 
 let store;
 
@@ -6,21 +7,20 @@ export const injectStore = (_store) => {
   store = _store;
 };
 
-// Create an Axios instance
+// Create Axios instance
 const api = axios.create({
-  baseURL: "https://shiksha-design-back.onrender.com/api", // Your API base URL
-  headers: {
-    "Content-Type": "application/json",
-  },
+  baseURL: "https://shiksha-design-back.onrender.com/api",
+  // ❌ DO NOT set default Content-Type here
 });
 
-// Request interceptor to add the auth token
+// Request interceptor
 api.interceptors.request.use(
   (config) => {
     let token = localStorage.getItem("token");
+
     if (store) {
       const state = store.getState();
-      if (state.auth && state.auth.token) {
+      if (state?.auth?.token) {
         token = state.auth.token;
       }
     }
@@ -28,25 +28,36 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    // 🔥 IMPORTANT FIX:
+    // If sending FormData, let browser automatically set Content-Type
+    if (config.data instanceof FormData) {
+      delete config.headers["Content-Type"];
+    }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (error) => Promise.reject(error),
 );
 
-// Response interceptor (optional: handle 401 errors globally)
+// Response interceptor
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
-      // Handle unauthorized access (e.g., logout user, redirect to login)
-      // You might want to dispatch a logout action here
-      // store.dispatch(logout());
+    if (error.response?.status === 401) {
       console.warn("Unauthorized access - 401");
+      logout();
     }
     return Promise.reject(error);
   },
 );
+
+export const logout = (navigate) => {
+  if (store) {
+    store.dispatch(actions.clearAllData());
+  }
+  localStorage.clear();
+  navigate("/");
+};
 
 export default api;

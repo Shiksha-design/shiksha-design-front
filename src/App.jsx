@@ -1,12 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import Home from "./Pages/Home/Home";
-import GuestRoute from "./Components/Guards/GuestRoute";
 import Header from "./Components/Layout/Header";
 import Footer from "./Components/Layout/Footer";
 import AllCourses from "./Pages/AllCourses/AllCourses";
 import CourseDetails from "./Pages/CourseDetails/CourseDetails";
-import AppBreadcrumbs from "./Components/Common/AppBreadcrumbs";
 import { Box } from "@mui/material";
 import RefundPolicy from "./Pages/RefundPolicy/RefundPolicy";
 import Blog from "./Pages/Blog/Blog";
@@ -22,9 +20,16 @@ import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import TopFeatures from "./Pages/Admin/TopFeatures/TopFeatures";
 import Category from "./Pages/Admin/Category/Category";
 import Program from "./Pages/Admin/Program/Program";
+import Faq from "./Pages/Admin/Faq/Faq";
+import CareerAdmin from "./Pages/Admin/Career/Career";
 import StaticPage from "./Pages/Admin/StaticPage/StaticPage";
+import ScrollToTop from "./Components/Common/ScrollToTop";
+
+import { useSelector } from "react-redux";
 
 function App() {
+  // Check against the specific admin email as requested
+  const { userdata, token } = useSelector((state) => state.auth || {});
   return (
     <BrowserRouter>
       {/* Wrapper to ensure Footer stays at bottom if content is short */}
@@ -35,7 +40,7 @@ function App() {
           Let's keep it simple: Admin pages will render INSIDE the main Box but AdminLayout will handle its own structure. 
           Actually, usually Admin apps don't share the public Header/Footer.
       */}
-
+      <ScrollToTop />
       <Routes>
         {/* Admin Routes - Standalone Layout */}
         <Route path="/admin" element={<AdminRoute />}>
@@ -46,10 +51,9 @@ function App() {
             <Route path="program" element={<Program />} />
             <Route path="static-pages" element={<StaticPage />} />{" "}
             {/* Placeholder */}
-            <Route path="career" element={<AdminDashboard />} />{" "}
+            <Route path="career" element={<CareerAdmin />} />{" "}
             {/* Placeholder */}
-            <Route path="faq" element={<AdminDashboard />} />{" "}
-            {/* Placeholder */}
+            <Route path="faq" element={<Faq />} /> {/* Placeholder */}
             <Route path="contact-us" element={<AdminDashboard />} />{" "}
             {/* Placeholder */}
             <Route path="company" element={<AdminDashboard />} />{" "}
@@ -78,7 +82,17 @@ function App() {
               <Box component="main" sx={{ flexGrow: 1 }}>
                 <Routes>
                   {/* Routes that don't need authentication (Public) */}
-                  <Route path="/" element={<Home />} />
+                  <Route
+                    path="/"
+                    element={
+                      token && userdata?.email === "admin@mailinator.com" ? (
+                        <Navigate to="/admin/dashboard" replace />
+                      ) : (
+                        <Home />
+                      )
+                    }
+                  />
+                  <Route path="/home" element={<Home />} />
                   <Route path="/all-courses" element={<AllCourses />} />
                   <Route path="/course/:id" element={<CourseDetails />} />
                   <Route path="/refund-policy" element={<RefundPolicy />} />
