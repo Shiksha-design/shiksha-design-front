@@ -25,6 +25,8 @@ import CareerAdmin from "./Pages/Admin/Career/Career";
 import StaticPage from "./Pages/Admin/StaticPage/StaticPage";
 import ScrollToTop from "./Components/Common/ScrollToTop";
 import ContactUsAdmin from "./Pages/Admin/ContactUs/ContactUs";
+import Company from "./Pages/Admin/Company/Company";
+import TeamMember from "./Pages/Admin/TeamMember/TeamMember";
 
 import { useSelector } from "react-redux";
 
@@ -57,9 +59,8 @@ function App() {
             <Route path="faq" element={<Faq />} /> {/* Placeholder */}
             <Route path="contact-us" element={<ContactUsAdmin />} />{" "}
             {/* Placeholder */}
-            <Route path="company" element={<AdminDashboard />} />{" "}
-            {/* Placeholder */}
-            <Route path="team-member" element={<AdminDashboard />} />{" "}
+            <Route path="company" element={<Company />} /> {/* Placeholder */}
+            <Route path="team-member" element={<TeamMember />} />{" "}
             {/* Placeholder */}
             {/* Redirect /admin to /admin/dashboard */}
             <Route index element={<Navigate to="dashboard" replace />} />
