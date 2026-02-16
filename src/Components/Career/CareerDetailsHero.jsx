@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Container, Grid, Typography, Paper, Button } from "@mui/material";
 import { colors } from "../../Config/theme";
 
-const CareerDetailsHero = () => {
+const CareerDetailsHero = ({ title, type, location, date, jobDescription }) => {
   return (
     <Box
       sx={{
@@ -18,21 +18,33 @@ const CareerDetailsHero = () => {
           <Grid item xs={12} sm={7} md={8}>
             {/* Badges */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
-              {["Full-time", "Remote"].map((label, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    border: "1px solid rgba(255, 255, 255, 0.5)",
-                    borderRadius: 1,
-                    px: 2,
-                    py: 0.5,
-                  }}
-                >
-                  <Typography sx={{ fontSize: "14px", color: "white" }}>
-                    {label}
-                  </Typography>
-                </Box>
-              ))}
+              {[
+                type,
+                location,
+                date
+                  ? new Date(date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : null,
+              ]
+                .filter(Boolean)
+                .map((label, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      border: "1px solid rgba(255, 255, 255, 0.5)",
+                      borderRadius: 1,
+                      px: 2,
+                      py: 0.5,
+                    }}
+                  >
+                    <Typography sx={{ fontSize: "14px", color: "white" }}>
+                      {label}
+                    </Typography>
+                  </Box>
+                ))}
             </Box>
 
             {/* Title */}
@@ -45,7 +57,7 @@ const CareerDetailsHero = () => {
                 fontSize: { xs: "32px", md: "48px" },
               }}
             >
-              Digital Product Marketer
+              {title}
             </Typography>
 
             {/* Description */}
@@ -57,18 +69,18 @@ const CareerDetailsHero = () => {
                 maxWidth: "600px",
               }}
             >
-              Loream ipsum We firmly believe in and embrace an open culture. Our
-              teams comprise individuals from diverse backgrounds bringing about
-              their own experiences Our experiences and processes are constantly
-              evolving. We believe in innovative practices that continually push
-              the boundaries of what’s possible for the industry.
+              {jobDescription}
             </Typography>
           </Grid>
           <Grid
             item
             sm={5}
             md={4}
-            sx={{ position: "relative", display: { xs: "none", sm: "block" } }}
+            sx={{
+              position: "relative",
+              display: { xs: "none", sm: "block" },
+              height: "300px",
+            }}
           >
             <Paper
               elevation={4}

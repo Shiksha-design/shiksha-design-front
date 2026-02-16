@@ -11,6 +11,11 @@ const careerService = {
     return response.data;
   },
 
+  getById: async (id) => {
+    const response = await api.get(`/career/getJobPosting/${id}`);
+    return response.data;
+  },
+
   update: async (id, data) => {
     console.log("careerService.update called with id:", id);
     const response = await api.put(`/career/updateJobPosting/${id}`, data);
