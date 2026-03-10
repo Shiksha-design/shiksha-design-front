@@ -12,7 +12,7 @@ const ProgramsSection = () => {
         <SectionTitle sx={{ textAlign: "center", pb: { xs: 1, md: 2 } }}>
           Explore Our <HighlightText>Programs</HighlightText>
         </SectionTitle>
-        <ProgramsContent />
+        <ProgramsContent minHeight="450px" />
       </Container>
     </Box>
   );

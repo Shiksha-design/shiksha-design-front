@@ -21,7 +21,11 @@ const programService = {
     return response.data;
   },
   getByCategoryId: async (id) => {
-    const response = await api.get(`${endpoint}`);
+    const response = await api.get(`${endpoint}?categoryId=${id}`);
+    return response.data;
+  },
+  getById: async (id) => {
+    const response = await api.get(`${endpoint}/${id}`);
     return response.data;
   },
 };

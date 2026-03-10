@@ -19,7 +19,16 @@ import {
 import { colors } from "../../Config/theme";
 import SectionTitle from "../Common/SectionTitle";
 
-const HeroSection = () => {
+const HeroSection = ({ course }) => {
+  const categoryName = course?.categoryId?.name || "Programs";
+  const startDateFormatted = course?.startDate
+    ? new Date(course.startDate).toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : "TBA";
+
   return (
     <Box
       sx={{
@@ -44,7 +53,7 @@ const HeroSection = () => {
                     }}
                   />
                 }
-                label="Development"
+                label={categoryName}
                 sx={{
                   bgcolor: "white",
                   color: "#334155",
@@ -55,13 +64,13 @@ const HeroSection = () => {
               <Typography
                 sx={{ ml: 2, opacity: 0.9, fontSize: "14px", color: "inherit" }}
               >
-                by Determined-Poitras
+                by Shiksha Edutech
               </Typography>
             </Box>
 
             {/* Title */}
             <Typography variant="pageTitle" sx={{ mb: 3, color: "inherit" }}>
-              The Ultimate Guide to the best WordPress LMS Plugin
+              {course?.name}
             </Typography>
 
             {/* Stats */}
@@ -76,10 +85,13 @@ const HeroSection = () => {
                   sx={{ opacity: 0.9, flexWrap: "wrap", gap: 1 }}
                 >
                   {[
-                    { icon: AccessTimeFilled, label: "2 Weeks" },
-                    { icon: Person, label: "156 Students" },
+                    {
+                      icon: AccessTimeFilled,
+                      label: `${course?.duration} Months`,
+                    },
+                    { icon: Person, label: "Batch Enrollment Open" },
                     { icon: BarChart, label: "All levels" },
-                    { icon: MenuBook, label: "20 Lessons" },
+                    { icon: MenuBook, label: "In-depth Curriculum" },
                   ].map((stat, index) => (
                     <Box
                       key={index}
@@ -110,10 +122,10 @@ const HeroSection = () => {
                       color="text.secondary"
                       gutterBottom
                     >
-                      Total Admission Fee
+                      Program Starts
                     </Typography>
                     <Typography variant="h5" fontWeight={700} color="#1e293b">
-                      ₹40,000
+                      {startDateFormatted}
                     </Typography>
                   </Box>
 
@@ -130,7 +142,7 @@ const HeroSection = () => {
                       fontSize: "1.1rem",
                     }}
                   >
-                    Start Now
+                    Enroll Now
                   </Button>
                 </Paper>
               </Grid>
@@ -154,7 +166,7 @@ const HeroSection = () => {
               }}
             >
               <Typography variant="body2" color="text.secondary" gutterBottom>
-                Total Admission Fee
+                Program Start Date
               </Typography>
               <Box
                 sx={{
@@ -165,18 +177,7 @@ const HeroSection = () => {
                 }}
               >
                 <Typography variant="h5" fontWeight={700} color="#1e293b">
-                  ₹40,000
-                </Typography>
-                <Typography
-                  variant="caption"
-                  color="text.secondary"
-                  sx={{
-                    fontSize: "0.6rem",
-                    fontWeight: 600,
-                    display: { sm: "none", md: "block" },
-                  }}
-                >
-                  (inclusive of all charges)
+                  {startDateFormatted}
                 </Typography>
               </Box>
 
@@ -193,13 +194,13 @@ const HeroSection = () => {
                   fontSize: "1.1rem",
                 }}
               >
-                Start Now
+                Enroll Now
               </Button>
 
               <Divider sx={{ my: 2 }} />
 
               <Typography variant="body2" color="text.secondary">
-                Upcoming Application Deadline
+                Duration
               </Typography>
               <Box
                 sx={{
@@ -210,7 +211,7 @@ const HeroSection = () => {
                 }}
               >
                 <Typography variant="h6" fontWeight={700} color="#dc2626">
-                  4th Oct 2025
+                  {course?.duration} Months
                 </Typography>
                 <Typography
                   variant="caption"

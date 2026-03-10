@@ -18,9 +18,8 @@ import categoryService from "../../../Services/categoryService";
 import programService from "../../../Services/programService";
 import ProgramsSkeleton from "./ProgramsSkeleton";
 
-const ProgramsContent = () => {
+const ProgramsContent = ({ fullHeight, minHeight }) => {
   const [categories, setCategories] = useState([]);
-  console.log("categories", categories);
   const [programs, setPrograms] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -192,6 +191,8 @@ const ProgramsContent = () => {
           onSelectCategory={handleCategorySelect}
           onHeightChange={setSidebarHeight}
           loading={loading}
+          fullHeight={fullHeight}
+          minHeight={minHeight}
         />
       </Grid>
       <Grid item xs={12} sm={8} md={9}>

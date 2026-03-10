@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Box, Paper, CardMedia, Button, Chip, Typography } from "@mui/material";
 import { ChevronRight } from "@mui/icons-material";
 import { colors } from "../../../Config/theme";
 import placeholderImage from "../../../assets/placeholderImage.png";
 
 const CourseCard = ({ course }) => {
+  const courseId = course?._id || course?.id;
   const image = Array.isArray(course?.image)
     ? course.image.length > 0
       ? course.image[0]
@@ -102,6 +104,8 @@ const CourseCard = ({ course }) => {
         </Box>
 
         <Button
+          component={Link}
+          to={`/course/${courseId}`}
           variant="outlined"
           sx={{
             display: "flex",
@@ -114,6 +118,11 @@ const CourseCard = ({ course }) => {
             py: 1,
             px: 2,
             mt: "auto",
+            "&:hover": {
+              borderColor: colors.primary,
+              color: colors.primary,
+              bgcolor: "transparent",
+            },
           }}
         >
           Learn More

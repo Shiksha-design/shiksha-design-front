@@ -9,6 +9,8 @@ const CategorySidebar = ({
   onSelectCategory,
   onHeightChange,
   loading,
+  fullHeight,
+  minHeight,
 }) => {
   const listRef = useRef(null);
 
@@ -38,9 +40,18 @@ const CategorySidebar = ({
   return (
     <Box
       ref={listRef}
-      sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        height: fullHeight ? "100%" : "auto",
+        minHeight: minHeight || "auto",
+      }}
     >
-      <List component="nav" sx={{ p: 0 }}>
+      <List
+        component="nav"
+        sx={{ p: 0, height: fullHeight ? "100%" : minHeight || "auto" }}
+      >
         {categories.map((category) => {
           const isActive = activeCategory === category._id;
           return (

@@ -120,10 +120,7 @@ const LoginModal = ({ open, onClose }) => {
           dispatch(actions.setUserData(response.data));
 
           // Check for admin redirect
-          if (
-            response.data.id === "698868808407837a730bb7cd" ||
-            response.data.email === "admin@mailinator.com"
-          ) {
+          if (response.data.role === "admin") {
             // Small delay to ensure state is updated
             setTimeout(() => {
               navigate("/admin/dashboard");

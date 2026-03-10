@@ -24,7 +24,7 @@ import { EmailOutlined, PersonOutline, Phone } from "@mui/icons-material";
 
 const tabs = ["Overview", "Curriculum", "Instructor", "FAQs", "Reviews"];
 
-const CourseContent = () => {
+const CourseContent = ({ course }) => {
   const [activeTab, setActiveTab] = useState("Overview");
 
   return (
@@ -71,7 +71,7 @@ const CourseContent = () => {
         <Grid item xs={12} md={8}>
           {/* OVERVIEW SECTION */}
           <Box id="Overview" sx={{ scrollMarginTop: "120px" }}>
-            <CourseOverview />
+            <CourseOverview course={course} />
           </Box>
 
           {/* CURRICULUM SECTION */}

@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./Pages/Home/Home";
 import Header from "./Components/Layout/Header";
 import Footer from "./Components/Layout/Footer";
+import AppBreadcrumbs from "./Components/Common/AppBreadcrumbs";
 import AllCourses from "./Pages/AllCourses/AllCourses";
 import CourseDetails from "./Pages/CourseDetails/CourseDetails";
 import { Box } from "@mui/material";
@@ -27,6 +28,8 @@ import ScrollToTop from "./Components/Common/ScrollToTop";
 import ContactUsAdmin from "./Pages/Admin/ContactUs/ContactUs";
 import Company from "./Pages/Admin/Company/Company";
 import TeamMember from "./Pages/Admin/TeamMember/TeamMember";
+import Profile from "./Pages/Profile/Profile";
+import UserManagement from "./Pages/Admin/UserManagement/UserManagement";
 
 import { useSelector } from "react-redux";
 
@@ -62,6 +65,7 @@ function App() {
             <Route path="company" element={<Company />} /> {/* Placeholder */}
             <Route path="team-member" element={<TeamMember />} />{" "}
             {/* Placeholder */}
+            <Route path="user-management" element={<UserManagement />} />
             {/* Redirect /admin to /admin/dashboard */}
             <Route index element={<Navigate to="dashboard" replace />} />
           </Route>
@@ -80,6 +84,7 @@ function App() {
               }}
             >
               <Header />
+              <AppBreadcrumbs />
 
               <Box component="main" sx={{ flexGrow: 1 }}>
                 <Routes>
@@ -87,7 +92,7 @@ function App() {
                   <Route
                     path="/"
                     element={
-                      token && userdata?.email === "admin@mailinator.com" ? (
+                      token && userdata?.role === "admin" ? (
                         <Navigate to="/admin/dashboard" replace />
                       ) : (
                         <Home />
@@ -106,6 +111,7 @@ function App() {
                     element={<CareerDetails />}
                   />
                   <Route path="/contact-us" element={<ContactUs />} />
+                  <Route path="/profile" element={<Profile />} />
                   <Route path="/about-us" element={<AboutUs />} />
 
                   {/* Catch all */}

@@ -20,7 +20,9 @@ const AppBreadcrumbs = () => {
   }
 
   return (
-    <Box sx={{ bgcolor: "#E1EAF5", py: 2, mt: 1 }}>
+    <Box
+      sx={{ bgcolor: "#F0F7FF", py: 1.5, borderBottom: "1px solid #e2e8f0" }}
+    >
       <Container maxWidth="lg">
         <Breadcrumbs aria-label="breadcrumb" separator="/">
           <Link

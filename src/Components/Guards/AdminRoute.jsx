@@ -7,8 +7,8 @@ const AdminRoute = () => {
   console.log("userdata", userdata);
 
   const isAuthenticated = token && userdata;
-  // Check against the specific admin email as requested
-  const isAdmin = userdata?.email === "admin@mailinator.com";
+  // Check against the specific admin role
+  const isAdmin = userdata?.role === "admin";
 
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;

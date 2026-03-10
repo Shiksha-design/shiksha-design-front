@@ -45,6 +45,11 @@ const menuItems = [
   { text: "Contact Us", icon: <ContactMailIcon />, path: "/admin/contact-us" },
   { text: "Company", icon: <BusinessIcon />, path: "/admin/company" },
   { text: "Team Member", icon: <GroupIcon />, path: "/admin/team-member" },
+  {
+    text: "User Management",
+    icon: <GroupIcon />,
+    path: "/admin/user-management",
+  },
 ];
 
 const AdminLayout = () => {

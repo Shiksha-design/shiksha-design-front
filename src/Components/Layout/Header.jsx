@@ -22,6 +22,8 @@ import {
   TextField,
   Select,
   ClickAwayListener,
+  Avatar,
+  Popover,
 } from "@mui/material";
 import {
   Search,
@@ -29,15 +31,15 @@ import {
   AppsOutlined,
   Menu as MenuIcon,
   Close,
+  Person as PersonIcon,
 } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { logout } from "../../utils/api";
 import LoginModal from "../Auth/LoginModal";
 import mainLogo from "../../assets/mainLogo.svg";
 import { colors } from "../../Config/theme";
-import AppBreadcrumbs from "../Common/AppBreadcrumbs";
 import ProgramsContent from "../Home/Programs/ProgramsContent";
 
 import ConfirmDialog from "../Admin/Common/ConfirmDialog";
@@ -47,15 +49,26 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showAllCourses, setShowAllCourses] = useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
+  const [profileAnchor, setProfileAnchor] = useState(null);
   const user = useSelector((state) => state.auth?.userdata);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const theme = useTheme();
 
   const isAuthenticated = user && Object.keys(user).length > 0 && user.email;
 
   const handleLogout = () => {
+    setProfileAnchor(null);
     setLogoutDialogOpen(true);
+  };
+
+  const handleProfileClick = (event) => {
+    setProfileAnchor(event.currentTarget);
+  };
+
+  const handleProfileClose = () => {
+    setProfileAnchor(null);
   };
 
   const handleLogoutConfirm = () => {
@@ -130,9 +143,19 @@ const Header = () => {
           <Stack spacing={2}>
             <Box display="flex" alignItems="center" gap={2}>
               <Typography variant="body2" color="text.primary" fontWeight={600}>
-                {user.name || user.email.split("@")[0]}
+                {user.fullName || user.email.split("@")[0]}
               </Typography>
             </Box>
+            <Button
+              component={Link}
+              to="/profile"
+              variant="text"
+              fullWidth
+              onClick={handleDrawerToggle}
+              sx={{ justifyContent: "flex-start", textTransform: "none" }}
+            >
+              My Profile
+            </Button>
             <Button variant="outlined" fullWidth onClick={handleLogout}>
               Logout
             </Button>
@@ -189,7 +212,19 @@ const Header = () => {
               {/* Desktop: Logo (Hidden on Mobile) */}
               <Box
                 component={Link}
-                to="/home"
+                to={
+                  location.pathname === "/home" || location.pathname === "/"
+                    ? "#"
+                    : "/home"
+                }
+                onClick={(e) => {
+                  if (
+                    location.pathname === "/home" ||
+                    location.pathname === "/"
+                  ) {
+                    e.preventDefault();
+                  }
+                }}
                 sx={{
                   display: { xs: "none", md: "flex" }, // Hide on mobile
                   alignItems: "center",
@@ -271,7 +306,19 @@ const Header = () => {
               {/* Mobile: Logo */}
               <Box
                 component={Link}
-                to="/"
+                to={
+                  location.pathname === "/home" || location.pathname === "/"
+                    ? "#"
+                    : "/home"
+                }
+                onClick={(e) => {
+                  if (
+                    location.pathname === "/home" ||
+                    location.pathname === "/"
+                  ) {
+                    e.preventDefault();
+                  }
+                }}
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -375,17 +422,98 @@ const Header = () => {
                 </Select>
 
                 {isAuthenticated ? (
-                  <Box display="flex" alignItems="center" gap={2}>
-                    <Typography
-                      variant="body2"
-                      color="text.primary"
-                      fontWeight={600}
+                  <Box display="flex" alignItems="center" gap={1}>
+                    {user.role === "admin" && (
+                      <Button
+                        component={Link}
+                        to="/admin"
+                        sx={{ textTransform: "none", color: "#475569" }}
+                      >
+                        Admin
+                      </Button>
+                    )}
+                    <IconButton
+                      onClick={handleProfileClick}
+                      sx={{
+                        p: 0.5,
+                        border: "2px solid",
+                        borderColor: "divider",
+                      }}
                     >
-                      {user.name || user.email.split("@")[0]}
-                    </Typography>
-                    <Button variant="outlined" onClick={handleLogout}>
-                      Logout
-                    </Button>
+                      <Avatar
+                        sx={{
+                          width: 35,
+                          height: 35,
+                          bgcolor: colors.primary,
+                          fontSize: "1rem",
+                        }}
+                      >
+                        {user.fullName ? (
+                          user.fullName[0].toUpperCase()
+                        ) : (
+                          <PersonIcon />
+                        )}
+                      </Avatar>
+                    </IconButton>
+
+                    <Popover
+                      open={Boolean(profileAnchor)}
+                      anchorEl={profileAnchor}
+                      onClose={handleProfileClose}
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right",
+                      }}
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      PaperProps={{
+                        sx: {
+                          p: 2,
+                          mt: 1.5,
+                          minWidth: 200,
+                          borderRadius: 2,
+                          boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                        },
+                      }}
+                    >
+                      <Box sx={{ mb: 2 }}>
+                        <Typography variant="subtitle1" fontWeight={700}>
+                          {user.fullName}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {user.email}
+                        </Typography>
+                      </Box>
+                      <Divider sx={{ my: 1 }} />
+                      <Stack spacing={0.5}>
+                        <Button
+                          component={Link}
+                          to="/profile"
+                          fullWidth
+                          onClick={handleProfileClose}
+                          sx={{
+                            justifyContent: "flex-start",
+                            textTransform: "none",
+                            color: "text.primary",
+                          }}
+                        >
+                          My Profile
+                        </Button>
+                        <Button
+                          fullWidth
+                          onClick={handleLogout}
+                          sx={{
+                            justifyContent: "flex-start",
+                            textTransform: "none",
+                            color: "error.main",
+                          }}
+                        >
+                          Logout
+                        </Button>
+                      </Stack>
+                    </Popover>
                   </Box>
                 ) : (
                   <Button variant="outlined" onClick={() => setLoginOpen(true)}>
@@ -396,7 +524,6 @@ const Header = () => {
             </Box>
           </Toolbar>
         </Container>
-        <AppBreadcrumbs />
 
         <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
       </AppBar>
@@ -427,11 +554,12 @@ const Header = () => {
             boxSizing: "border-box",
             bgcolor: colors.mainBg,
             py: 1,
+            minHeight: "80vh",
           },
         }}
       >
         <Container maxWidth="lg">
-          <ProgramsContent />
+          <ProgramsContent fullHeight={true} />
         </Container>
       </Drawer>
 
