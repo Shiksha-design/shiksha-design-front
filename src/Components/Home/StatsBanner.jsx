@@ -1,16 +1,9 @@
-import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-  CircularProgress,
-} from "@mui/material";
+import React from "react";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import learning from "../../assets/learning.svg";
 import hike from "../../assets/hike.png";
 import assistent from "../../assets/assistent.png";
 import statsBannerSide from "../../assets/statsBannerSide.png";
-import topFeaturesService from "../../Services/topFeaturesService";
 
 const StatBox = ({ image, title, value, label, sx }) => (
   <Box
@@ -71,44 +64,12 @@ const StatBox = ({ image, title, value, label, sx }) => (
 );
 
 const StatsBanner = ({ data }) => {
-  const [stats, setStats] = useState([]);
-  const [loading, setLoading] = useState(!data);
-
-  useEffect(() => {
-    if (data) return;
-
-    const fetchStats = async () => {
-      try {
-        const response = await topFeaturesService.getAll();
-        if (Array.isArray(response)) {
-          setStats(response.filter((item) => item.isVisible));
-        } else if (response?.data) {
-          setStats(response.data.filter((item) => item.isVisible));
-        }
-      } catch (error) {
-        console.error("Error fetching stats:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchStats();
-  }, [data]);
-
-  // Default data if no data prop is provided and API fails/has no data
-  const fallbackData = [
+  // Default data if no data prop is provided (Home page usage)
+  const displayData = data || [
     { image: learning, title: "WORLD CLASS LEARNING EXPERIENCE" },
     { image: hike, title: "55% AVERAGE SALARY HIKE" },
     { image: assistent, title: "100% PLACEMENT ASSISTANCE" },
   ];
-
-  const displayData =
-    data ||
-    (stats.length > 0
-      ? stats.map((s) => ({
-          image: s.fileDetails?.filePath || learning,
-          title: s.value,
-        }))
-      : fallbackData);
 
   const getDividerStyles = (index) => {
     // Only apply divider styles to the middle element (index 1) for a 3-item list

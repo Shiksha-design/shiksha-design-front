@@ -42,7 +42,6 @@ const menuItems = [
   },
   { text: "Career", icon: <WorkIcon />, path: "/admin/career" },
   { text: "Faq", icon: <HelpIcon />, path: "/admin/faq" },
-  { text: "Contact Us", icon: <ContactMailIcon />, path: "/admin/contact-us" },
   { text: "Company", icon: <BusinessIcon />, path: "/admin/company" },
   { text: "Team Member", icon: <GroupIcon />, path: "/admin/team-member" },
   {

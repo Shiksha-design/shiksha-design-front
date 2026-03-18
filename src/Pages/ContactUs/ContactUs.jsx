@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -25,8 +25,11 @@ import {
 } from "@mui/icons-material";
 import { colors, FontFamily } from "../../Config/theme";
 import placeholderImage from "../../assets/placeholderImage.png"; // Assuming this exists or using a colored box if not
+import staticPageService from "../../Services/staticPageService";
+import { Link as RouterLink } from "react-router-dom";
 
 const ContactUs = () => {
+  const [companyDetails, setCompanyDetails] = useState(null);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -34,6 +37,20 @@ const ContactUs = () => {
     query: "",
     agreed: false,
   });
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      try {
+        const response = await staticPageService.getByPageType("COMPANY_DETAILS");
+        if (response?.data || response) {
+          setCompanyDetails(response.data || response);
+        }
+      } catch (error) {
+        console.error("Error fetching company details:", error);
+      }
+    };
+    fetchDetails();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -326,15 +343,14 @@ const ContactUs = () => {
                   variant="h6"
                   sx={{ fontWeight: 700, mb: 2, color: "#26394D" }}
                 >
-                  Company Registered Name
+                  {companyDetails?.title || "Company Registered Name"}
                 </Typography>
 
                 <Typography
                   variant="body2"
                   sx={{ color: "#555", mb: 3, lineHeight: 1.6 }}
                 >
-                  NALANDA 53/1 C, Manoj Arcade, 24th Main Rd, Sector 2, HSR
-                  Layout, Bengaluru - 560102, Karnataka, India.
+                  {companyDetails?.address || "Company Address Placeholder"}
                 </Typography>
 
                 <Box
@@ -342,7 +358,7 @@ const ContactUs = () => {
                 >
                   <EmailOutlined sx={{ color: "#555", fontSize: 20 }} />
                   <Typography variant="body2" sx={{ color: "#555" }}>
-                    companyname@domain.com
+                    {companyDetails?.email || "email@company.com"}
                   </Typography>
                 </Box>
 
@@ -351,7 +367,7 @@ const ContactUs = () => {
                 >
                   <PhoneOutlined sx={{ color: "#555", fontSize: 20 }} />
                   <Typography variant="body2" sx={{ color: "#555" }}>
-                    +91 99999 99999
+                    {companyDetails?.phoneNumber || "+91 00000 00000"}
                   </Typography>
                 </Box>
 

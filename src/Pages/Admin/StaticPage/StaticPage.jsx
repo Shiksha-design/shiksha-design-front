@@ -15,11 +15,12 @@ import staticPageService from "../../../Services/staticPageService";
 
 const pageTypes = [
   { value: "ABOUT_US", label: "About Us" },
-  { value: "CONTACT_US", label: "Contact Us" },
+  { value: "COMPANY_DETAILS", label: "Company Details (Contact Info)" },
   { value: "TERMS_AND_CONDITIONS", label: "Terms & Conditions" },
   { value: "PRIVACY_POLICY", label: "Privacy Policy" },
-  { value: "CAREER", label: "Career" },
-  { value: "BLOG", label: "Blog" },
+  { value: "REFUND_POLICY", label: "Refund Policy" },
+  { value: "CAREER_CONTENT", label: "Career Page Content" },
+  { value: "BLOG_CONTENT", label: "Blog Page Content" },
 ];
 
 const StaticPage = () => {
@@ -29,6 +30,7 @@ const StaticPage = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
+    content: "",
     pageType: "",
     images: null,
     video: null,
@@ -66,6 +68,7 @@ const StaticPage = () => {
     setFormData({
       title: "",
       description: "",
+      content: "",
       pageType: "",
       images: null,
       video: null,
@@ -80,6 +83,7 @@ const StaticPage = () => {
     setFormData({
       title: row.title || "",
       description: row.description || "",
+      content: row.content || "",
       pageType: row.pageType || "",
       images: null, // Don't preload file objects
       video: null,
@@ -130,6 +134,7 @@ const StaticPage = () => {
       const data = new FormData();
       data.append("title", formData.title);
       data.append("description", formData.description);
+      data.append("content", formData.content);
       data.append("pageType", formData.pageType);
 
       if (formData.images) {
@@ -140,7 +145,7 @@ const StaticPage = () => {
       }
 
       if (editingRow) {
-        await staticPageService.update(editingRow._id || editingRow.id, data);
+        await staticPageService.update(formData.pageType, data);
       } else {
         await staticPageService.create(data);
       }
@@ -163,13 +168,49 @@ const StaticPage = () => {
     setSnackbar({ ...snackbar, open: false });
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this page?")) {
+      try {
+        // Since we unified backend to use pageType for delete too
+        const row = rows.find(r => (r._id || r.id) === id);
+        if (row) {
+          await staticPageService.delete(row.pageType);
+          fetchData();
+          setSnackbar({ open: true, message: "Deleted successfully", severity: "success" });
+        }
+      } catch (error) {
+        console.error("Failed to delete", error);
+        setSnackbar({ open: true, message: "Failed to delete", severity: "error" });
+      }
+    }
+  };
+
+  const getPageLabel = (type) => {
+    return pageTypes.find(t => t.value === type)?.label || type;
+  };
+
   const columns = [
+    { 
+      id: "images", 
+      label: "Image",
+      render: (row) => row.images?.url ? (
+        <Box 
+          component="img" 
+          src={row.images.url} 
+          sx={{ width: 50, height: 50, borderRadius: 1, objectFit: 'cover' }} 
+        />
+      ) : "No Image"
+    },
     { id: "title", label: "Title" },
-    { id: "pageType", label: "Page Type" },
+    { 
+      id: "pageType", 
+      label: "Page Type",
+      render: (row) => getPageLabel(row.pageType)
+    },
     {
       id: "description",
-      label: "Description",
-      render: (row) => row.description?.substring(0, 50) + "...",
+      label: "Short Description",
+      render: (row) => (row.description || row.content)?.substring(0, 50) + "...",
     },
   ];
 
@@ -181,8 +222,8 @@ const StaticPage = () => {
         rows={rows}
         onEdit={handleEdit}
         onAdd={handleAdd}
+        onDelete={handleDelete}
         loading={dataLoading}
-        // No onDelete as per request
       />
       <AdminFormDialog
         open={open}
@@ -224,6 +265,16 @@ const StaticPage = () => {
             fullWidth
             multiline
             rows={4}
+          />
+          <TextField
+            label="HTML Content / Long Text"
+            name="content"
+            value={formData.content}
+            onChange={handleChange}
+            fullWidth
+            multiline
+            rows={10}
+            placeholder="You can use HTML tags here for formatting"
           />
 
           {/* Image Upload */}

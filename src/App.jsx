@@ -7,7 +7,8 @@ import AppBreadcrumbs from "./Components/Common/AppBreadcrumbs";
 import AllCourses from "./Pages/AllCourses/AllCourses";
 import CourseDetails from "./Pages/CourseDetails/CourseDetails";
 import { Box } from "@mui/material";
-import RefundPolicy from "./Pages/RefundPolicy/RefundPolicy";
+import RefundPolicy from "./Pages/RefundPolicy/RefundPolicy"; // Deprecated but kept for compatibility or refactored
+import StaticPageDetail from "./Pages/StaticPageDetail/StaticPageDetail";
 import Blog from "./Pages/Blog/Blog";
 import { colors } from "./Config/theme";
 import BlogInsight from "./Pages/Blog/BlogInsight";
@@ -60,8 +61,6 @@ function App() {
             <Route path="career" element={<CareerAdmin />} />{" "}
             {/* Placeholder */}
             <Route path="faq" element={<Faq />} /> {/* Placeholder */}
-            <Route path="contact-us" element={<ContactUsAdmin />} />{" "}
-            {/* Placeholder */}
             <Route path="company" element={<Company />} /> {/* Placeholder */}
             <Route path="team-member" element={<TeamMember />} />{" "}
             {/* Placeholder */}
@@ -102,7 +101,33 @@ function App() {
                   <Route path="/home" element={<Home />} />
                   <Route path="/all-courses" element={<AllCourses />} />
                   <Route path="/course/:id" element={<CourseDetails />} />
-                  <Route path="/refund-policy" element={<RefundPolicy />} />
+                  <Route
+                    path="/refund-policy"
+                    element={
+                      <StaticPageDetail
+                        pageType="REFUND_POLICY"
+                        defaultTitle="Refund Policy"
+                      />
+                    }
+                  />
+                  <Route
+                    path="/privacy-policy"
+                    element={
+                      <StaticPageDetail
+                        pageType="PRIVACY_POLICY"
+                        defaultTitle="Privacy Policy"
+                      />
+                    }
+                  />
+                  <Route
+                    path="/terms-conditions"
+                    element={
+                      <StaticPageDetail
+                        pageType="TERMS_AND_CONDITIONS"
+                        defaultTitle="Terms & Conditions"
+                      />
+                    }
+                  />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog-insight" element={<BlogInsight />} />
                   <Route path="/career" element={<Career />} />

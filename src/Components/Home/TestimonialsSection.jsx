@@ -38,6 +38,38 @@ const TestimonialsSection = () => {
       quote:
         "I had an amazing experience! The service was top-notch, and the team was incredibly helpful. I highly recommend them to anyone looking for quality and care!",
     },
+    {
+      id: 2,
+      name: "Michael Chen",
+      role: "Full Stack Developer",
+      avatar: "https://i.pravatar.cc/150?img=12",
+      quote:
+        "The curriculum is exceptionally well-structured. It took me from a beginner to building complex applications in just a few months. Truly a game-changer for my career!",
+    },
+    {
+      id: 3,
+      name: "Sarah Jenkins",
+      role: "UI/UX Designer",
+      avatar: "https://i.pravatar.cc/150?img=44",
+      quote:
+        "I loved the hands-on approach. The projects were challenging but rewarding, and the feedback from mentors was invaluable for my professional growth.",
+    },
+    {
+      id: 4,
+      name: "David Rodriguez",
+      role: "Product Manager",
+      avatar: "https://i.pravatar.cc/150?img=11",
+      quote:
+        "The placement support is phenomenal. They don't just teach you technical skills; they prepare you for the real world with mock interviews and resume building.",
+    },
+    {
+      id: 5,
+      name: "Emma Wilson",
+      role: "Digital Marketer",
+      avatar: "https://i.pravatar.cc/150?img=25",
+      quote:
+        "A perfect blend of theory and practice. The live sessions are interactive, and the community is very supportive. Best investment I've made in myself.",
+    },
   ];
 
   const displayTestimonials =

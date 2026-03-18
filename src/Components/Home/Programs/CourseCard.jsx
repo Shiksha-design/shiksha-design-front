@@ -5,7 +5,7 @@ import { ChevronRight } from "@mui/icons-material";
 import { colors } from "../../../Config/theme";
 import placeholderImage from "../../../assets/placeholderImage.png";
 
-const CourseCard = ({ course }) => {
+const CourseCard = ({ course, onClick }) => {
   const courseId = course?._id || course?.id;
   const image = Array.isArray(course?.image)
     ? course.image.length > 0
@@ -107,6 +107,7 @@ const CourseCard = ({ course }) => {
           component={Link}
           to={`/course/${courseId}`}
           variant="outlined"
+          onClick={onClick}
           sx={{
             display: "flex",
             alignItems: "center",
@@ -120,8 +121,8 @@ const CourseCard = ({ course }) => {
             mt: "auto",
             "&:hover": {
               borderColor: colors.primary,
-              color: colors.primary,
-              bgcolor: "transparent",
+              color: colors.white,
+              bgcolor: colors.primary,
             },
           }}
         >

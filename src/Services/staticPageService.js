@@ -28,7 +28,10 @@ const staticPageService = {
     const response = await api.get(`${endpoint}/${pageType}`);
     return response.data;
   },
-  // Delete removed as per user request
+  delete: async (pageType) => {
+    const response = await api.delete(`${endpoint}/${pageType}`);
+    return response.data;
+  },
 };
 
 export default staticPageService;

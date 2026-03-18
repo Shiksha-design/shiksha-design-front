@@ -18,7 +18,7 @@ import categoryService from "../../../Services/categoryService";
 import programService from "../../../Services/programService";
 import ProgramsSkeleton from "./ProgramsSkeleton";
 
-const ProgramsContent = ({ fullHeight, minHeight }) => {
+const ProgramsContent = ({ fullHeight, minHeight, onCourseClick }) => {
   const [categories, setCategories] = useState([]);
   const [programs, setPrograms] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
@@ -166,7 +166,10 @@ const ProgramsContent = ({ fullHeight, minHeight }) => {
                       key={course._id || course.id}
                       sx={{ minWidth: 200, maxWidth: 200 }}
                     >
-                      <CourseCard course={processCourse(course)} />
+                      <CourseCard 
+                        course={processCourse(course)} 
+                        onClick={onCourseClick}
+                      />
                     </Box>
                   ))
                 ) : (
@@ -223,7 +226,10 @@ const ProgramsContent = ({ fullHeight, minHeight }) => {
                     lg={4}
                     key={course._id || course.id}
                   >
-                    <CourseCard course={processCourse(course)} />
+                    <CourseCard 
+                      course={processCourse(course)} 
+                      onClick={onCourseClick}
+                    />
                   </Grid>
                 ))
               ) : (

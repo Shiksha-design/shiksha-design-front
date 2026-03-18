@@ -10,7 +10,7 @@ export const injectStore = (_store) => {
 // Create Axios instance
 const api = axios.create({
   baseURL: "http://localhost:5000/api",
-  // baseURL: "http://localhost:5000/api",
+  // baseURL: "https://shiksha-design-back.onrender.com/api",
 
   // ❌ DO NOT set default Content-Type here
 });

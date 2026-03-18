@@ -81,9 +81,6 @@ const AboutUs = () => {
 
   return (
     <Box sx={{ bgcolor: colors.mainBg, minHeight: "100vh" }}>
-      {/* Breadcrumbs */}
-      <AppBreadcrumbs />
-
       {/* Hero Section */}
       <AboutHero data={data?.data} />
 

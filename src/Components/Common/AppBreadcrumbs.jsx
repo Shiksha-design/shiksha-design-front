@@ -15,7 +15,11 @@ const AppBreadcrumbs = () => {
   const pathnames = location.pathname.split("/").filter((x) => x);
 
   // Dont show on home page
-  if (location.pathname === "/" || location.pathname === "/refund-policy") {
+  if (
+    location.pathname === "/" ||
+    location.pathname === "/home" ||
+    location.pathname === "/refund-policy"
+  ) {
     return null;
   }
 
@@ -30,7 +34,7 @@ const AppBreadcrumbs = () => {
             sx={{ display: "flex", alignItems: "center" }}
             color="inherit"
             component={RouterLink}
-            to="/"
+            to="/home"
           >
             <Home sx={{ mr: 0.5, fontSize: 20, color: "#94a3b8" }} />
             <Typography sx={{ color: "#94a3b8", fontSize: 14 }}>

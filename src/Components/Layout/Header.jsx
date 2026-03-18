@@ -81,6 +81,10 @@ const Header = () => {
     setLogoutDialogOpen(false);
   };
 
+  const handleAllCoursesClose = () => {
+    setShowAllCourses(false);
+  };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
     setShowAllCourses(false);
@@ -559,7 +563,7 @@ const Header = () => {
         }}
       >
         <Container maxWidth="lg">
-          <ProgramsContent fullHeight={true} />
+          <ProgramsContent fullHeight={true} onCourseClick={handleAllCoursesClose} />
         </Container>
       </Drawer>
 

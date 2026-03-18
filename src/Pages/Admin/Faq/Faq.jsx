@@ -56,9 +56,10 @@ const Faq = () => {
     try {
       const programsData = await programService.getAll();
       console.log("Faq.jsx -> programsData (raw):", programsData);
-      setPrograms(programsData?.data);
+      setPrograms(Array.isArray(programsData?.data) ? programsData.data : (programsData || []));
     } catch (error) {
       console.error("Failed to fetch programs", error);
+      setPrograms([]);
     }
   };
 
@@ -66,9 +67,10 @@ const Faq = () => {
     setDataLoading(true);
     try {
       const faqsData = await faqService.getAll();
-      setFaqs(faqsData);
+      setFaqs(Array.isArray(faqsData?.data) ? faqsData.data : (faqsData || []));
     } catch (error) {
       console.error("Failed to fetch data", error);
+      setFaqs([]);
     } finally {
       setDataLoading(false);
     }
@@ -102,7 +104,6 @@ const Faq = () => {
     setDeleteLoading(true);
     try {
       await faqService.delete(itemToDelete);
-      fetchData();
       setSnackbar({
         open: true,
         message: "Deleted successfully",
@@ -110,6 +111,7 @@ const Faq = () => {
       });
       setDeleteDialogOpen(false);
       setItemToDelete(null);
+      fetchFaqs();
     } catch (error) {
       console.error("Failed to delete", error);
       setSnackbar({
@@ -160,10 +162,10 @@ const Faq = () => {
       handleClose();
       setSnackbar({
         open: true,
-        message: "Faq created successfully",
+        message: editingRow ? "Faq updated successfully" : "Faq created successfully",
         severity: "success",
       });
-      // fetchData();
+      fetchFaqs();
     } catch (error) {
       console.error("Failed to save", error);
       setSnackbar({ open: true, message: "Failed to save", severity: "error" });

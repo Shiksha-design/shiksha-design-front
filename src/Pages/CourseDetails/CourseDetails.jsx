@@ -53,7 +53,7 @@ const CourseDetails = () => {
   }
 
   return (
-    <Box sx={{ bgcolor: colors.mainBg, minHeight: "100vh", py: 6 }}>
+    <Box sx={{ bgcolor: colors.mainBg, minHeight: "100vh", pb: 6 }}>
       <HeroSection course={course} />
 
       {/* MAIN CONTENT + SIDEBAR STARTING HIGH */}
