@@ -7,6 +7,10 @@ const faqService = {
     const response = await api.get(`${endpoint}`);
     return response.data;
   },
+  getByProgram: async (programId) => {
+    const response = await api.get(`${endpoint}/program/${programId}`);
+    return response.data;
+  },
   create: async (data) => {
     const response = await api.post(`${endpoint}`, data);
     return response.data;

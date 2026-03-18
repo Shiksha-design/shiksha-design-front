@@ -1,36 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  CircularProgress,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
+import { useParams } from "react-router-dom";
 import { colors } from "../../Config/theme";
+import faqService from "../../Services/faqService";
 
-const faqs = [
-  {
-    question: "What Does Royalty Free Mean?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras facilisis faucibus odio arcu duis dui, adipiscing facilisis. Urna, donec turpis egestas volutpat. Quisque nec non amet quis. Va rius tellus justo odio parturient mauris curabitur lorem in.",
-  },
-  {
-    question: "What Does Royalty Free Mean?",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    question: "What Does Royalty Free Mean?",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    question: "What Does Royalty Free Mean?",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-];
+// REMOVED: hardcoded faqs array
 
 const CourseFAQ = () => {
-  const [expanded, setExpanded] = useState("panel0");
+  const { id: programId } = useParams();
+  const [faqs, setFaqs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    const fetchFaqs = async () => {
+      setLoading(true);
+      try {
+        const response = await faqService.getByProgram(programId);
+        if (response?.data) {
+          setFaqs(response.data);
+          if (response.data.length > 0) {
+            setExpanded("panel0");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching FAQs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (programId) {
+      fetchFaqs();
+    }
+  }, [programId]);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -42,44 +53,54 @@ const CourseFAQ = () => {
         FAQ
       </Typography>
 
-      {faqs.map((faq, index) => (
-        <Accordion
-          key={index}
-          expanded={expanded === `panel${index}`}
-          onChange={handleChange(`panel${index}`)}
-          sx={{
-            backgroundColor: "transparent",
-            boxShadow: "none",
-            borderBottom: "1px solid #e2e8f0",
-            "&:before": { display: "none" },
-            mb: 2,
-            "&.Mui-expanded": { margin: "0 0 16px 0" },
-          }}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMore />}
+      {loading ? (
+        <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+          <CircularProgress size={24} />
+        </Box>
+      ) : faqs.length > 0 ? (
+        faqs.map((faq, index) => (
+          <Accordion
+            key={faq._id || index}
+            expanded={expanded === `panel${index}`}
+            onChange={handleChange(`panel${index}`)}
             sx={{
-              pl: 0,
-              "& .MuiAccordionSummary-content": { margin: "12px 0" },
+              backgroundColor: "transparent",
+              boxShadow: "none",
+              borderBottom: "1px solid #e2e8f0",
+              "&:before": { display: "none" },
+              mb: 2,
+              "&.Mui-expanded": { margin: "0 0 16px 0" },
             }}
           >
-            <Typography
-              variant="subtitle1"
+            <AccordionSummary
+              expandIcon={<ExpandMore />}
               sx={{
-                color: expanded === `panel${index}` ? "#ff5722" : "#334155", // Orange when active per design
-                fontWeight: expanded === `panel${index}` ? 500 : 400,
+                pl: 0,
+                "& .MuiAccordionSummary-content": { margin: "12px 0" },
               }}
             >
-              {faq.question}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails sx={{ pl: 0, pt: 0 }}>
-            <Typography variant="body2" color="text.secondary" paragraph>
-              {faq.answer}
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-      ))}
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  color: expanded === `panel${index}` ? "#ff5722" : "#334155",
+                  fontWeight: expanded === `panel${index}` ? 500 : 400,
+                }}
+              >
+                {faq.question}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ pl: 0, pt: 0 }}>
+              <Typography variant="body2" color="text.secondary" paragraph>
+                {faq.answer}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        ))
+      ) : (
+        <Typography variant="body2" color="text.secondary" sx={{ py: 2 }}>
+          No FAQs available for this program.
+        </Typography>
+      )}
     </Box>
   );
 };

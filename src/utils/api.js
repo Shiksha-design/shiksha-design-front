@@ -10,6 +10,8 @@ export const injectStore = (_store) => {
 // Create Axios instance
 const api = axios.create({
   baseURL: "http://localhost:5000/api",
+  // baseURL: "http://localhost:5000/api",
+
   // ❌ DO NOT set default Content-Type here
 });
 

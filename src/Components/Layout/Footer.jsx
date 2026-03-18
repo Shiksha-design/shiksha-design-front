@@ -1,5 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import staticPageService from "../../Services/staticPageService";
 import {
   Box,
   Container,
@@ -22,6 +23,23 @@ import {
 import { colors } from "../../Config/theme";
 
 const Footer = () => {
+  const [companyDetails, setCompanyDetails] = React.useState(null);
+
+  React.useEffect(() => {
+    const fetchDetails = async () => {
+      try {
+        const response =
+          await staticPageService.getByPageType("COMPANY_DETAILS");
+        if (response?.data) {
+          setCompanyDetails(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching company details:", error);
+      }
+    };
+    fetchDetails();
+  }, []);
+
   const listStyle = {
     display: "block",
     color: "#B0B8C4", // Light gray text for links
@@ -297,7 +315,7 @@ const Footer = () => {
             display="block"
             sx={{ color: "#7E8C9D", mb: 1 }}
           >
-            Address: Delhi 110015
+            Address: {companyDetails?.address || "Delhi 110015"}
           </Typography>
           <Typography
             variant="caption"

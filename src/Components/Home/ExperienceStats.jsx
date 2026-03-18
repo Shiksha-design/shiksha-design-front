@@ -12,31 +12,47 @@ import userAvatar from "../../assets/userAvatar.svg";
 import community from "../../assets/community.svg";
 import userRate from "../../assets/userRate.svg";
 import classCompleted from "../../assets/classCompleted.svg";
-
-const stats = [
-  {
-    icon: <img src={userAvatar} alt="User Avatar" />,
-    count: "1K+",
-    label: "Successfully Trained",
-  },
-  {
-    icon: <img src={classCompleted} alt="Handshake Icon" />,
-    count: "5K+",
-    label: "Classes Completed",
-  },
-  {
-    icon: <img src={userRate} alt="Star Icon" />,
-    count: "99%",
-    label: "Satisfaction Rate",
-  },
-  {
-    icon: <img src={community} alt="Book Icon" />,
-    count: "5K+",
-    label: "Students Community",
-  },
-];
+import staticPageService from "../../Services/staticPageService";
 
 const ExperienceStats = () => {
+  const [statsData, setStatsData] = React.useState(null);
+
+  React.useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await staticPageService.getByPageType("HOME_STATS");
+        if (response?.data) {
+          setStatsData(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching experience stats:", error);
+      }
+    };
+    fetchStats();
+  }, []);
+
+  const stats = [
+    {
+      icon: <img src={userAvatar} alt="User Avatar" />,
+      count: statsData?.title || "1K+",
+      label: "Successfully Trained",
+    },
+    {
+      icon: <img src={classCompleted} alt="Handshake Icon" />,
+      count: statsData?.description || "5K+",
+      label: "Classes Completed",
+    },
+    {
+      icon: <img src={userRate} alt="Star Icon" />,
+      count: statsData?.email || "99%",
+      label: "Satisfaction Rate",
+    },
+    {
+      icon: <img src={community} alt="Book Icon" />,
+      count: statsData?.phoneNumber || "5K+",
+      label: "Students Community",
+    },
+  ];
   return (
     <Box
       sx={{

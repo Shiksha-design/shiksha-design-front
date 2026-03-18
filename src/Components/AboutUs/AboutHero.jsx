@@ -16,11 +16,15 @@ const AboutHero = ({ data }) => {
         >
           <Grid item xs={12} sm={6}>
             <SectionTitle sx={aboutHeroStyles.title}>
-              We Transform Lives by{" "}
-              <Box component="span" sx={aboutHeroStyles.highlightText}>
-                Empowering
-              </Box>{" "}
-              People Via Digital Skills.
+              {data?.title || (
+                <>
+                  We Transform Lives by{" "}
+                  <Box component="span" sx={aboutHeroStyles.highlightText}>
+                    Empowering
+                  </Box>{" "}
+                  People Via Digital Skills.
+                </>
+              )}
             </SectionTitle>
             <Typography sx={aboutHeroStyles.description}>
               {data?.description ||
@@ -28,8 +32,13 @@ const AboutHero = ({ data }) => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6} display="flex" justifyContent="center">
-            <Box sx={aboutHeroStyles.imageBox(placeholder)}>
-              <img src={placeholder} alt="placeholder" />
+            <Box
+              sx={aboutHeroStyles.imageBox(data?.images?.url || placeholder)}
+            >
+              <img
+                src={data?.images?.url || placeholder}
+                alt={data?.title || "About Us"}
+              />
             </Box>
           </Grid>
         </Grid>
